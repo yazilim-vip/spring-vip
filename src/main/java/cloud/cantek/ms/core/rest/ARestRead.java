@@ -26,7 +26,7 @@ public abstract class ARestRead<E, ID> {
 
     protected abstract ICrudService<E, ID> getService();
 
-    //TODO: list will be converted to set
+    //TODO: ZZ_OTHER: list will be converted to set
     // (R) read Operations
     @GetMapping("/")
     @ApiResponses(value = {
