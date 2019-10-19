@@ -1,4 +1,4 @@
-package cloud.cantek.ms.octocloud.core.util.request;
+package cloud.cantek.ms.core.util.request;
 
 import java.net.URI;
 
@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.Setter;
 
 /**

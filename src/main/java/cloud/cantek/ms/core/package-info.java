@@ -5,4 +5,4 @@
  * @author maemresen
  *
  */
-package cloud.cantek.ms.octocloud.core;
+package cloud.cantek.ms.core;

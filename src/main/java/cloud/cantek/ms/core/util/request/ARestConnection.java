@@ -1,4 +1,4 @@
-package cloud.cantek.ms.octocloud.core.util.request;
+package cloud.cantek.ms.core.util.request;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.util.MultiValueMap;
