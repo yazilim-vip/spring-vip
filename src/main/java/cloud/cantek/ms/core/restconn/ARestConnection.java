@@ -3,6 +3,13 @@ package cloud.cantek.ms.core.restconn;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.MultiValueMap;
 
+/**
+ * Generic REST Connection
+ * 
+ * @author Emre Sen - Oct 19, 2019
+ * @contact maemresen07@gmail.com
+ *
+ */
 public abstract class ARestConnection {
 
 	protected abstract String getEndpoint();
