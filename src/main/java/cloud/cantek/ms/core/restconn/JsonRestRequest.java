@@ -1,4 +1,4 @@
-package cloud.cantek.ms.core.util.request;
+package cloud.cantek.ms.core.restconn;
 
 import java.net.URI;
 
