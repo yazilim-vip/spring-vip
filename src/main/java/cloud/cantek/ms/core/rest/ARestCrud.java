@@ -16,50 +16,46 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
+ * Generic REST Controller Implementations for generic CRUD operations
+ * 
  * @author Emre Sen, 23.07.2019
  * @contact maemresen07@gmail.com
  */
-public abstract class ARestCrud<E, ID>  extends ARestRead<E, ID>{
+public abstract class ARestCrud<E, ID> extends ARestRead<E, ID> {
 
-    protected abstract ICrudService<E, ID> getService();
+	protected abstract ICrudService<E, ID> getService();
 
+	// (C) create Operations
+	@PostMapping("/")
+	@ApiResponses(value = { @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class) })
+	public RestResponse<E> create(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
 
-    // (C) create Operations
-    @PostMapping("/")
-    @ApiResponses(value = {
-            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)
-    })
-    public RestResponse<E> create(HttpServletRequest request, HttpServletResponse response
-            , @RequestBody E entity) {
+		// get repo
+		ICrudService<E, ID> crudService = getService();
 
-        // get repo
-        ICrudService<E, ID> crudService = getService();
+		// create entity
+		entity = crudService.create(entity);
 
-        // create entity
-        entity = crudService.create(entity);
+		// init response
+		return generateResponse(entity, HttpStatus.CREATED, request, response);
+	}
 
-        // init response
-        return generateResponse(entity, HttpStatus.CREATED, request, response);
-    }
+	// (U) update Operations
 
-    // (U) update Operations
+	@PutMapping("/")
+	@ApiResponses(value = {
+			@ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+			@ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class) })
+	public RestResponse<E> update(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
 
-    @PutMapping("/")
-    @ApiResponses(value = {
-            @ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
-            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)
-    })
-    public RestResponse<E> update(HttpServletRequest request, HttpServletResponse response
-            , @RequestBody E entity) {
+		// get repo
+		ICrudService<E, ID> crudService = getService();
 
-        // get repo
-        ICrudService<E, ID> crudService = getService();
+		// update entity
+		entity = crudService.update(entity);
 
-        // update entity
-        entity = crudService.update(entity);
-
-        // init response
-        return generateResponse(entity, HttpStatus.OK, request, response);
-    }
+		// init response
+		return generateResponse(entity, HttpStatus.OK, request, response);
+	}
 
 }

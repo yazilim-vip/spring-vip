@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * Generic REST Connection
+ * Generic REST Connection to make REST API calls.
  * 
  * @author Emre Sen - Oct 19, 2019
  * @contact maemresen07@gmail.com
@@ -20,8 +20,18 @@ import org.springframework.web.util.UriComponentsBuilder;
  */
 public abstract class ARestConnection {
 
+	/**
+	 * RestTemplate to make REST API call
+	 * 
+	 * @return rest template
+	 */
 	protected abstract RestTemplate getRestTemplate();
 
+	/**
+	 * To get endpoint of the REST API
+	 * 
+	 * @return
+	 */
 	protected abstract String getEndpoint();
 
 	/**

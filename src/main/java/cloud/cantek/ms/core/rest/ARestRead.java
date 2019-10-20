@@ -19,62 +19,61 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 /**
+ * Generic REST Controller Implementations for generic Read operations
+ * 
+ * 
  * @author Emre Sen, 23.07.2019
  * @contact maemresen07@gmail.com
  */
 public abstract class ARestRead<E, ID> {
 
-    protected abstract ICrudService<E, ID> getService();
+	protected abstract ICrudService<E, ID> getService();
 
-    //TODO: ZZ_OTHER: list will be converted to set
-    // (R) read Operations
-    @GetMapping("/")
-    @ApiResponses(value = {
-            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)
-    })
-    public RestResponse<List<E>> getAll(HttpServletRequest request, HttpServletResponse response) {
+	// TODO: ZZ_OTHER: list will be converted to set
+	// (R) read Operations
+	@GetMapping("/")
+	@ApiResponses(value = { @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class) })
+	public RestResponse<List<E>> getAll(HttpServletRequest request, HttpServletResponse response) {
 
-        // get repo
-        ICrudService<E, ID> crudService = getService();
+		// get repo
+		ICrudService<E, ID> crudService = getService();
 
-        // get entity list
-        List<E> entityList = crudService.getAll();
+		// get entity list
+		List<E> entityList = crudService.getAll();
 
-        // init response
-        return generateResponse(entityList, HttpStatus.OK, request, response);
-    }
+		// init response
+		return generateResponse(entityList, HttpStatus.OK, request, response);
+	}
 
-    @GetMapping("/{id}")
-    @ApiResponses(value = {
-            @ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
-            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)
-    })
-    public RestResponse<E> getById(HttpServletRequest request, HttpServletResponse response
-            , @PathVariable ID id) {
+	@GetMapping("/{id}")
+	@ApiResponses(value = {
+			@ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+			@ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class) })
+	public RestResponse<E> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable ID id) {
 
-        // get repo
-        ICrudService<E, ID> crudService = getService();
+		// get repo
+		ICrudService<E, ID> crudService = getService();
 
-        // get entity
-        E entity = crudService.getById(id);
+		// get entity
+		E entity = crudService.getById(id);
 
-        // init response
-        return generateResponse(entity, HttpStatus.OK, request, response);
-    }
+		// init response
+		return generateResponse(entity, HttpStatus.OK, request, response);
+	}
 
-    
-    protected <B> RestResponse<B> generateResponse(B responseBody, HttpStatus httpStatus, HttpServletRequest request, HttpServletResponse response) {
+	protected <B> RestResponse<B> generateResponse(B responseBody, HttpStatus httpStatus, HttpServletRequest request,
+			HttpServletResponse response) {
 
-        String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
+		String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 
-        RestResponse<B> restResponse = new RestResponse<>(false);
-        restResponse.setTimestamp(new Date().getTime());
-        restResponse.setPath(path);
-        restResponse.setMessage(httpStatus.getReasonPhrase());
-        restResponse.setData(responseBody);
+		RestResponse<B> restResponse = new RestResponse<>(false);
+		restResponse.setTimestamp(new Date().getTime());
+		restResponse.setPath(path);
+		restResponse.setMessage(httpStatus.getReasonPhrase());
+		restResponse.setData(responseBody);
 
-        response.setIntHeader("status", httpStatus.value());
-        return restResponse;
-    }
+		response.setIntHeader("status", httpStatus.value());
+		return restResponse;
+	}
 
 }
