@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import cloud.cantek.ms.core.constant.NotifierMicroserviceConstants;
+import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
 import cloud.cantek.ms.core.exception.NotFoundException;
 import cloud.cantek.ms.core.exception.ServiceException;
 
@@ -27,7 +27,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
     public abstract JpaRepository<E, ID> getRepository();
 
-    private E save(E entity) throws ServiceException {
+    public E save(E entity) throws ServiceException {
 
         // get repo
         JpaRepository<E, ID> repository = getRepository();
@@ -36,8 +36,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             // save entity
             return repository.save(entity);
         } catch (Exception exception) {
-            LOGGER.error(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_SAVE, exception);
-            throw new ServiceException(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_SAVE);
+            LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE, exception);
+            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE);
         }
     }
 
@@ -63,8 +63,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             return repository.findAll();
         } catch (Exception exception) {
             exception.printStackTrace();
-            LOGGER.error(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_GET_LIST, exception);
-            throw new ServiceException(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_GET_LIST);
+            LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_LIST, exception);
+            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_LIST);
         }
     }
 
@@ -80,8 +80,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             entityOptional = repository.findById(id);
         } catch (Exception exception) {
             exception.printStackTrace();
-            LOGGER.error(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID, exception);
-            throw new ServiceException(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID);
+            LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID, exception);
+            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID);
         }
 
         // get entity or throw exception if empty
@@ -90,8 +90,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             return entityOptional.get();
         }
 
-        LOGGER.error(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND);
-        throw new NotFoundException(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND);
+        LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND);
+        throw new NotFoundException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND);
     }
 
     protected abstract E preUpdate(E oldEntity, E newEntity);
@@ -122,8 +122,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             repository.delete(entity);
             return true;
         } catch (Exception exception) {
-            LOGGER.error(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
-            throw new ServiceException(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_DELETE);
+            LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
+            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE);
         }
     }
 
@@ -138,8 +138,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             repository.deleteAll();
             return true;
         } catch (Exception exception) {
-            LOGGER.error(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
-            throw new ServiceException(NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_DELETE);
+            LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
+            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE);
         }
     }
 }

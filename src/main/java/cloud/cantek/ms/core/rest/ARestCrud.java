@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import cloud.cantek.ms.core.constant.NotifierMicroserviceConstants;
+import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
 import cloud.cantek.ms.core.rest.model.RestResponse;
 import cloud.cantek.ms.core.service.ICrudService;
@@ -46,7 +46,7 @@ public abstract class ARestCrud<E, ID>  extends ARestRead<E, ID>{
 
     @PutMapping("/")
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+            @ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)
     })
     public RestResponse<E> update(HttpServletRequest request, HttpServletResponse response

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.HandlerMapping;
 
-import cloud.cantek.ms.core.constant.NotifierMicroserviceConstants;
+import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
 import cloud.cantek.ms.core.rest.model.RestResponse;
 import cloud.cantek.ms.core.service.ICrudService;
@@ -46,7 +46,7 @@ public abstract class ARestRead<E, ID> {
 
     @GetMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = NotifierMicroserviceConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+            @ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)
     })
     public RestResponse<E> getById(HttpServletRequest request, HttpServletResponse response

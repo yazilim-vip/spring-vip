@@ -4,7 +4,7 @@ package cloud.cantek.ms.core.constant;
  * @author Emre Sen, 16.08.2019
  * @contact maemresen07@gmail.com
  */
-public class NotifierMicroserviceConstants {
+public class OctocloudMsCoreConstants {
 
 
     // -- Service CommonExceptions
