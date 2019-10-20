@@ -48,17 +48,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 		}
 	}
 
-	// .
-	/**
-	 * Operations before insert entity to the table
-	 * 
-	 * E.g.: setting uuid value
-	 * 
-	 * @param entity values that will be inserted
-	 * @return entity that inserted to the data source
-	 */
-	protected abstract E preInsert(E entity);
-
 	@Override
 	public E create(E entity) throws ServiceException {
 
@@ -68,6 +57,16 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
 		return save(initializedEntity);
 	}
+
+	/**
+	 * Operations before insert entity to the table
+	 * 
+	 * E.g.: setting uuid value
+	 * 
+	 * @param entity values that will be inserted
+	 * @return entity that inserted to the data source
+	 */
+	protected abstract E preInsert(E entity);
 
 	@Override
 	public List<E> getAll() throws ServiceException {
@@ -109,23 +108,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 		throw new NotFoundException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND);
 	}
 
-	/**
-	 * Operations before update operation
-	 * 
-	 * @param oldEntity old data on data source
-	 * @param newEntity new data that will be saved to data source
-	 * @return
-	 */
-	protected abstract E preUpdate(E oldEntity, E newEntity);
-
-	/**
-	 * Get Id of the entity
-	 * 
-	 * @param entity input entity model
-	 * @return id of entity
-	 */
-	protected abstract ID getId(E entity);
-
 	@Override
 	public E update(E newEntity) throws ServiceException {
 
@@ -138,6 +120,23 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
 		return save(preparedEntity);
 	}
+
+	/**
+	 * Get Id of the entity
+	 * 
+	 * @param entity input entity model
+	 * @return id of entity
+	 */
+	protected abstract ID getId(E entity);
+
+	/**
+	 * Operations before update operation
+	 * 
+	 * @param oldEntity old data on data source
+	 * @param newEntity new data that will be saved to data source
+	 * @return
+	 */
+	protected abstract E preUpdate(E oldEntity, E newEntity);
 
 	@Override
 	public boolean delete(E entity) {

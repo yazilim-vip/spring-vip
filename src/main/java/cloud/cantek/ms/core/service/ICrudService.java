@@ -14,6 +14,18 @@ import cloud.cantek.ms.core.exception.ServiceException;
 public interface ICrudService<E, ID> {
 
 	// (C) create Operations
+	/**
+	 * Save Entity to the Data source.
+	 * 
+	 * Insert if not exists
+	 * 
+	 * Update if exists
+	 * 
+	 * @param entity data to insert
+	 * @return inserted entity
+	 * @throws ServiceException an exception occurred during execution of query
+	 */
+	E save(E entity) throws ServiceException;
 
 	/**
 	 * Insert Entity to the Data source.
