@@ -1,7 +1,15 @@
 package cloud.cantek.ms.core.restconn;
 
+import java.net.URI;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * Generic REST Connection
@@ -11,6 +19,8 @@ import org.springframework.util.MultiValueMap;
  *
  */
 public abstract class ARestConnection {
+
+	protected abstract RestTemplate getRestTemplate();
 
 	protected abstract String getEndpoint();
 
@@ -24,13 +34,8 @@ public abstract class ARestConnection {
 	 * @param requestBody body of post request
 	 * @return response body
 	 */
-	protected <R, B> JsonRestRequest<R, B> deleteRequest(String resource, B requestBody) {
-		JsonRestRequest<R, B> jsonRestRequest = new JsonRestRequest<R, B>();
-		jsonRestRequest.setEndpoint(getEndpoint());
-		jsonRestRequest.setResource(resource);
-		jsonRestRequest.setHttpMethod(HttpMethod.DELETE);
-		jsonRestRequest.setRequestBody(requestBody);
-		return jsonRestRequest;
+	protected <R, B> R deleteRequest(String resource, B requestBody) {
+		return execute(resource, HttpMethod.DELETE, null, requestBody);
 	}
 
 	/**
@@ -43,13 +48,8 @@ public abstract class ARestConnection {
 	 * @param requestBody body of post request
 	 * @return response body
 	 */
-	protected <R, B> JsonRestRequest<R, B> putRequest(String resource, B requestBody) {
-		JsonRestRequest<R, B> jsonRestRequest = new JsonRestRequest<R, B>();
-		jsonRestRequest.setEndpoint(getEndpoint());
-		jsonRestRequest.setResource(resource);
-		jsonRestRequest.setHttpMethod(HttpMethod.PUT);
-		jsonRestRequest.setRequestBody(requestBody);
-		return jsonRestRequest;
+	protected <R, B> R putRequest(String resource, B requestBody) {
+		return execute(resource, HttpMethod.PUT, null, requestBody);
 	}
 
 	/**
@@ -62,13 +62,8 @@ public abstract class ARestConnection {
 	 * @param requestBody body of post request
 	 * @return response body
 	 */
-	protected <R, B> JsonRestRequest<R, B> postRequest(String resource, B requestBody) {
-		JsonRestRequest<R, B> jsonRestRequest = new JsonRestRequest<R, B>();
-		jsonRestRequest.setEndpoint(getEndpoint());
-		jsonRestRequest.setResource(resource);
-		jsonRestRequest.setHttpMethod(HttpMethod.POST);
-		jsonRestRequest.setRequestBody(requestBody);
-		return jsonRestRequest;
+	protected <R, B> R postRequest(String resource, B requestBody) {
+		return execute(resource, HttpMethod.POST, null, requestBody);
 	}
 
 	/**
@@ -79,7 +74,7 @@ public abstract class ARestConnection {
 	 * @param resource ...
 	 * @return response body
 	 */
-	protected <R, B> JsonRestRequest<R, B> getRequest(String resource) {
+	protected <R, B> R getRequest(String resource) {
 		return getRequest(resource, null);
 	}
 
@@ -92,12 +87,36 @@ public abstract class ARestConnection {
 	 * @param params   GET request parameters
 	 * @return response body
 	 */
-	protected <R, B> JsonRestRequest<R, B> getRequest(String resource, MultiValueMap<String, String> params) {
-		JsonRestRequest<R, B> jsonRestRequest = new JsonRestRequest<>();
-		jsonRestRequest.setEndpoint(getEndpoint());
-		jsonRestRequest.setResource(resource);
-		jsonRestRequest.setHttpMethod(HttpMethod.GET);
-		return jsonRestRequest;
+	protected <R, B> R getRequest(String resource, MultiValueMap<String, String> params) {
+		return execute(resource, HttpMethod.GET, params, null);
+	}
+
+	private <R, B> R execute(String resource, HttpMethod httpMethod, MultiValueMap<String, String> params,
+			B requestBody) {
+		String url = getEndpoint() + resource;
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		if (params != null) {
+			builder = builder.queryParams(params);
+		}
+
+		// do http request
+		RestTemplate restTemplate = getRestTemplate();
+		HttpEntity<B> request = new HttpEntity<>(requestBody, getHttpHeaders());
+
+		URI uri = builder.build().encode().toUri();
+
+		ParameterizedTypeReference<R> parameterizedTypeReference = new ParameterizedTypeReference<R>() {
+		};
+
+		ResponseEntity<R> response = restTemplate.exchange(uri, httpMethod, request, parameterizedTypeReference);
+		return response.getBody();
+	}
+
+	private MultiValueMap<String, String> getHttpHeaders() {
+		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+		// Example: headers.add(HttpHeaders.AUTHORIZATION, "Basic " +
+		// getBaseCredentials());
+		return headers;
 	}
 
 }
