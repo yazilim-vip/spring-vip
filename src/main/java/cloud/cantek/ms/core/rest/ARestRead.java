@@ -29,7 +29,6 @@ public abstract class ARestRead<E, ID> {
 
 	protected abstract ICrudService<E, ID> getService();
 
-	// TODO: ZZ_OTHER: list will be converted to set
 	// (R) read Operations
 	@GetMapping("/")
 	@ApiResponses(value = { @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class) })

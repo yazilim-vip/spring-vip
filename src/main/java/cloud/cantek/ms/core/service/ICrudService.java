@@ -36,7 +36,6 @@ public interface ICrudService<E, ID> {
 	 */
 	E create(E entity) throws ServiceException;
 
-	// TODO: ZZ_OTHER: list will be converted to set
 	// (R) read Operations
 	/**
 	 * Get all entities on the table
