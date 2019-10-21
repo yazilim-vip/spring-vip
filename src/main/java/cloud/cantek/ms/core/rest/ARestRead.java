@@ -14,6 +14,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
 import cloud.cantek.ms.core.rest.model.RestResponse;
+import cloud.cantek.ms.core.rest.model.RestResponseFactory;
 import cloud.cantek.ms.core.service.ICrudService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -41,7 +42,7 @@ public abstract class ARestRead<E, ID> {
 		List<E> entityList = crudService.getAll();
 
 		// init response
-		return generateResponse(entityList, HttpStatus.OK, request, response);
+		return RestResponseFactory.generateResponse(entityList, HttpStatus.OK, request, response);
 	}
 
 	@GetMapping("/{id}")
@@ -57,22 +58,7 @@ public abstract class ARestRead<E, ID> {
 		E entity = crudService.getById(id);
 
 		// init response
-		return generateResponse(entity, HttpStatus.OK, request, response);
-	}
-
-	protected <B> RestResponse<B> generateResponse(B responseBody, HttpStatus httpStatus, HttpServletRequest request,
-			HttpServletResponse response) {
-
-		String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-
-		RestResponse<B> restResponse = new RestResponse<>(false);
-		restResponse.setTimestamp(new Date().getTime());
-		restResponse.setPath(path);
-		restResponse.setMessage(httpStatus.getReasonPhrase());
-		restResponse.setData(responseBody);
-
-		response.setIntHeader("status", httpStatus.value());
-		return restResponse;
+		return RestResponseFactory.generateResponse(entity, HttpStatus.OK, request, response);
 	}
 
 }
