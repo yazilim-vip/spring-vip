@@ -42,7 +42,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			// save entity
 			return repository.save(entity);
 		} catch (Exception exception) {
-			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE, exception);
 			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE, exception);
 		}
 	}
@@ -75,8 +74,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 		try {
 			return repository.findAll();
 		} catch (Exception exception) {
-			exception.printStackTrace();
-			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_LIST, exception);
 			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_LIST, exception);
 		}
 	}
@@ -92,8 +89,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			// find entity by id
 			entityOptional = repository.findById(id);
 		} catch (Exception exception) {
-			exception.printStackTrace();
-			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID, exception);
 			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID, exception);
 		}
 
@@ -148,7 +143,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			repository.delete(entity);
 			return true;
 		} catch (Exception exception) {
-			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
 			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
 		}
 	}
@@ -164,7 +158,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			repository.deleteAll();
 			return true;
 		} catch (Exception exception) {
-			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
 			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
 		}
 	}
