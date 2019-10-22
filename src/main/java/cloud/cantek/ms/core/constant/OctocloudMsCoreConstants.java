@@ -13,7 +13,7 @@ public class OctocloudMsCoreConstants {
 
 	// Category
 	public static final String ERROR_MESSAGE_ENTITY_SAVE = "An error occurred while saving Entity";
-	public static final String ERROR_MESSAGE_ENTITY_GET = "An error occurred while saving Entity";
+	public static final String ERROR_MESSAGE_ENTITY_GET = "An error occurred while fetching Entity";
 	public static final String ERROR_MESSAGE_ENTITY_GET_LIST = "An error occurred while fetching Entities";
 	public static final String ERROR_MESSAGE_ENTITY_GET_BY_ID = "An error occurred while fetching Entity by id";
 	public static final String ERROR_MESSAGE_ENTITY_DELETE = "An error occurred while deleting Entity";

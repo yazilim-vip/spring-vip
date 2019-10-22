@@ -30,7 +30,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	/**
 	 * Repository of the entity that will be used with this implementation
 	 * 
-	 * @return JpaRepository of entity
 	 */
 	public abstract JpaRepository<E, ID> getRepository();
 
@@ -44,7 +43,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			return repository.save(entity);
 		} catch (Exception exception) {
 			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE, exception);
-			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE);
+			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE, exception);
 		}
 	}
 
@@ -78,7 +77,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_LIST, exception);
-			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_LIST);
+			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_LIST, exception);
 		}
 	}
 
@@ -95,7 +94,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID, exception);
-			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID);
+			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID, exception);
 		}
 
 		// get entity or throw exception if empty
@@ -150,7 +149,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			return true;
 		} catch (Exception exception) {
 			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
-			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE);
+			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
 		}
 	}
 
@@ -166,7 +165,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			return true;
 		} catch (Exception exception) {
 			LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
-			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE);
+			throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
 		}
 	}
 }
