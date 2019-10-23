@@ -1,5 +1,7 @@
-package cloud.cantek.ms.core.exception;
+package cloud.cantek.ms.core.exception.runtime;
 
+import cloud.cantek.ms.core.exception.*;
+import org.hibernate.dialect.Database;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -20,4 +22,17 @@ public class ServiceException extends RuntimeException {
 		this(message, null);
 	}
 
+	public  ServiceException(OctocloudException octocloudException){
+		this("Project Error", octocloudException);
+	}
+
+	public ServiceException(DatabaseException databaseException) {
+		this("Database Error", databaseException);
+	}
+
+	public  ServiceException(GeneralException generalException){
+		this("System Error", generalException);
+	}
 }
+
+

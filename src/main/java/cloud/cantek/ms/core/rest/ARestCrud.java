@@ -5,6 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cloud.cantek.ms.core.exception.DatabaseException;
+import cloud.cantek.ms.core.exception.OctocloudException;
+import cloud.cantek.ms.core.exception.runtime.ServiceException;
+import org.hibernate.dialect.Database;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,74 +26,92 @@ import io.swagger.annotations.ApiResponses;
 
 /**
  * Generic REST Controller Implementations for generic CRUD operations
- * 
+ *
  * @author Emre Sen, 23.07.2019
  * @contact maemresen07@gmail.com
  */
 public abstract class ARestCrud<E, ID> {
 
-	protected abstract ICrudService<E, ID> getService();
+    protected abstract ICrudService<E, ID> getService();
 
-	// (C) create Operations
-	@PostMapping("/")
-	@ApiResponses(value = { @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class) })
-	public RestResponse<E> create(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
+    // (C) create Operations
+    @PostMapping("/")
+    @ApiResponses(value = {@ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
+    public RestResponse<E> create(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
 
-		// get repo
-		ICrudService<E, ID> crudService = getService();
+        // get repo
+        ICrudService<E, ID> crudService = getService();
 
-		// create entity
-		entity = crudService.create(entity);
+        // create entity
+        try {
+            entity = crudService.create(entity);
+        } catch (DatabaseException | OctocloudException e) {
+            throw new ServiceException(e);
+        }
 
-		// init response
-		return RestResponseFactory.generateResponse(entity, HttpStatus.CREATED, request, response);
-	}
+        // init response
+        return RestResponseFactory.generateResponse(entity, HttpStatus.CREATED, request, response);
+    }
 
-	// (U) update Operations
-	@PutMapping("/")
-	@ApiResponses(value = {
-			@ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
-			@ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class) })
-	public RestResponse<E> update(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
+    // (U) update Operations
+    @PutMapping("/")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
+    public RestResponse<E> update(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
 
-		// get repo
-		ICrudService<E, ID> crudService = getService();
+        // get repo
+        ICrudService<E, ID> crudService = getService();
 
-		// update entity
-		entity = crudService.update(entity);
+        // update entity
+        try {
+            entity = crudService.update(entity);
+        } catch (DatabaseException e) {
+            throw new ServiceException(e);
+        }
 
-		// init response
-		return RestResponseFactory.generateResponse(entity, HttpStatus.OK, request, response);
-	}
+        // init response
+        return RestResponseFactory.generateResponse(entity, HttpStatus.OK, request, response);
+    }
 
-	// (R) read Operations
-	@GetMapping("/")
-	@ApiResponses(value = { @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class) })
-	public RestResponse<List<E>> getAll(HttpServletRequest request, HttpServletResponse response) {
+    // (R) read Operations
+    @GetMapping("/")
+    @ApiResponses(value = {@ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
+    public RestResponse<List<E>> getAll(HttpServletRequest request, HttpServletResponse response) {
 
-		// get repo
-		ICrudService<E, ID> crudService = getService();
+        // get repo
+        ICrudService<E, ID> crudService = getService();
 
-		// get entity list
-		List<E> entityList = crudService.getAll();
+        // get entity list
+        List<E> entityList = null;
+        try {
+            entityList = crudService.getAll();
+        } catch (DatabaseException e) {
+            throw new ServiceException(e);
+        }
 
-		// init response
-		return RestResponseFactory.generateResponse(entityList, HttpStatus.OK, request, response);
-	}
+        // init response
+        return RestResponseFactory.generateResponse(entityList, HttpStatus.OK, request, response);
+    }
 
-	@GetMapping("/{id}")
-	@ApiResponses(value = {
-			@ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
-			@ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class) })
-	public RestResponse<E> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable ID id) {
+    @GetMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
+    public RestResponse<E> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable ID id) {
 
-		// get repo
-		ICrudService<E, ID> crudService = getService();
+        // get repo
+        ICrudService<E, ID> crudService = getService();
 
-		// get entity
-		E entity = crudService.getById(id);
+        // get entity
+        E entity = null;
+        try {
+            entity = crudService.getById(id);
+        } catch (DatabaseException e) {
+            throw new ServiceException(e);
+        }
 
-		// init response
-		return RestResponseFactory.generateResponse(entity, HttpStatus.OK, request, response);
-	}
+        // init response
+        return RestResponseFactory.generateResponse(entity, HttpStatus.OK, request, response);
+    }
 }

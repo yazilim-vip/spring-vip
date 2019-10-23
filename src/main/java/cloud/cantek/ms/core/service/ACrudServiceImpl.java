@@ -3,13 +3,11 @@ package cloud.cantek.ms.core.service;
 import java.util.List;
 import java.util.Optional;
 
+import cloud.cantek.ms.core.exception.DatabaseException;
+import cloud.cantek.ms.core.exception.OctocloudException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
-import cloud.cantek.ms.core.exception.NotFoundException;
-import cloud.cantek.ms.core.exception.ServiceException;
 
 /**
  * Abstract Implementation of ICrudService.
@@ -25,16 +23,10 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ACrudServiceImpl.class);
 
-    private final JpaRepository<E, ID> repository;
-
-    public ACrudServiceImpl() {
-        this.repository = getRepository();
-    }
-
     /**
      * Repository of the entity that will be used with this implementation
      */
-    public abstract JpaRepository<E, ID> getRepository();
+    protected abstract JpaRepository<E, ID> getRepository();
 
     /**
      * Get Id of the entity
@@ -44,27 +36,35 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
      */
     protected abstract ID getId(E entity);
 
-
-    public E save(E entity) throws ServiceException {
-       try {
+    public E save(E entity) throws DatabaseException {
+        try {
+            JpaRepository<E, ID> repository = getRepository();
             // save entity
             return repository.save(entity);
         } catch (Exception exception) {
-            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE, exception);
+            String errorMessage = String.format("An error occurred while saving Entity[%s]", getId(entity));
+            throw new DatabaseException(errorMessage, exception);
         }
     }
 
     @Override
-    public E create(E entity) throws ServiceException {
+    public E create(E entity) throws OctocloudException, DatabaseException {
+
+        JpaRepository<E, ID> repository = getRepository();
+
         ID id = getId(entity);
-        boolean eventExists = repository.existsById(id);
-        if (eventExists) {
-            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE);
+
+        boolean eventExists;
+        try {
+            eventExists = repository.existsById(id);
+        } catch (Exception exception) {
+            String errorMessage = String.format("An error occurred while searching Entity[%s]", getId(entity));
+            throw new DatabaseException(errorMessage, exception);
         }
 
-        boolean violateAnyConstraint = isViolatesAnyConstraint(entity);
-        if (violateAnyConstraint) {
-            throw new ServiceException("Entity Violates Constraints");
+        if (eventExists) {
+            String errorMessage = String.format("Event with id[%s] already exists.", id);
+            throw new OctocloudException(errorMessage);
         }
 
         // initialize entity to insert
@@ -72,18 +72,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
         E initializedEntity = preInsert(entity);
 
         return save(initializedEntity);
-    }
-
-    /**
-     * To check if entity violates any constraint
-     * <p>
-     * E.g.: some fields should be unique. That conditions should be checked.
-     *
-     * @param entity values that will be inserted
-     * @return violate any constraint
-     */
-    protected boolean isViolatesAnyConstraint(E entity) {
-        return false;
     }
 
     /**
@@ -99,38 +87,35 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
     }
 
     @Override
-    public List<E> getAll() throws ServiceException {
+    public List<E> getAll() throws DatabaseException {
         try {
+            JpaRepository<E, ID> repository = getRepository();
             return repository.findAll();
         } catch (Exception exception) {
-            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_LIST, exception);
+            throw new DatabaseException("An error occurred while getting entities", exception);
         }
     }
 
     @Override
-    public E getById(ID id) throws ServiceException, NotFoundException {
+    public E getById(ID id) throws DatabaseException {
         // get repo
         Optional<E> entityOptional;
 
         try {
+            JpaRepository<E, ID> repository = getRepository();
             // find entity by id
             entityOptional = repository.findById(id);
         } catch (Exception exception) {
-            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_GET_BY_ID, exception);
+            String errorMessage = String.format("An error occurred while getting Entity[%s]", id.toString());
+            throw new DatabaseException(errorMessage, exception);
         }
 
         // get entity or throw exception if empty
-        if (entityOptional.isPresent()) {
-
-            return entityOptional.get();
-        }
-
-        LOGGER.error(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND);
-        throw new NotFoundException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND);
+        return entityOptional.orElse(null);
     }
 
     @Override
-    public E update(E newEntity) throws ServiceException {
+    public E update(E newEntity) throws DatabaseException {
         // get old entity
         ID id = getId(newEntity);
         E oldEntity = getById(id);
@@ -153,24 +138,30 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
     }
 
     @Override
-    public boolean delete(E entity) {
+    public boolean delete(E entity) throws DatabaseException {
         try {
+            JpaRepository<E, ID> repository = getRepository();
+
             // delete entity
             repository.delete(entity);
             return true;
         } catch (Exception exception) {
-            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
+            ID id = getId(entity);
+            String errorMessage = String.format("An error occurred while deleting Entity[%s]", id.toString());
+            throw new DatabaseException(errorMessage, exception);
         }
     }
 
     @Override
-    public boolean deleteAll() {
+    public boolean deleteAll() throws DatabaseException {
         try {
+            JpaRepository<E, ID> repository = getRepository();
+
             // delete entity
             repository.deleteAll();
             return true;
         } catch (Exception exception) {
-            throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
+            throw new DatabaseException("An error occurred while deleting entities", exception);
         }
     }
 }

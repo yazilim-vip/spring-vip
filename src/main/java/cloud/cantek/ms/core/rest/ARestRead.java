@@ -1,6 +1,8 @@
 package cloud.cantek.ms.core.rest;
 
 import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
+import cloud.cantek.ms.core.exception.DatabaseException;
+import cloud.cantek.ms.core.exception.runtime.ServiceException;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
 import cloud.cantek.ms.core.rest.model.RestResponse;
 import cloud.cantek.ms.core.rest.model.RestResponseFactory;
@@ -34,7 +36,12 @@ public abstract class ARestRead<E, ID> {
         ICrudService<E, ID> crudService = getService();
 
         // get entity list
-        List<E> entityList = crudService.getAll();
+        List<E> entityList = null;
+        try {
+            entityList = crudService.getAll();
+        } catch (DatabaseException e) {
+            throw new ServiceException(e);
+        }
 
         // init response
         return RestResponseFactory.generateResponse(entityList, HttpStatus.OK, request, response);
@@ -50,7 +57,12 @@ public abstract class ARestRead<E, ID> {
         ICrudService<E, ID> crudService = getService();
 
         // get entity
-        E entity = crudService.getById(id);
+        E entity = null;
+        try {
+            entity = crudService.getById(id);
+        } catch (DatabaseException e) {
+            throw new ServiceException(e);
+        }
 
         // init response
         return RestResponseFactory.generateResponse(entity, HttpStatus.OK, request, response);

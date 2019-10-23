@@ -2,8 +2,9 @@ package cloud.cantek.ms.core.service;
 
 import java.util.List;
 
-import cloud.cantek.ms.core.exception.NotFoundException;
-import cloud.cantek.ms.core.exception.ServiceException;
+import cloud.cantek.ms.core.exception.DatabaseException;
+import cloud.cantek.ms.core.exception.OctocloudException;
+import cloud.cantek.ms.core.exception.runtime.ServiceException;
 
 /**
  * Business method definitions for CRUD operations for Entity
@@ -13,61 +14,62 @@ import cloud.cantek.ms.core.exception.ServiceException;
  */
 public interface ICrudService<E, ID> {
 
-	// (C) create Operations
-	/**
-	 * Save Entity to the Data source.
-	 * 
-	 * Insert if not exists
-	 * 
-	 * Update if exists
-	 * 
-	 * @param entity data to insert
-	 * @return inserted entity
-	 * @throws ServiceException an exception occurred during execution of query
-	 */
-	E save(E entity) throws ServiceException;
+    // (C) create Operations
 
-	/**
-	 * Insert Entity to the Data source.
-	 * 
-	 * @param entity data to insert
-	 * @return inserted entity
-	 * @throws ServiceException an exception occurred during execution of query
-	 */
-	E create(E entity) throws ServiceException;
+    /**
+     * Save Entity to the Data source.
+     * <p>
+     * Insert if not exists
+     * <p>
+     * Update if exists
+     *
+     * @param entity data to insert
+     * @return inserted entity
+     * @throws ServiceException an exception occurred during execution of query
+     */
+    E save(E entity) throws DatabaseException;
 
-	// (R) read Operations
-	/**
-	 * Get all entities on the table
-	 * 
-	 * @return list of entities
-	 * @throws ServiceException
-	 */
-	List<E> getAll() throws ServiceException;
+    /**
+     * Insert Entity to the Data source.
+     *
+     * @param entity data to insert
+     * @return inserted entity
+     * @throws ServiceException an exception occurred during execution of query
+     */
+    E create(E entity) throws DatabaseException, OctocloudException;
 
-	/**
-	 * Get an entity from table by id.
-	 * 
-	 * @param id id field of entity
-	 * @return entity with id
-	 * @throws ServiceException  an exception occurred during execution of query
-	 * @throws NotFoundException entity with given id not found
-	 */
-	E getById(ID id) throws ServiceException, NotFoundException;
+    // (R) read Operations
 
-	// (U) update Operations
+    /**
+     * Get all entities on the table
+     *
+     * @return list of entities
+     * @throws ServiceException
+     */
+    List<E> getAll() throws DatabaseException;
 
-	/**
-	 * Update table with given model
-	 * 
-	 * @param newEntity new updated values to save into data source
-	 * @return saved entity to database
-	 * @throws ServiceException an exception occurred during execution of query
-	 */
-	E update(E newEntity) throws ServiceException;
+    /**
+     * Get an entity from table by id.
+     *
+     * @param id id field of entity
+     * @return entity with id
+     * @throws ServiceException an exception occurred during execution of query
+     */
+    E getById(ID id) throws DatabaseException;
 
-	// (D) delete Operations
-	boolean delete(E entity);
+    // (U) update Operations
 
-	boolean deleteAll();
+    /**
+     * Update table with given model
+     *
+     * @param newEntity new updated values to save into data source
+     * @return saved entity to database
+     * @throws ServiceException an exception occurred during execution of query
+     */
+    E update(E newEntity) throws DatabaseException;
+
+    // (D) delete Operations
+    boolean delete(E entity) throws DatabaseException;
+
+    boolean deleteAll() throws DatabaseException;
 }
