@@ -25,17 +25,28 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ACrudServiceImpl.class);
 
+    private final JpaRepository<E, ID> repository;
+
+    public ACrudServiceImpl() {
+        this.repository = getRepository();
+    }
+
     /**
      * Repository of the entity that will be used with this implementation
      */
     public abstract JpaRepository<E, ID> getRepository();
 
+    /**
+     * Get Id of the entity
+     *
+     * @param entity input entity model
+     * @return id of entity
+     */
+    protected abstract ID getId(E entity);
+
+
     public E save(E entity) throws ServiceException {
-
-        // get repo
-        JpaRepository<E, ID> repository = getRepository();
-
-        try {
+       try {
             // save entity
             return repository.save(entity);
         } catch (Exception exception) {
@@ -45,22 +56,34 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
     @Override
     public E create(E entity) throws ServiceException {
-
-        // get repo
-        JpaRepository<E, ID> repository = getRepository();
-
         ID id = getId(entity);
         boolean eventExists = repository.existsById(id);
         if (eventExists) {
             throw new ServiceException(OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_SAVE);
         }
 
+        boolean violateAnyConstraint = isViolatesAnyConstraint(entity);
+        if (violateAnyConstraint) {
+            throw new ServiceException("Entity Violates Constraints");
+        }
 
         // initialize entity to insert
         // e.g setting unique UUID
         E initializedEntity = preInsert(entity);
 
         return save(initializedEntity);
+    }
+
+    /**
+     * To check if entity violates any constraint
+     * <p>
+     * E.g.: some fields should be unique. That conditions should be checked.
+     *
+     * @param entity values that will be inserted
+     * @return violate any constraint
+     */
+    protected boolean isViolatesAnyConstraint(E entity) {
+        return false;
     }
 
     /**
@@ -71,13 +94,12 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
      * @param entity values that will be inserted
      * @return entity that inserted to the data source
      */
-    protected abstract E preInsert(E entity);
+    protected E preInsert(E entity) {
+        return entity;
+    }
 
     @Override
     public List<E> getAll() throws ServiceException {
-
-        // get repo
-        JpaRepository<E, ID> repository = getRepository();
         try {
             return repository.findAll();
         } catch (Exception exception) {
@@ -87,9 +109,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
     @Override
     public E getById(ID id) throws ServiceException, NotFoundException {
-
         // get repo
-        JpaRepository<E, ID> repository = getRepository();
         Optional<E> entityOptional;
 
         try {
@@ -111,7 +131,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
     @Override
     public E update(E newEntity) throws ServiceException {
-
         // get old entity
         ID id = getId(newEntity);
         E oldEntity = getById(id);
@@ -123,29 +142,19 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
     }
 
     /**
-     * Get Id of the entity
-     *
-     * @param entity input entity model
-     * @return id of entity
-     */
-    protected abstract ID getId(E entity);
-
-    /**
      * Operations before update operation
      *
      * @param oldEntity old data on data source
      * @param newEntity new data that will be saved to data source
-     * @return
+     * @return prepared entity to update
      */
-    protected abstract E preUpdate(E oldEntity, E newEntity);
+    protected E preUpdate(E oldEntity, E newEntity) {
+        return newEntity;
+    }
 
     @Override
     public boolean delete(E entity) {
         try {
-
-            // get repo
-            JpaRepository<E, ID> repository = getRepository();
-
             // delete entity
             repository.delete(entity);
             return true;
@@ -156,10 +165,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
     @Override
     public boolean deleteAll() {
-
-        // get repo
-        JpaRepository<E, ID> repository = getRepository();
-
         try {
             // delete entity
             repository.deleteAll();
