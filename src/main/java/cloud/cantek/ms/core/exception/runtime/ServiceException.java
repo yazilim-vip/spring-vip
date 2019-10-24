@@ -21,10 +21,6 @@ public class ServiceException extends RuntimeException {
 		this(message, null);
 	}
 
-	public  ServiceException(OctocloudException octocloudException){
-		this("Project Error", octocloudException);
-	}
-
 	public ServiceException(DatabaseException databaseException) {
 		this("Database Error", databaseException);
 	}

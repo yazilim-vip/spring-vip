@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
 import cloud.cantek.ms.core.exception.DatabaseException;
-import cloud.cantek.ms.core.exception.OctocloudException;
+import cloud.cantek.ms.core.exception.GeneralException;
 import cloud.cantek.ms.core.exception.runtime.ServiceException;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
 import cloud.cantek.ms.core.rest.model.RestResponse;
@@ -44,7 +44,7 @@ public abstract class ARestCrud<E, ID> {
         // create entity
         try {
             entity = crudService.create(entity);
-        } catch (DatabaseException | OctocloudException e) {
+        } catch (GeneralException e) {
             throw new ServiceException(e);
         }
 

@@ -6,7 +6,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import cloud.cantek.ms.core.exception.DatabaseException;
-import cloud.cantek.ms.core.exception.OctocloudException;
+import cloud.cantek.ms.core.exception.PrimaryKeyDuplicationException;
+import cloud.cantek.ms.core.exception.UniqueConstraintViolationException;
 
 /**
  * Abstract Implementation of ICrudService.
@@ -45,7 +46,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	}
 
 	@Override
-	public E create(E entity) throws OctocloudException, DatabaseException {
+	public E create(E entity) throws DatabaseException, UniqueConstraintViolationException, PrimaryKeyDuplicationException {
 
 		JpaRepository<E, ID> repository = getRepository();
 
@@ -61,7 +62,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
 		if (eventExists) {
 			String errorMessage = String.format("Event with id[%s] already exists.", id);
-			throw new OctocloudException(errorMessage);
+			throw new PrimaryKeyDuplicationException(errorMessage);
 		}
 
 		// initialize entity to insert

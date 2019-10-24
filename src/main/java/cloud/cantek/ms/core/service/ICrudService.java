@@ -3,7 +3,8 @@ package cloud.cantek.ms.core.service;
 import java.util.List;
 
 import cloud.cantek.ms.core.exception.DatabaseException;
-import cloud.cantek.ms.core.exception.OctocloudException;
+import cloud.cantek.ms.core.exception.PrimaryKeyDuplicationException;
+import cloud.cantek.ms.core.exception.UniqueConstraintViolationException;
 import cloud.cantek.ms.core.exception.runtime.ServiceException;
 
 /**
@@ -34,9 +35,11 @@ public interface ICrudService<E, ID> {
      *
      * @param entity data to insert
      * @return inserted entity
+     * @throws UniqueConstraintViolationException 
+     * @throws PrimaryKeyDuplicationException 
      * @throws ServiceException an exception occurred during execution of query
      */
-    E create(E entity) throws DatabaseException, OctocloudException;
+    E create(E entity) throws DatabaseException, UniqueConstraintViolationException, PrimaryKeyDuplicationException;
 
     // (R) read Operations
 
