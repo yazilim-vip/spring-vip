@@ -6,8 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import cloud.cantek.ms.core.exception.DatabaseException;
-import cloud.cantek.ms.core.exception.PrimaryKeyDuplicationException;
-import cloud.cantek.ms.core.exception.UniqueConstraintViolationException;
+import cloud.cantek.ms.core.util.ObjectHelper;
 
 /**
  * Abstract Implementation of ICrudService.
@@ -28,7 +27,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
 	/**
 	 * Get Id of the entity
-	 *E
+	 *
 	 * @param entity input entity model
 	 * @return id of entity
 	 */
@@ -40,30 +39,13 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			// save entity
 			return repository.save(entity);
 		} catch (Exception exception) {
-			String errorMessage = String.format("An error occurred while saving Entity[%s]", getId(entity));
+			String errorMessage = String.format("An error occurred while saving %s", ObjectHelper.toJson(entity));
 			throw new DatabaseException(errorMessage, exception);
 		}
 	}
 
 	@Override
-	public E create(E entity) throws DatabaseException, UniqueConstraintViolationException, PrimaryKeyDuplicationException {
-
-		JpaRepository<E, ID> repository = getRepository();
-
-		ID id = getId(entity);
-
-		boolean eventExists;
-		try {
-			eventExists = repository.existsById(id);
-		} catch (Exception exception) {
-			String errorMessage = String.format("An error occurred while searching Entity[%s]", getId(entity));
-			throw new DatabaseException(errorMessage, exception);
-		}
-
-		if (eventExists) {
-			String errorMessage = String.format("Event with id[%s] already exists.", id);
-			throw new PrimaryKeyDuplicationException(errorMessage);
-		}
+	public E create(E entity) throws DatabaseException {
 
 		// initialize entity to insert
 		// e.g setting unique UUID
@@ -145,7 +127,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			return true;
 		} catch (Exception exception) {
 			ID id = getId(entity);
-			String errorMessage = String.format("An error occurred while deleting Entity[%s]", id.toString());
+			String errorMessage = String.format("An error occurred while deleting %s", ObjectHelper.toJson(entity));
 			throw new DatabaseException(errorMessage, exception);
 		}
 	}
