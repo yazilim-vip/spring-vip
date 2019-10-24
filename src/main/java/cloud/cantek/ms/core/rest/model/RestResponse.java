@@ -1,13 +1,5 @@
 package cloud.cantek.ms.core.rest.model;
 
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.HandlerMapping;
-
 import lombok.Data;
 
 /**

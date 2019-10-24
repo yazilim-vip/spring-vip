@@ -5,10 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cloud.cantek.ms.core.exception.DatabaseException;
-import cloud.cantek.ms.core.exception.OctocloudException;
-import cloud.cantek.ms.core.exception.runtime.ServiceException;
-import org.hibernate.dialect.Database;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
+import cloud.cantek.ms.core.exception.DatabaseException;
+import cloud.cantek.ms.core.exception.OctocloudException;
+import cloud.cantek.ms.core.exception.runtime.ServiceException;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
 import cloud.cantek.ms.core.rest.model.RestResponse;
 import cloud.cantek.ms.core.rest.model.RestResponseFactory;

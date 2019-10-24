@@ -6,7 +6,12 @@ package cloud.cantek.ms.core.exception;
  */
 public class MethodNotSupported extends GeneralException {
 
-    public MethodNotSupported(String message, Exception exception) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2404214411760573147L;
+
+	public MethodNotSupported(String message, Exception exception) {
         super(message, exception);
     }
 

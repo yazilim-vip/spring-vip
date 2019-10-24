@@ -8,7 +8,12 @@ package cloud.cantek.ms.core.exception;
  */
 public class DatabaseException extends GeneralException {
 
-    public DatabaseException(String message, Exception exception) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5862962376829113206L;
+
+	public DatabaseException(String message, Exception exception) {
         super(message, exception);
     }
 

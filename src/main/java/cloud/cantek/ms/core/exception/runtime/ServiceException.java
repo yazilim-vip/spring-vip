@@ -1,7 +1,6 @@
 package cloud.cantek.ms.core.exception.runtime;
 
 import cloud.cantek.ms.core.exception.*;
-import org.hibernate.dialect.Database;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
