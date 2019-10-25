@@ -18,4 +18,19 @@ public class ObjectHelper {
 		}
 	}
 
+	public static final String toJson(Object object, boolean indented) {
+		if (object == null) {
+			return "";
+		}
+		if (indented) {
+			return toJson(object);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(object);
+		} catch (JsonProcessingException e) {
+			return object.toString();
+		}
+	}
+
 }
