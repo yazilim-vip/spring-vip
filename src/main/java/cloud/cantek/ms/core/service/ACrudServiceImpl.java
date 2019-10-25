@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import cloud.cantek.ms.core.exception.DatabaseException;
+import cloud.cantek.ms.core.exception.runtime.ServiceException;
 import cloud.cantek.ms.core.util.ObjectHelper;
 
 /**
@@ -33,7 +34,19 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	 */
 	protected abstract ID getId(E entity);
 
-	public E save(E entity) throws DatabaseException {
+
+	/**
+	 * Save Entity to the Data source.
+	 * <p>
+	 * Insert if not exists
+	 * <p>
+	 * Update if exists
+	 *
+	 * @param entity data to insert
+	 * @return inserted entity
+	 * @throws ServiceException an exception occurred during execution of query
+	 */
+	private E save(E entity) throws DatabaseException {
 		try {
 			JpaRepository<E, ID> repository = getRepository();
 			// save entity
