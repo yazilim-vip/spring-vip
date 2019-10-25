@@ -139,7 +139,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			repository.delete(entity);
 			return true;
 		} catch (Exception exception) {
-			ID id = getId(entity);
 			String errorMessage = String.format("An error occurred while deleting %s", ObjectHelper.toJson(entity));
 			throw new DatabaseException(errorMessage, exception);
 		}
