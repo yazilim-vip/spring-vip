@@ -6,7 +6,7 @@
 
 	<!-- Project Info -->
 	<groupId>cloud.cantek.ms</groupId>
-	<artifactId>octocloud-core</artifactId>
+	<artifactId>ms-core</artifactId>
 	<version>0.1.00</version>
 	<packaging>jar</packaging>
 
@@ -38,6 +38,14 @@
 
 
 	<dependencies>
+
+		<!-- Ready2Use Modules -->
+		<dependency>
+			<groupId>cloud.cantek</groupId>
+			<artifactId>cantek-core</artifactId>
+			<version>0.1.00</version>
+		</dependency>
+
 
 		<!--Web -->
 		<dependency>

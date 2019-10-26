@@ -1,8 +1,10 @@
 package cloud.cantek.ms.core.exception.runtime;
 
-import cloud.cantek.ms.core.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import cloud.cantek.core.exception.*;
+import cloud.cantek.ms.core.exception.DatabaseException;
 
 /**
  * @author Emre Sen, 26.06.2019

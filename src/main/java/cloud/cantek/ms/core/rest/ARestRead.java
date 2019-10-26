@@ -1,6 +1,6 @@
 package cloud.cantek.ms.core.rest;
 
-import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
+import cloud.cantek.core.constant.OctocloudMsCoreConstants;
 import cloud.cantek.ms.core.exception.DatabaseException;
 import cloud.cantek.ms.core.exception.runtime.ServiceException;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
