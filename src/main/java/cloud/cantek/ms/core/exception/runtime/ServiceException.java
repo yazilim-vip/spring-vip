@@ -3,7 +3,7 @@ package cloud.cantek.ms.core.exception.runtime;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import cloud.cantek.core.exception.*;
+import cloud.cantek.core.exception.GeneralException;
 import cloud.cantek.ms.core.exception.DatabaseException;
 
 /**
@@ -11,30 +11,33 @@ import cloud.cantek.ms.core.exception.DatabaseException;
  * @contact maemresen07@gmail.com
  */
 @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-public class ServiceException extends RuntimeException {
+public class ServiceException extends MsRuntimeException {
 
-    private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -790091943088990641L;
 
-    public ServiceException(String message, Exception exception) {
-        super(message + " : " + ((exception == null) ? "" : exception.getMessage()));
+	public ServiceException(String message, Exception exception) {
+		super(message, exception);
+		// TODO Auto-generated constructor stub
+	}
+
+	public ServiceException(Exception exception) {
+        super("Database Error", exception);
     }
-
-    public ServiceException(String message) {
-        this(message, null);
-    }
-
-    public ServiceException(Exception exception) {
-        this("Error: ", exception);
-    }
-
-
+	
     public ServiceException(DatabaseException databaseException) {
-        this("Database Error", databaseException);
+        super("Database Error", databaseException);
     }
 
     public ServiceException(GeneralException generalException) {
-        this("System Error", generalException);
+        super("System Error", generalException);
     }
+
+	public ServiceException(String message) {
+		super(message);
+	}
 }
 
 
