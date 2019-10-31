@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import cloud.cantek.core.util.ObjectHelper;
 import cloud.cantek.ms.core.exception.DatabaseException;
+import cloud.cantek.ms.core.exception.InvalidUpdateException;
 import cloud.cantek.ms.core.exception.runtime.ServiceException;
 
 /**
@@ -33,7 +34,6 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	 * @return id of entity
 	 */
 	protected abstract ID getId(E entity);
-
 
 	/**
 	 * Save Entity to the Data source.
@@ -90,31 +90,30 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	}
 
 	@Override
-	public E getById(ID id) throws DatabaseException {
-		// get repo
-		Optional<E> entityOptional;
-
+	public Optional<E> getById(ID id) throws DatabaseException {
 		try {
 			JpaRepository<E, ID> repository = getRepository();
+
 			// find entity by id
-			entityOptional = repository.findById(id);
+			return repository.findById(id);
 		} catch (Exception exception) {
 			String errorMessage = String.format("An error occurred while getting Entity[%s]", id.toString());
 			throw new DatabaseException(errorMessage, exception);
 		}
-
-		// get entity or throw exception if empty
-		return entityOptional.orElse(null);
 	}
 
 	@Override
-	public E update(E newEntity) throws DatabaseException {
+	public E update(E newEntity) throws DatabaseException, InvalidUpdateException {
 		// get old entity
 		ID id = getId(newEntity);
-		E oldEntity = getById(id);
+		Optional<E> oldEntity = getById(id);
 
+		if(!oldEntity.isPresent()) {
+			throw new InvalidUpdateException("Cannot update non-exist enity");	
+		}
+		
 		// prepare entity for update
-		E preparedEntity = preUpdate(oldEntity, newEntity);
+		E preparedEntity = preUpdate(oldEntity.get(), newEntity);
 
 		return save(preparedEntity);
 	}

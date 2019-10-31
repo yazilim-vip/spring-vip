@@ -18,8 +18,12 @@ public class NotFoundException extends MsRuntimeException {
 	private static final long serialVersionUID = -9109984729627077232L;
 
 	
-	public NotFoundException(String message, GeneralException generalException) {
-		super(message, generalException);
+	public NotFoundException(GeneralException generalException) {
+		super("Entity Not Found", generalException);
+	}
+
+	public NotFoundException() {
+		super("Entity Not Found");
 	}
 
 }

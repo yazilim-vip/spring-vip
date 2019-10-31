@@ -1,6 +1,7 @@
 package cloud.cantek.ms.core.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import cloud.cantek.core.exception.GeneralException;
 import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
 import cloud.cantek.ms.core.exception.DatabaseException;
+import cloud.cantek.ms.core.exception.InvalidUpdateException;
+import cloud.cantek.ms.core.exception.runtime.NotFoundException;
 import cloud.cantek.ms.core.exception.runtime.ServiceException;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
 import cloud.cantek.ms.core.rest.model.RestResponse;
@@ -65,7 +68,7 @@ public abstract class ARestCrud<E, ID> {
         // update entity
         try {
             entity = crudService.update(entity);
-        } catch (DatabaseException e) {
+        } catch (DatabaseException | InvalidUpdateException e) {
             throw new ServiceException(e);
         }
 
@@ -103,14 +106,18 @@ public abstract class ARestCrud<E, ID> {
         ICrudService<E, ID> crudService = getService();
 
         // get entity
-        E entity = null;
+        Optional<E> entity = null;
         try {
             entity = crudService.getById(id);
         } catch (DatabaseException e) {
             throw new ServiceException(e);
         }
-
+        
+        if(!entity.isPresent()) {
+        	throw new NotFoundException();
+        }
+        
         // init response
-        return RestResponseFactory.generateResponse(entity, HttpStatus.OK, request, response);
+        return RestResponseFactory.generateResponse(entity.get(), HttpStatus.OK, request, response);
     }
 }
