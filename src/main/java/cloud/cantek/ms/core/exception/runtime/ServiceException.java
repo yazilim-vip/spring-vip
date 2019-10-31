@@ -13,23 +13,28 @@ import cloud.cantek.ms.core.exception.DatabaseException;
 @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 public class ServiceException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public ServiceException(String message, Exception exception) {
-		super(message + " : " + ((exception == null) ? "" : exception.getMessage()));
-	}
+    public ServiceException(String message, Exception exception) {
+        super(message + " : " + ((exception == null) ? "" : exception.getMessage()));
+    }
 
-	public ServiceException(String message) {
-		this(message, null);
-	}
+    public ServiceException(String message) {
+        this(message, null);
+    }
 
-	public ServiceException(DatabaseException databaseException) {
-		this("Database Error", databaseException);
-	}
+    public ServiceException(Exception exception) {
+        this("Error: ", exception);
+    }
 
-	public  ServiceException(GeneralException generalException){
-		this("System Error", generalException);
-	}
+
+    public ServiceException(DatabaseException databaseException) {
+        this("Database Error", databaseException);
+    }
+
+    public ServiceException(GeneralException generalException) {
+        this("System Error", generalException);
+    }
 }
 
 
