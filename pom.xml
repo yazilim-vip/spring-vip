@@ -39,14 +39,6 @@
 
 	<dependencies>
 
-		<!-- Ready2Use Modules -->
-		<dependency>
-			<groupId>cloud.cantek</groupId>
-			<artifactId>cantek-core</artifactId>
-			<version>0.1.00</version>
-		</dependency>
-
-
 		<!--Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

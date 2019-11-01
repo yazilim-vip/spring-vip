@@ -1,7 +1,5 @@
 package cloud.cantek.ms.core.exception;
 
-import cloud.cantek.core.exception.GeneralException;
-
 /**
  * @author Emre Sen, 26.06.2019
  * @contact maemresen07@gmail.com

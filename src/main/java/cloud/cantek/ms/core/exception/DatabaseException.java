@@ -1,7 +1,5 @@
 package cloud.cantek.ms.core.exception;
 
-import cloud.cantek.core.exception.GeneralException;
-
 /**
  * Fired when a database exception occurred
  *
