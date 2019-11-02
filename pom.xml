@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>vip.yazilim.spring</groupId>
-    <artifactId>web-utils</artifactId>
+    <groupId>vip.yazilim</groupId>
+    <artifactId>spring-utils</artifactId>
     <version>1.0.00</version>
 
     <properties>
