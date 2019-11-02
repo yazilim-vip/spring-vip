@@ -1,1 +1,0 @@
-package vip.yazilim.spring.webutils.rest;
