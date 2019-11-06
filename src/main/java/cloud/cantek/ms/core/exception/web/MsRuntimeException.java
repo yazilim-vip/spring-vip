@@ -1,4 +1,4 @@
-package cloud.cantek.ms.core.exception.runtime;
+package cloud.cantek.ms.core.exception.web;
 
 /**
  * @author Emre Sen, 26.06.2019

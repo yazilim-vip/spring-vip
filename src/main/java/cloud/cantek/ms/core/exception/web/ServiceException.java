@@ -1,11 +1,11 @@
-package cloud.cantek.ms.core.exception.runtime;
+package cloud.cantek.ms.core.exception.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import cloud.cantek.ms.core.exception.DatabaseException;
 import cloud.cantek.ms.core.exception.GeneralException;
 import cloud.cantek.ms.core.exception.InvalidUpdateException;
+import cloud.cantek.ms.core.exception.database.DatabaseException;
 
 /**
  * @author Emre Sen, 26.06.2019

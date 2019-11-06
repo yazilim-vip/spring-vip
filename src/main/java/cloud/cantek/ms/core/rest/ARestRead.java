@@ -10,10 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import cloud.cantek.ms.core.constant.OctocloudMsCoreConstants;
-import cloud.cantek.ms.core.exception.DatabaseException;
-import cloud.cantek.ms.core.exception.runtime.NotFoundException;
-import cloud.cantek.ms.core.exception.runtime.ServiceException;
+import cloud.cantek.ms.core.constant.MsCoreConstants;
+import cloud.cantek.ms.core.exception.database.DatabaseException;
+import cloud.cantek.ms.core.exception.web.NotFoundException;
+import cloud.cantek.ms.core.exception.web.ServiceException;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
 import cloud.cantek.ms.core.rest.model.RestResponse;
 import cloud.cantek.ms.core.rest.model.RestResponseFactory;
@@ -53,7 +53,7 @@ public abstract class ARestRead<E, ID> {
 
     @GetMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = OctocloudMsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+            @ApiResponse(code = 404, message = MsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
     public RestResponse<E> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable ID id) {
 

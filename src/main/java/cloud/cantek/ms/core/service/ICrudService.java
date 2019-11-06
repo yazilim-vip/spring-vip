@@ -3,9 +3,9 @@ package cloud.cantek.ms.core.service;
 import java.util.List;
 import java.util.Optional;
 
-import cloud.cantek.ms.core.exception.DatabaseException;
 import cloud.cantek.ms.core.exception.InvalidUpdateException;
-import cloud.cantek.ms.core.exception.runtime.ServiceException;
+import cloud.cantek.ms.core.exception.database.DatabaseException;
+import cloud.cantek.ms.core.exception.web.ServiceException;
 
 /**
  * Business method definitions for CRUD operations for Entity

@@ -4,7 +4,7 @@ package cloud.cantek.ms.core.constant;
  * @author Emre Sen, 16.08.2019
  * @contact maemresen07@gmail.com
  */
-public class OctocloudMsCoreConstants {
+public class MsCoreConstants {
 
 	public static final String ROOT_PACKAGE = "cloud.cantek.ms";
 
@@ -12,10 +12,9 @@ public class OctocloudMsCoreConstants {
 	public static final String ERROR_MESSAGE_METHOD_NOT_SUPPORTED = "Method Not Supported";
 
 	// Category
-	public static final String ERROR_MESSAGE_ENTITY_SAVE = "An error occurred while saving Entity";
-	public static final String ERROR_MESSAGE_ENTITY_GET = "An error occurred while fetching Entity";
-	public static final String ERROR_MESSAGE_ENTITY_GET_LIST = "An error occurred while fetching Entities";
-	public static final String ERROR_MESSAGE_ENTITY_GET_BY_ID = "An error occurred while fetching Entity by id";
+	public static final String ERROR_MESSAGE_ENTITY_CREATE = "An error occurred while saving Entity";
+	public static final String ERROR_MESSAGE_ENTITY_READ = "An error occurred while fetching Entity";
+	public static final String ERROR_MESSAGE_ENTITY_UPDATE = "An error occurred while saving Entity";
 	public static final String ERROR_MESSAGE_ENTITY_DELETE = "An error occurred while deleting Entity";
 
 	// -- Resource Not Found CommonExceptions

@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import cloud.cantek.ms.core.exception.DatabaseException;
 import cloud.cantek.ms.core.exception.InvalidUpdateException;
-import cloud.cantek.ms.core.exception.runtime.ServiceException;
+import cloud.cantek.ms.core.exception.database.DatabaseException;
+import cloud.cantek.ms.core.exception.web.ServiceException;
 import cloud.cantek.ms.core.util.ObjectHelper;
 
 /**
