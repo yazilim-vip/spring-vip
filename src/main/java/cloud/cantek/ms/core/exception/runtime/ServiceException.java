@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import cloud.cantek.ms.core.exception.DatabaseException;
 import cloud.cantek.ms.core.exception.GeneralException;
+import cloud.cantek.ms.core.exception.InvalidUpdateException;
 
 /**
  * @author Emre Sen, 26.06.2019
@@ -23,20 +24,22 @@ public class ServiceException extends MsRuntimeException {
 	}
 
 	public ServiceException(Exception exception) {
-        super("Database Error", exception);
-    }
-	
-    public ServiceException(DatabaseException databaseException) {
-        super("Database Error", databaseException);
-    }
+		super("Database Error", exception);
+	}
 
-    public ServiceException(GeneralException generalException) {
-        super("System Error", generalException);
-    }
+	public ServiceException(DatabaseException databaseException) {
+		super("Database Error", databaseException);
+	}
+
+	public ServiceException(InvalidUpdateException invalidUpdateException) {
+		super("Database Error", invalidUpdateException);
+	}
+
+	public ServiceException(GeneralException generalException) {
+		super("System Error", generalException);
+	}
 
 	public ServiceException(String message) {
 		super(message);
 	}
 }
-
-
