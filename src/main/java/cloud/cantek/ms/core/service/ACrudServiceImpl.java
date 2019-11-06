@@ -12,7 +12,6 @@ import cloud.cantek.ms.core.exception.database.DatabaseException;
 import cloud.cantek.ms.core.exception.database.DatabaseReadException;
 import cloud.cantek.ms.core.exception.database.DatabaseUpdateException;
 import cloud.cantek.ms.core.exception.web.ServiceException;
-import cloud.cantek.ms.core.util.ObjectHelper;
 
 /**
  * Abstract Implementation of ICrudService.
