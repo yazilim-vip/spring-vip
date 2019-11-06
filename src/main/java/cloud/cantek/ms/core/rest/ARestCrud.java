@@ -114,7 +114,7 @@ public abstract class ARestCrud<E, ID> {
         }
         
         if(!entity.isPresent()) {
-        	throw new NotFoundException();
+        	throw new NotFoundException("Entity Not Found");
         }
         
         // init response

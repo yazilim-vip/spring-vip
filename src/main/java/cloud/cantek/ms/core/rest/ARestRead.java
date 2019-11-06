@@ -69,7 +69,7 @@ public abstract class ARestRead<E, ID> {
         }
         
         if(!entity.isPresent()) {
-        	throw new NotFoundException();
+        	throw new NotFoundException("Entity Not Found");
         }
         
         // init response
