@@ -28,6 +28,19 @@ public interface ICrudService<E, ID> {
 	 */
 	E create(E entity) throws DatabaseException;
 
+	// (U) update Operations
+
+	/**
+	 * Update table with given model
+	 *
+	 * @param newEntity new updated values to save into data source
+	 * @return saved entity to database
+	 * @throws InvalidUpdateException
+	 * @throws ServiceException       an exception occurred during execution of
+	 *                                query
+	 */
+	E update(E newEntity) throws DatabaseException, InvalidUpdateException;
+
 	// (R) read Operations
 
 	/**
@@ -46,18 +59,6 @@ public interface ICrudService<E, ID> {
 	 * @throws ServiceException an exception occurred during execution of query
 	 */
 	Optional<E> getById(ID id) throws DatabaseException;
-
-	// (U) update Operations
-
-	/**
-	 * Update table with given model
-	 *
-	 * @param newEntity new updated values to save into data source
-	 * @return saved entity to database
-	 * @throws InvalidUpdateException 
-	 * @throws ServiceException an exception occurred during execution of query
-	 */
-	E update(E newEntity) throws DatabaseException, InvalidUpdateException;
 
 	// (D) delete Operations
 	boolean delete(E entity) throws DatabaseException;

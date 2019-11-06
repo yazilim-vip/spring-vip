@@ -6,7 +6,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import cloud.cantek.ms.core.exception.InvalidUpdateException;
+import cloud.cantek.ms.core.exception.database.DatabaseCreateException;
+import cloud.cantek.ms.core.exception.database.DatabaseDeleteException;
 import cloud.cantek.ms.core.exception.database.DatabaseException;
+import cloud.cantek.ms.core.exception.database.DatabaseReadException;
+import cloud.cantek.ms.core.exception.database.DatabaseUpdateException;
 import cloud.cantek.ms.core.exception.web.ServiceException;
 import cloud.cantek.ms.core.util.ObjectHelper;
 
@@ -15,7 +19,7 @@ import cloud.cantek.ms.core.util.ObjectHelper;
  * <p>
  * Basic CRUD operations for an entity is implemented.
  *
- * @param <E>  type entity
+ * @param <E> type entity
  * @param <ID> type of identity of entity
  * @author Emre Sen, 19.07.2019
  * @contact maemresen07@gmail.com
@@ -46,15 +50,11 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	 * @return inserted entity
 	 * @throws ServiceException an exception occurred during execution of query
 	 */
-	private E save(E entity) throws DatabaseException {
-		try {
-			JpaRepository<E, ID> repository = getRepository();
-			// save entity
-			return repository.save(entity);
-		} catch (Exception exception) {
-			String errorMessage = String.format("An error occurred while saving %s", ObjectHelper.toJson(entity));
-			throw new DatabaseException(errorMessage, exception);
-		}
+	private E save(E entity) throws Exception {
+		JpaRepository<E, ID> repository = getRepository();
+
+		// save entity
+		return repository.save(entity);
 	}
 
 	@Override
@@ -64,7 +64,11 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 		// e.g setting unique UUID
 		E initializedEntity = preInsert(entity);
 
-		return save(initializedEntity);
+		try {
+			return save(initializedEntity);
+		} catch (Exception e) {
+			throw new DatabaseCreateException(e);
+		}
 	}
 
 	/**
@@ -80,42 +84,44 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	}
 
 	@Override
-	public List<E> getAll() throws DatabaseException {
-		try {
-			JpaRepository<E, ID> repository = getRepository();
-			return repository.findAll();
-		} catch (Exception exception) {
-			throw new DatabaseException("An error occurred while getting entities", exception);
-		}
-	}
-
-	@Override
-	public Optional<E> getById(ID id) throws DatabaseException {
-		try {
-			JpaRepository<E, ID> repository = getRepository();
-
-			// find entity by id
-			return repository.findById(id);
-		} catch (Exception exception) {
-			String errorMessage = String.format("An error occurred while getting Entity[%s]", id.toString());
-			throw new DatabaseException(errorMessage, exception);
-		}
-	}
-
-	@Override
 	public E update(E newEntity) throws DatabaseException, InvalidUpdateException {
 		// get old entity
 		ID id = getId(newEntity);
 		Optional<E> oldEntity = getById(id);
 
-		if(!oldEntity.isPresent()) {
-			throw new InvalidUpdateException("Cannot update non-exist enity");	
+		if (!oldEntity.isPresent()) {
+			throw new InvalidUpdateException("Cannot update non-exist enity");
 		}
-		
+
 		// prepare entity for update
 		E preparedEntity = preUpdate(oldEntity.get(), newEntity);
 
-		return save(preparedEntity);
+		try {
+			return save(preparedEntity);
+		} catch (Exception e) {
+			throw new DatabaseUpdateException(e);
+		}
+	}
+
+	@Override
+	public List<E> getAll() throws DatabaseException {
+		JpaRepository<E, ID> repository = getRepository();
+		try {
+			return repository.findAll();
+		} catch (Exception e) {
+			throw new DatabaseReadException(e);
+		}
+	}
+
+	@Override
+	public Optional<E> getById(ID id) throws DatabaseException {
+		JpaRepository<E, ID> repository = getRepository();
+		try {
+			// find entity by id
+			return repository.findById(id);
+		} catch (Exception exception) {
+			throw new DatabaseReadException(exception);
+		}
 	}
 
 	/**
@@ -138,8 +144,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			repository.delete(entity);
 			return true;
 		} catch (Exception exception) {
-			String errorMessage = String.format("An error occurred while deleting %s", ObjectHelper.toJson(entity));
-			throw new DatabaseException(errorMessage, exception);
+			throw new DatabaseDeleteException(exception);
 		}
 	}
 
@@ -151,8 +156,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 			// delete entity
 			repository.deleteAll();
 			return true;
-		} catch (Exception exception) {
-			throw new DatabaseException("An error occurred while deleting entities", exception);
+		} catch (Exception e) {
+			throw new DatabaseDeleteException(e);
 		}
 	}
 }
