@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -33,6 +34,7 @@ public abstract class ARestRead<E, ID> {
 
     // (R) read Operations
     @GetMapping("/")
+	@CrossOrigin(origins = "*")
     @ApiResponses(value = {@ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
     public RestResponse<List<E>> getAll(HttpServletRequest request, HttpServletResponse response) {
 
@@ -52,6 +54,7 @@ public abstract class ARestRead<E, ID> {
     }
 
     @GetMapping("/{id}")
+	@CrossOrigin(origins = "*")
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = MsCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
             @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
