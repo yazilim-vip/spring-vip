@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import cloud.cantek.ms.core.exception.GeneralException;
+import cloud.cantek.ms.core.exception.InvalidModelException;
 import cloud.cantek.ms.core.exception.InvalidUpdateException;
 import cloud.cantek.ms.core.exception.database.DatabaseException;
 
@@ -37,6 +38,10 @@ public class ServiceException extends MsRuntimeException {
 
 	public ServiceException(GeneralException generalException) {
 		super("System Error", generalException);
+	}
+
+	public ServiceException(InvalidModelException invalidModelException) {
+		super("Invalid Model Error", invalidModelException);
 	}
 
 	public ServiceException(String message) {
