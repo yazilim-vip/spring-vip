@@ -135,6 +135,19 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	}
 
 	@Override
+	public boolean deleteById(ID id) throws DatabaseException {
+		try {
+			JpaRepository<E, ID> repository = getRepository();
+
+			// delete entity
+			repository.deleteById(id);
+			return true;
+		} catch (Exception exception) {
+			throw new DatabaseDeleteException(exception);
+		}
+	}
+
+	@Override
 	public boolean delete(E entity) throws DatabaseException {
 		try {
 			JpaRepository<E, ID> repository = getRepository();
@@ -147,6 +160,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 		}
 	}
 
+	
 	@Override
 	public boolean deleteAll() throws DatabaseException {
 		try {

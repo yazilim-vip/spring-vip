@@ -61,6 +61,8 @@ public interface ICrudService<E, ID> {
 	Optional<E> getById(ID id) throws DatabaseException;
 
 	// (D) delete Operations
+	boolean deleteById(ID id) throws DatabaseException;
+	
 	boolean delete(E entity) throws DatabaseException;
 
 	boolean deleteAll() throws DatabaseException;
