@@ -9,7 +9,7 @@ public class MsRuntimeException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     public MsRuntimeException(String message, Exception exception) {
-        this(message + " :: " + exception.getMessage());
+        super(message + " :: " + exception.getMessage(), exception);
     } 
     
     public MsRuntimeException(String message) {
