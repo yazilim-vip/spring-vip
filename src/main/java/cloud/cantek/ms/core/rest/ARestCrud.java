@@ -49,7 +49,7 @@ public abstract class ARestCrud<E, ID> {
         // create entity
         try {
             entity = crudService.create(entity);
-        } catch (GeneralException e) {
+        } catch (Exception e) {
             throw new ServiceException(e);
         }
 
@@ -71,7 +71,7 @@ public abstract class ARestCrud<E, ID> {
         // update entity
         try {
             entity = crudService.update(entity);
-        } catch (DatabaseException | InvalidUpdateException e) {
+        } catch (Exception e) {
             throw new ServiceException(e);
         }
 
@@ -92,7 +92,7 @@ public abstract class ARestCrud<E, ID> {
         List<E> entityList = null;
         try {
             entityList = crudService.getAll();
-        } catch (DatabaseException e) {
+        } catch (Exception e) {
             throw new ServiceException(e);
         }
 
@@ -114,7 +114,7 @@ public abstract class ARestCrud<E, ID> {
         Optional<E> entity = null;
         try {
             entity = crudService.getById(id);
-        } catch (DatabaseException e) {
+        } catch (Exception e) {
             throw new ServiceException(e);
         }
         

@@ -45,7 +45,7 @@ public abstract class ARestRead<E, ID> {
         List<E> entityList = null;
         try {
             entityList = crudService.getAll();
-        } catch (DatabaseException e) {
+        } catch (Exception e) {
             throw new ServiceException(e);
         }
 
@@ -67,7 +67,7 @@ public abstract class ARestRead<E, ID> {
         Optional<E> entity = null;
         try {
             entity = crudService.getById(id);
-        } catch (DatabaseException e) {
+        } catch (Exception e) {
             throw new ServiceException(e);
         }
         
