@@ -9,12 +9,8 @@ public class MsRuntimeException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     public MsRuntimeException(String message, Exception exception) {
-        super(message, exception);
-    }
-    
-    public MsRuntimeException(Exception exception) {
-        this("System Error", exception);
-    }
+        this(message + " :: " + exception.getMessage());
+    } 
     
     public MsRuntimeException(String message) {
         super(message);
