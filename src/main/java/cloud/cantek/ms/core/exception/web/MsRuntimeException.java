@@ -8,11 +8,11 @@ public class MsRuntimeException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public MsRuntimeException(String message, Exception exception) {
+    protected MsRuntimeException(String message, Exception exception) {
         super(message + " :: " + exception.getMessage(), exception);
     } 
     
-    public MsRuntimeException(String message) {
+    protected MsRuntimeException(String message) {
         super(message);
     }
 
