@@ -15,7 +15,7 @@ public class DatabaseException extends GeneralException {
 	 */
 	private static final long serialVersionUID = 5862962376829113206L;
 
-	public DatabaseException(String message, Exception exception) {
+	protected DatabaseException(String message, Exception exception) {
         super(message, exception);
     }
 }
