@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import cloud.cantek.ms.core.exception.InvalidArgumentException;
 import cloud.cantek.ms.core.exception.InvalidUpdateException;
 import cloud.cantek.ms.core.exception.database.DatabaseCreateException;
 import cloud.cantek.ms.core.exception.database.DatabaseDeleteException;
@@ -83,7 +84,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	}
 
 	@Override
-	public E update(E newEntity) throws DatabaseException, InvalidUpdateException {
+	public E update(E newEntity) throws DatabaseException, InvalidUpdateException, InvalidArgumentException {
 		// get old entity
 		ID id = getId(newEntity);
 		Optional<E> oldEntity = getById(id);
@@ -113,7 +114,10 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	}
 
 	@Override
-	public Optional<E> getById(ID id) throws DatabaseException {
+	public Optional<E> getById(ID id) throws DatabaseException, InvalidArgumentException {
+		if(id == null) {
+			throw new InvalidArgumentException("ID cannot be null");
+		}
 		JpaRepository<E, ID> repository = getRepository();
 		try {
 			// find entity by id
