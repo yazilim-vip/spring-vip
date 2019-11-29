@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import cloud.cantek.ms.core.constant.MsCoreConstants;
-import cloud.cantek.ms.core.exception.GeneralException;
-import cloud.cantek.ms.core.exception.InvalidUpdateException;
-import cloud.cantek.ms.core.exception.database.DatabaseException;
 import cloud.cantek.ms.core.exception.web.NotFoundException;
 import cloud.cantek.ms.core.exception.web.ServiceException;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
