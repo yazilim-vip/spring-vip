@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import cloud.cantek.ms.core.constant.MsCoreConstants;
-import cloud.cantek.ms.core.exception.database.DatabaseException;
 import cloud.cantek.ms.core.exception.web.NotFoundException;
 import cloud.cantek.ms.core.exception.web.ServiceException;
 import cloud.cantek.ms.core.rest.model.RestErrorResponse;
