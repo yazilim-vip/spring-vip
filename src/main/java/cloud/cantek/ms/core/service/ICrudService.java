@@ -3,6 +3,7 @@ package cloud.cantek.ms.core.service;
 import java.util.List;
 import java.util.Optional;
 
+import cloud.cantek.ms.core.exception.InvalidArgumentException;
 import cloud.cantek.ms.core.exception.InvalidUpdateException;
 import cloud.cantek.ms.core.exception.database.DatabaseException;
 import cloud.cantek.ms.core.exception.web.ServiceException;
@@ -36,10 +37,11 @@ public interface ICrudService<E, ID> {
 	 * @param newEntity new updated values to save into data source
 	 * @return saved entity to database
 	 * @throws InvalidUpdateException
+	 * @throws InvalidArgumentException 
 	 * @throws ServiceException       an exception occurred during execution of
 	 *                                query
 	 */
-	E update(E newEntity) throws DatabaseException, InvalidUpdateException;
+	E update(E newEntity) throws DatabaseException, InvalidUpdateException, InvalidArgumentException;
 
 	// (R) read Operations
 
@@ -56,9 +58,10 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param id id field of entity
 	 * @return entity with id
+	 * @throws InvalidArgumentException 
 	 * @throws ServiceException an exception occurred during execution of query
 	 */
-	Optional<E> getById(ID id) throws DatabaseException;
+	Optional<E> getById(ID id) throws DatabaseException, InvalidArgumentException;
 
 	// (D) delete Operations
 	boolean deleteById(ID id) throws DatabaseException;

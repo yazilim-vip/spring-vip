@@ -7,7 +7,7 @@
 	<!-- Project Info -->
 	<groupId>cloud.cantek.ms</groupId>
 	<artifactId>ms-core</artifactId>
-	<version>1.0.03</version>
+	<version>1.0.04-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 
