@@ -1,1 +1,0 @@
-package cloud.cantek.ms.core.rest;
