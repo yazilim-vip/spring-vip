@@ -13,4 +13,8 @@ public class DatabaseDeleteException extends DatabaseException {
 		super(SpringCoreConstants.ERROR_MESSAGE_ENTITY_DELETE, exception);
 	}
 
+	public DatabaseDeleteException(String errorMessage, Exception exception) {
+		super(errorMessage, exception);
+	}
+
 }

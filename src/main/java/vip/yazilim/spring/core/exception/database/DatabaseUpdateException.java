@@ -13,4 +13,8 @@ public class DatabaseUpdateException extends DatabaseException {
 		super(SpringCoreConstants.ERROR_MESSAGE_ENTITY_UPDATE, exception);
 	}
 
+	public DatabaseUpdateException(String errorMessage, Exception exception) {
+		super(errorMessage, exception);
+	}
+
 }

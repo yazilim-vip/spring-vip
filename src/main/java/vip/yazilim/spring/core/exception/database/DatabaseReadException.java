@@ -12,4 +12,9 @@ public class DatabaseReadException extends DatabaseException {
 	public DatabaseReadException(Exception exception) {
 		super(SpringCoreConstants.ERROR_MESSAGE_ENTITY_READ, exception);
 	}
+
+	public DatabaseReadException(String errorMessage, Exception exception) {
+		super(errorMessage, exception);
+	}
+
 }
