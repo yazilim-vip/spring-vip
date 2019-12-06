@@ -33,8 +33,9 @@ public abstract class ARestRead<E, ID> {
 
     // (R) read Operations
     @GetMapping("/")
-	@CrossOrigin(origins = "*")
-    @ApiResponses(value = {@ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
+    @CrossOrigin(origins = "*")
+    @ApiResponses(value = {
+        @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
     public RestResponse<List<E>> getAll(HttpServletRequest request, HttpServletResponse response) {
 
         // get repo
@@ -53,10 +54,10 @@ public abstract class ARestRead<E, ID> {
     }
 
     @GetMapping("/{id}")
-	@CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*")
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = SpringCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
-            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
+        @ApiResponse(code = 404, message = SpringCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+        @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
     public RestResponse<E> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable ID id) {
 
         // get repo
@@ -69,11 +70,11 @@ public abstract class ARestRead<E, ID> {
         } catch (Exception e) {
             throw new ServiceException(e);
         }
-        
-        if(!entity.isPresent()) {
-        	throw new NotFoundException("Entity Not Found");
+
+        if (!entity.isPresent()) {
+            throw new NotFoundException("Entity Not Found");
         }
-        
+
         // init response
         return RestResponseFactory.generateResponse(entity.get(), HttpStatus.OK, request, response);
     }

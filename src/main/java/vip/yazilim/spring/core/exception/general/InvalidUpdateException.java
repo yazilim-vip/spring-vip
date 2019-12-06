@@ -8,12 +8,12 @@ package vip.yazilim.spring.core.exception.general;
  */
 public class InvalidUpdateException extends GeneralException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5862962376829113206L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5862962376829113206L;
 
-	public InvalidUpdateException(String message) {
-		super(message);
-	}
+    public InvalidUpdateException(String message) {
+        super(message);
+    }
 }

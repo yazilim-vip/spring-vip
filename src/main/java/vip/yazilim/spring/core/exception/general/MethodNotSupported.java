@@ -7,9 +7,9 @@ package vip.yazilim.spring.core.exception.general;
 public class MethodNotSupported extends GeneralException {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 2404214411760573147L;
+     *
+     */
+    private static final long serialVersionUID = 2404214411760573147L;
 
     public MethodNotSupported(String message) {
         super(message);

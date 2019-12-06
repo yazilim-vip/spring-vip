@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * The model that represetn
- * 
+ *
  * @author Emre Sen, 24.07.2019
  * @contact maemresen@yazilim.vip
  */

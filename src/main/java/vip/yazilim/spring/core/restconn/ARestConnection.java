@@ -36,9 +36,9 @@ public abstract class ARestConnection {
     /**
      * Helper method to make PUT request
      *
-     * @param <R>         type of response body
-     * @param <B>         type of request body
-     * @param resource    ...
+     * @param <R> type of response body
+     * @param <B> type of request body
+     * @param resource ...
      * @param requestBody body of post request
      * @return response body
      */
@@ -49,9 +49,9 @@ public abstract class ARestConnection {
     /**
      * Helper method to make PUT request
      *
-     * @param <R>         type of response body
-     * @param <B>         type of request body
-     * @param resource    ...
+     * @param <R> type of response body
+     * @param <B> type of request body
+     * @param resource ...
      * @param requestBody body of post request
      * @return response body
      */
@@ -62,9 +62,9 @@ public abstract class ARestConnection {
     /**
      * Helper method to make POST request
      *
-     * @param <R>         type of response body
-     * @param <B>         type of request body
-     * @param resource    ...
+     * @param <R> type of response body
+     * @param <B> type of request body
+     * @param resource ...
      * @param requestBody body of post request
      * @return response body
      */
@@ -86,7 +86,7 @@ public abstract class ARestConnection {
      * Helper method to make GET request
      *
      * @param resource ...
-     * @param params   GET request parameters
+     * @param params GET request parameters
      * @return response body
      */
     protected <R, B> R getRequest(String resource, MultiValueMap<String, String> params) {
@@ -94,7 +94,7 @@ public abstract class ARestConnection {
     }
 
     private <R, B> R execute(String resource, HttpMethod httpMethod, MultiValueMap<String, String> params,
-                             B requestBody) {
+            B requestBody) {
         String url = getEndpoint() + resource;
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
         if (params != null) {

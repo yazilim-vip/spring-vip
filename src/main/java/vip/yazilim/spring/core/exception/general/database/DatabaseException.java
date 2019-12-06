@@ -11,11 +11,11 @@ import vip.yazilim.spring.core.exception.general.GeneralException;
 public class DatabaseException extends GeneralException {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 5862962376829113206L;
+     *
+     */
+    private static final long serialVersionUID = 5862962376829113206L;
 
-	protected DatabaseException(String message, Exception exception) {
+    protected DatabaseException(String message, Exception exception) {
         super(message, exception);
     }
 }

@@ -5,24 +5,24 @@ import java.util.List;
 
 /**
  * Helper methods for lists
- * 
+ *
  * @author Emre Sen - Dec 7, 2019
  * @contact maemresen@yazilim.vip
  *
  */
 public class ListHelper {
 
-	/**
-	 * To get a not-null safe list
-	 * 
-	 * @param list input list
-	 * @return not-null list
-	 */
-	public static <T> List<T> getSafeList(List<T> list) {
-		if (list == null) {
-			return Collections.emptyList();
-		}
-		return list;
-	}
+    /**
+     * To get a not-null safe list
+     *
+     * @param list input list
+     * @return not-null list
+     */
+    public static <T> List<T> getSafeList(List<T> list) {
+        if (list == null) {
+            return Collections.emptyList();
+        }
+        return list;
+    }
 
 }
