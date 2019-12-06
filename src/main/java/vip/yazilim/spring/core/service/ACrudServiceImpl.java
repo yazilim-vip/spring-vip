@@ -12,7 +12,6 @@ import vip.yazilim.spring.core.exception.general.database.DatabaseDeleteExceptio
 import vip.yazilim.spring.core.exception.general.database.DatabaseException;
 import vip.yazilim.spring.core.exception.general.database.DatabaseReadException;
 import vip.yazilim.spring.core.exception.general.database.DatabaseUpdateException;
-import vip.yazilim.spring.core.exception.web.ServiceException;
 
 /**
  * Abstract Implementation of ICrudService.
@@ -28,6 +27,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
     /**
      * Repository of the entity that will be used with this implementation
+     *
+     * @return repository
      */
     protected abstract JpaRepository<E, ID> getRepository();
 
@@ -39,18 +40,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
      */
     protected abstract ID getId(E entity);
 
-    /**
-     * Save Entity to the Data source.
-     * <p>
-     * Insert if not exists
-     * <p>
-     * Update if exists
-     *
-     * @param entity data to insert
-     * @return inserted entity
-     * @throws ServiceException an exception occurred during execution of query
-     */
-    private E save(E entity) throws Exception {
+    @Override
+    public E save(E entity) throws DatabaseException {
         JpaRepository<E, ID> repository = getRepository();
 
         // save entity

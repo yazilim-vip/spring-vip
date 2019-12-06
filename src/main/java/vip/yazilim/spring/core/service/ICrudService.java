@@ -16,6 +16,20 @@ import vip.yazilim.spring.core.exception.web.ServiceException;
  */
 public interface ICrudService<E, ID> {
 
+    /**
+     * Save Entity to the Data source.
+     * <p>
+     * Insert if not exists
+     * <p>
+     * Update if exists
+     *
+     * @param entity data to insert
+     * @return inserted entity
+     * @throws
+     * DatabaseException
+     */
+    public E save(E entity) throws DatabaseException;
+
     // (C) create Operations
     /**
      * Insert Entity to the Data source.
