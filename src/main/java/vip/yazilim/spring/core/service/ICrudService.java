@@ -12,7 +12,7 @@ import vip.yazilim.spring.core.exception.web.ServiceException;
  * Business method definitions for CRUD operations for Entity
  *
  * @author Emre Sen, 27.06.2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  */
 public interface ICrudService<E, ID> {
 

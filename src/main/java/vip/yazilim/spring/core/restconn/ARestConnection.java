@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  * Generic REST Connection to make REST API calls.
  *
  * @author Emre Sen - Oct 19, 2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  */
 public abstract class ARestConnection {
 

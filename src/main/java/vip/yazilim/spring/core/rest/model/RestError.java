@@ -3,17 +3,17 @@ package vip.yazilim.spring.core.rest.model;
 import lombok.Data;
 
 /**
+ * The model that represetn
+ * 
  * @author Emre Sen, 24.07.2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  */
 @Data
 public class RestError {
 
-    private int errorCode;
     private String message;
 
-    public RestError(int errorCode, String message) {
-        this.errorCode = errorCode;
+    public RestError(String message) {
         this.message = message;
     }
 }

@@ -6,7 +6,7 @@ import lombok.Data;
  * Generic Response model for REST Microservices.
  * 
  * @author Emre Sen, 24.07.2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  */
 @Data
 public class RestResponse<E> {

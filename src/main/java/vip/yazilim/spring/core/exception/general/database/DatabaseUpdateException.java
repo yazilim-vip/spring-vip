@@ -6,7 +6,7 @@ import vip.yazilim.spring.core.constant.SpringCoreConstants;
  * Fired when a database update exception occurred
  * 
  * @author Emre Sen - Dec 7, 2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  *
  */
 public class DatabaseUpdateException extends DatabaseException {

@@ -2,7 +2,7 @@ package vip.yazilim.spring.core.exception.general;
 
 /**
  * @author Emre Sen, 26.06.2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  */
 public class MethodNotSupported extends GeneralException {
 

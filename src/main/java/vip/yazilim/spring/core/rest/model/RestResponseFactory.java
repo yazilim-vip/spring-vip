@@ -8,10 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerMapping;
 
+/**
+ * Utility class to gneerate RestResponse model instance.
+ * 
+ * @author Emre Sen - Dec 7, 2019
+ * @contact maemresen@yazilim.vip
+ *
+ */
 public class RestResponseFactory {
 
-	public static <B> RestResponse<B> generateResponse(B responseBody, HttpStatus httpStatus, HttpServletRequest request,
-			HttpServletResponse response) {
+	public static <B> RestResponse<B> generateResponse(B responseBody, HttpStatus httpStatus,
+			HttpServletRequest request, HttpServletResponse response) {
 
 		String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 
@@ -25,6 +32,4 @@ public class RestResponseFactory {
 		return restResponse;
 	}
 
-	
-	
 }

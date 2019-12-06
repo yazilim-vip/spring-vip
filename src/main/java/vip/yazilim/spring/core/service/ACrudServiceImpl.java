@@ -22,7 +22,7 @@ import vip.yazilim.spring.core.exception.web.ServiceException;
  * @param <E> type entity
  * @param <ID> type of identity of entity
  * @author Emre Sen, 19.07.2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  */
 public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 

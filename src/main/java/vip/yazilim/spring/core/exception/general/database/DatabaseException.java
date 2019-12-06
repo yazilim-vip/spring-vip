@@ -6,7 +6,7 @@ import vip.yazilim.spring.core.exception.general.GeneralException;
  * Fired when a database exception occurred
  *
  * @author Emre Sen, 26.06.2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  */
 public class DatabaseException extends GeneralException {
 

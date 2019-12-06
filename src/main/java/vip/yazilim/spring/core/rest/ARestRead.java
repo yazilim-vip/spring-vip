@@ -25,7 +25,7 @@ import vip.yazilim.spring.core.service.ICrudService;
  * Generic REST Controller Implementations for generic Read operations
  *
  * @author Emre Sen, 23.07.2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  */
 public abstract class ARestRead<E, ID> {
 
