@@ -22,8 +22,12 @@ import vip.yazilim.spring.core.util.RestResponseFactory;
  * Generic REST Controller Implementations for generic Read, Create and Update
  * operations
  *
+ * @param <E> Type of entity
+ * @param <ID> id of entity
+ *
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
+ *
  */
 public abstract class ARestCru<E, ID> extends ARestRead<E, ID> {
 

@@ -22,6 +22,9 @@ import vip.yazilim.spring.core.util.RestResponseFactory;
  * Generic REST Controller Implementations for generic Create, Read, Update,
  * Delete operations
  *
+ * @param <E> Type of entity
+ * @param <ID> id of entity
+ *
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
  */
