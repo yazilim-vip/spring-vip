@@ -19,13 +19,13 @@ import vip.yazilim.spring.core.service.ICrudService;
 import vip.yazilim.spring.core.util.RestResponseFactory;
 
 /**
- * Generic REST Controller Implementations for generic Create, Read, Update,
- * Delete operations
+ * Generic REST Controller Implementations for generic Read, Create and Update
+ * operations
  *
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
  */
-public abstract class ARestCrud<E, ID> extends ARestRead<E, ID> {
+public abstract class ARestCru<E, ID> extends ARestRead<E, ID> {
 
 	protected abstract ICrudService<E, ID> getService();
 

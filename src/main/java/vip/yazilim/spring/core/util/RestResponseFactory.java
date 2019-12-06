@@ -1,4 +1,4 @@
-package vip.yazilim.spring.core.rest.model;
+package vip.yazilim.spring.core.util;
 
 import java.util.Date;
 
@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerMapping;
+
+import vip.yazilim.spring.core.rest.model.RestResponse;
 
 /**
  * Utility class to gneerate RestResponse model instance.

@@ -9,8 +9,10 @@ import vip.yazilim.spring.core.exception.general.InvalidUpdateException;
 import vip.yazilim.spring.core.exception.general.database.DatabaseException;
 
 /**
+ * Fired when a Internal Server Error occurred while calling the Rest API
+ * 
  * @author Emre Sen, 26.06.2019
- * @contact maemresen07@gmail.com
+ * @contact maemresen@yazilim.vip
  */
 @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 public class ServiceException extends MsRuntimeException {

@@ -18,8 +18,8 @@ import vip.yazilim.spring.core.exception.web.NotFoundException;
 import vip.yazilim.spring.core.exception.web.ServiceException;
 import vip.yazilim.spring.core.rest.model.RestErrorResponse;
 import vip.yazilim.spring.core.rest.model.RestResponse;
-import vip.yazilim.spring.core.rest.model.RestResponseFactory;
 import vip.yazilim.spring.core.service.ICrudService;
+import vip.yazilim.spring.core.util.RestResponseFactory;
 
 /**
  * Generic REST Controller Implementations for generic Read operations

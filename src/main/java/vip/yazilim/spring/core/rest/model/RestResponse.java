@@ -21,5 +21,5 @@ public class RestResponse<E> {
 	public RestResponse(boolean hasError) {
 		this.hasError = hasError;
 	}
-	
+
 }
