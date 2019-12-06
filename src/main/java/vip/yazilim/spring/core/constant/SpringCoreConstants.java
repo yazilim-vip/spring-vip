@@ -8,7 +8,7 @@ package vip.yazilim.spring.core.constant;
  */
 public class SpringCoreConstants {
 
-	public static final String ROOT_PACKAGE = "vip.yazilim.spring.core";
+	public static final String PACKAGE_ROOT = "vip.yazilim.spring.core";
 
 	// -- Service CommonExceptions
 	public static final String ERROR_MESSAGE_METHOD_NOT_SUPPORTED = "Method Not Supported";

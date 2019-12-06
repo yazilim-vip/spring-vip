@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
+ * Fired when the request resource not found by using Rest API
+ * 
  * @author Emre Sen, 26.06.2019
  * @contact maemresen07@gmail.com
  */
