@@ -18,6 +18,10 @@ public class RestResponse<E> {
 
 	private E data;
 
+	/**
+	 * 
+	 * @param hasError is the response error response or standard response
+	 */
 	public RestResponse(boolean hasError) {
 		this.hasError = hasError;
 	}

@@ -3,6 +3,13 @@ package vip.yazilim.spring.core.util;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Helper methods for lists
+ * 
+ * @author Emre Sen - Dec 7, 2019
+ * @contact maemresen@yazilim.vip
+ *
+ */
 public class ListHelper {
 
 	/**
