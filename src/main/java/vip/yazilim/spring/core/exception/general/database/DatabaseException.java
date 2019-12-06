@@ -1,6 +1,6 @@
-package vip.yazilim.spring.core.exception.database;
+package vip.yazilim.spring.core.exception.general.database;
 
-import vip.yazilim.spring.core.exception.GeneralException;
+import vip.yazilim.spring.core.exception.general.GeneralException;
 
 /**
  * Fired when a database exception occurred

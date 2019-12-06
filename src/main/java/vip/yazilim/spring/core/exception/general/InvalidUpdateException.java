@@ -1,7 +1,7 @@
-package vip.yazilim.spring.core.exception;
+package vip.yazilim.spring.core.exception.general;
 
 /**
- * Fired when a database exception occurred
+ * Fired when an exception occurred during update process
  *
  * @author Emre Sen, 26.06.2019
  * @contact maemresen07@gmail.com

@@ -5,13 +5,13 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import vip.yazilim.spring.core.exception.InvalidArgumentException;
-import vip.yazilim.spring.core.exception.InvalidUpdateException;
-import vip.yazilim.spring.core.exception.database.DatabaseCreateException;
-import vip.yazilim.spring.core.exception.database.DatabaseDeleteException;
-import vip.yazilim.spring.core.exception.database.DatabaseException;
-import vip.yazilim.spring.core.exception.database.DatabaseReadException;
-import vip.yazilim.spring.core.exception.database.DatabaseUpdateException;
+import vip.yazilim.spring.core.exception.general.InvalidArgumentException;
+import vip.yazilim.spring.core.exception.general.InvalidUpdateException;
+import vip.yazilim.spring.core.exception.general.database.DatabaseCreateException;
+import vip.yazilim.spring.core.exception.general.database.DatabaseDeleteException;
+import vip.yazilim.spring.core.exception.general.database.DatabaseException;
+import vip.yazilim.spring.core.exception.general.database.DatabaseReadException;
+import vip.yazilim.spring.core.exception.general.database.DatabaseUpdateException;
 import vip.yazilim.spring.core.exception.web.ServiceException;
 
 /**

@@ -3,10 +3,10 @@ package vip.yazilim.spring.core.exception.web;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import vip.yazilim.spring.core.exception.GeneralException;
-import vip.yazilim.spring.core.exception.InvalidModelException;
-import vip.yazilim.spring.core.exception.InvalidUpdateException;
-import vip.yazilim.spring.core.exception.database.DatabaseException;
+import vip.yazilim.spring.core.exception.general.GeneralException;
+import vip.yazilim.spring.core.exception.general.InvalidModelException;
+import vip.yazilim.spring.core.exception.general.InvalidUpdateException;
+import vip.yazilim.spring.core.exception.general.database.DatabaseException;
 
 /**
  * @author Emre Sen, 26.06.2019

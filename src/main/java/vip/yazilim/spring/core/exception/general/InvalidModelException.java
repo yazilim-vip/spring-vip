@@ -1,5 +1,12 @@
-package vip.yazilim.spring.core.exception;
+package vip.yazilim.spring.core.exception.general;
 
+/**
+ * The model received as a parameter is not a vaild model
+ * 
+ * @author Emre Sen - Dec 7, 2019
+ * @contact maemresen07@gmail.com
+ *
+ */
 public class InvalidModelException extends GeneralException {
 	/**
 	 * 
@@ -14,5 +21,4 @@ public class InvalidModelException extends GeneralException {
 		super(message);
 	}
 
-	
 }

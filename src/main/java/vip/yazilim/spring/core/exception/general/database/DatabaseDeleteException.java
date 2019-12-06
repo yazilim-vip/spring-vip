@@ -1,7 +1,13 @@
-package vip.yazilim.spring.core.exception.database;
+package vip.yazilim.spring.core.exception.general.database;
 
 import vip.yazilim.spring.core.constant.SpringCoreConstants;
 
+/**
+ * Fired when a database delete exception occurred
+ * @author Emre Sen - Dec 7, 2019
+ * @contact maemresen07@gmail.com
+ *
+ */
 public class DatabaseDeleteException extends DatabaseException {
 
 	/**

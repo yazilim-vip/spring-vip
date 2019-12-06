@@ -1,4 +1,4 @@
 /**
  * Constants Defined under that package
  */
-package vip.yazilim.spring.core.constant;
+package vip.yazilim.spring.core.exception;

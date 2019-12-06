@@ -1,4 +1,4 @@
-package vip.yazilim.spring.core.exception;
+package vip.yazilim.spring.core.exception.general;
 
 /**
  * @author Emre Sen, 26.06.2019

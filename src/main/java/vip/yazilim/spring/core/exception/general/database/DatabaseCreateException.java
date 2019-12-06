@@ -1,8 +1,15 @@
-package vip.yazilim.spring.core.exception.database;
+package vip.yazilim.spring.core.exception.general.database;
 
 import vip.yazilim.spring.core.constant.SpringCoreConstants;
 
-public class DatabaseCreateException extends DatabaseException{
+/**
+ * Fired when a database create exception occurred
+ * 
+ * @author Emre Sen - Dec 7, 2019
+ * @contact maemresen07@gmail.com
+ *
+ */
+public class DatabaseCreateException extends DatabaseException {
 
 	/**
 	 * 

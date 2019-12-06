@@ -1,6 +1,8 @@
 package vip.yazilim.spring.core.constant;
 
 /**
+ * Global String constant definitions for the library
+ * 
  * @author Emre Sen, 16.08.2019
  * @contact maemresen07@gmail.com
  */

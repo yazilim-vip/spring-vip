@@ -1,5 +1,12 @@
-package vip.yazilim.spring.core.exception;
+package vip.yazilim.spring.core.exception.general;
 
+/**
+ * Fired when a system based general exception occurred
+ * 
+ * @author Emre Sen - Dec 7, 2019
+ * @contact maemresen07@gmail.com
+ *
+ */
 public class GeneralException extends Exception {
 
 	/**
