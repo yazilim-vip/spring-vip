@@ -8,7 +8,7 @@
     <!-- Project Info -->
     <groupId>vip.yazilim.spring</groupId>
     <artifactId>spring-core</artifactId>
-    <version>1.0.00-SNAPSHOT</version>
+    <version>1.0.00</version>
     <packaging>jar</packaging>
 
 
