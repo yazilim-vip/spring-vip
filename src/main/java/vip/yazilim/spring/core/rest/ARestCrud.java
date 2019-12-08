@@ -1,22 +1,18 @@
 package vip.yazilim.spring.core.rest;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import vip.yazilim.spring.core.constant.SpringCoreConstants;
 import vip.yazilim.spring.core.exception.web.ServiceException;
 import vip.yazilim.spring.core.rest.model.RestErrorResponse;
 import vip.yazilim.spring.core.rest.model.RestResponse;
 import vip.yazilim.spring.core.service.ICrudService;
 import vip.yazilim.spring.core.util.RestResponseFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Generic REST Controller Implementations for generic Create, Read, Update,
@@ -36,7 +32,7 @@ public abstract class ARestCrud<E, ID> extends ARestRead<E, ID> {
     @PostMapping("/")
     @CrossOrigin(origins = "*")
     @ApiResponses(value = {
-        @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
+            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
     public RestResponse<E> create(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
 
         // get repo
@@ -57,8 +53,8 @@ public abstract class ARestCrud<E, ID> extends ARestRead<E, ID> {
     @PutMapping("/")
     @CrossOrigin(origins = "*")
     @ApiResponses(value = {
-        @ApiResponse(code = 404, message = SpringCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
-        @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
+            @ApiResponse(code = 404, message = SpringCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
     public RestResponse<E> update(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
 
         // get repo
@@ -73,5 +69,29 @@ public abstract class ARestCrud<E, ID> extends ARestRead<E, ID> {
 
         // init response
         return RestResponseFactory.generateResponse(entity, HttpStatus.OK, request, response);
+    }
+
+    // (D) delete Operations
+    @DeleteMapping("/{id}")
+    @CrossOrigin(origins = "*")
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = SpringCoreConstants.ERROR_MESSAGE_ENTITY_NOT_FOUND, response = RestErrorResponse.class),
+            @ApiResponse(code = 500, message = "Internal Error", response = RestErrorResponse.class)})
+    public RestResponse<Boolean> delete(HttpServletRequest request, HttpServletResponse response, @PathVariable ID id) {
+        // get repo
+        ICrudService<E, ID> crudService = getService();
+
+        // delete status
+        Boolean status;
+
+        // delete entity
+        try {
+            status = crudService.deleteById(id);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+
+        // init response
+        return RestResponseFactory.generateResponse(status, HttpStatus.OK, request, response);
     }
 }
