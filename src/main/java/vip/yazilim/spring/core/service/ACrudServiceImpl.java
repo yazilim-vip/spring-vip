@@ -130,7 +130,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
     }
 
     @Override
-    public boolean deleteById(ID id) throws DatabaseException {
+    public boolean deleteById(ID id) throws DatabaseException, InvalidArgumentException {
         try {
             JpaRepository<E, ID> repository = getRepository();
 
