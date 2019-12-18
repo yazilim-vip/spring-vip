@@ -49,7 +49,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
     }
 
     @Override
-    public E create(E entity) throws DatabaseException {
+    public E create(E entity) throws DatabaseException, InvalidArgumentException {
 
         // initialize entity to insert
         // e.g setting unique UUID
