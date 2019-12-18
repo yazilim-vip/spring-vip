@@ -40,7 +40,7 @@ public interface ICrudService<E, ID> {
      * @throws PrimaryKeyDuplicationException
      * @throws ServiceException an exception occurred during execution of query
      */
-    E create(E entity) throws DatabaseException;
+    E create(E entity) throws DatabaseException, InvalidArgumentException;
 
     // (U) update Operations
     /**
@@ -74,7 +74,7 @@ public interface ICrudService<E, ID> {
     Optional<E> getById(ID id) throws DatabaseException, InvalidArgumentException;
 
     // (D) delete Operations
-    boolean deleteById(ID id) throws DatabaseException;
+    boolean deleteById(ID id) throws DatabaseException, InvalidArgumentException;
 
     boolean delete(E entity) throws DatabaseException;
 
