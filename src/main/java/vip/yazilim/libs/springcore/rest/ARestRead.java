@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import vip.yazilim.libs.springcore.exception.service.ResourceNotFoundException;
 import vip.yazilim.libs.springcore.exception.service.ServiceException;
 import vip.yazilim.libs.springcore.rest.model.RestResponse;
-import vip.yazilim.libs.springcore.rest.model.RestResponseFactory;
 import vip.yazilim.libs.springcore.service.ICrudService;
 
 /**
@@ -42,7 +41,7 @@ public abstract class ARestRead<E, ID> {
         }
 
         // init response
-        return RestResponseFactory.generateResponse(entityList, HttpStatus.OK, request, response);
+        return RestResponse.generateResponse(entityList, HttpStatus.OK, request, response);
     }
 
     @GetMapping("/{id}")
@@ -58,13 +57,14 @@ public abstract class ARestRead<E, ID> {
         } catch (Exception e) {
             throw new ServiceException(e);
         }
-        
-        if(!entity.isPresent()) {
-        	throw new ResourceNotFoundException("Entity Not Found");
+
+        if (!entity.isPresent()) {
+            throw new ResourceNotFoundException("Entity Not Found");
         }
-        
+
         // init response
-        return RestResponseFactory.generateResponse(entity.get(), HttpStatus.OK, request, response);
+        return RestResponse.generateResponse(entity.get(), HttpStatus.OK, request, response);
     }
+
 
 }
