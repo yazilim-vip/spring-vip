@@ -126,7 +126,8 @@ public abstract class AThread {
         try {
             doThreadJob();
         } catch (Exception e) {
-            LogHelper.logException(LOGGER, e);
+
+            LogHelper.traceException(LOGGER, e);
             incrementTryCount();
         }
     }
