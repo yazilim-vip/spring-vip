@@ -21,13 +21,13 @@
         <repository>
             <id>central</id>
             <name>c0ba366775bb-releases</name>
-            <url>http://yazilim.vip:8081/artifactory/libs-release-local</url>
+            <url>http://artifactory.yazilim.vip/artifactory/libs-release-local</url>
         </repository>
 
         <snapshotRepository>
             <id>snapshots</id>
             <name>c0ba366775bb-snapshots</name>
-            <url>http://yazilim.vip:8081/artifactory/libs-snapshot-local</url>
+            <url>http://artifactory.yazilim.vip/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -61,11 +61,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-        </dependency>
+        
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
