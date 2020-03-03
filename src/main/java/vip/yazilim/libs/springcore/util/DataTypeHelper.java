@@ -31,6 +31,20 @@ public class DataTypeHelper {
         }
         return string;
     }
+    
+
+    /**
+     * TODO: explain commnet
+     * @param object
+     * @return
+     */
+    public static String getNullSafeToString(Object object) {
+        if (object == null) {
+            return "";
+        }
+        return String.valueOf(object);
+    }
+    
 
     /**
      * Convert input hexadecimal string into an integer

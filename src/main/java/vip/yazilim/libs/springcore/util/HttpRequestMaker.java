@@ -20,16 +20,15 @@ import java.util.Map;
  */
 public class HttpRequestMaker {
 
-    public <B, R> R getRequest(String baseUri, String resource
+    public static <B, R> R getRequest(String baseUri, String resource
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap
-            , HttpMethod httpMethod) {
+            , MultiValueMap<String, String> queryParamMap) {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.GET);
     }
 
-    public <B, R> R putRequest(String baseUri, String resource
+    public static <B, R> R putRequest(String baseUri, String resource
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
@@ -38,7 +37,7 @@ public class HttpRequestMaker {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.PUT);
     }
 
-    public <B, R> R postRequest(String baseUri, String resource
+    public static <B, R> R postRequest(String baseUri, String resource
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
@@ -47,7 +46,7 @@ public class HttpRequestMaker {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.POST);
     }
 
-    public <B, R> R deleteRequest(String baseUri, String resource
+    public static <B, R> R deleteRequest(String baseUri, String resource
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
@@ -56,7 +55,7 @@ public class HttpRequestMaker {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.DELETE);
     }
 
-    public <B, R> R jsonRequest(String baseUri, String resource
+    public static <B, R> R jsonRequest(String baseUri, String resource
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
