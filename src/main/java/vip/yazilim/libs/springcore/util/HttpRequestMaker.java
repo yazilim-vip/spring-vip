@@ -1,18 +1,17 @@
 package vip.yazilim.libs.springcore.util;
 
+import java.net.URI;
+import java.util.Map;
+
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.util.UriComponentsBuilder;
-import vip.yazilim.libs.springcore.rest.model.RestResponse;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
-import java.util.Date;
-import java.util.Map;
 
 /**
  * @author Emre Sen, 26.07.2019
@@ -24,8 +23,7 @@ public class HttpRequestMaker {
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap
-            , HttpMethod httpMethod) {
+            , MultiValueMap<String, String> queryParamMap) {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.GET);
     }
 
@@ -33,8 +31,7 @@ public class HttpRequestMaker {
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap
-            , HttpMethod httpMethod) {
+            , MultiValueMap<String, String> queryParamMap) {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.PUT);
     }
 
@@ -42,8 +39,7 @@ public class HttpRequestMaker {
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap
-            , HttpMethod httpMethod) {
+            , MultiValueMap<String, String> queryParamMap) {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.POST);
     }
 
@@ -51,8 +47,7 @@ public class HttpRequestMaker {
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap
-            , HttpMethod httpMethod) {
+            , MultiValueMap<String, String> queryParamMap) {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.DELETE);
     }
 
