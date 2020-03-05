@@ -31,8 +31,7 @@ public class HttpRequestMaker {
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap
-            , HttpMethod httpMethod) {
+            , MultiValueMap<String, String> queryParamMap) {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.PUT);
     }
 
@@ -40,8 +39,7 @@ public class HttpRequestMaker {
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap
-            , HttpMethod httpMethod) {
+            , MultiValueMap<String, String> queryParamMap) {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.POST);
     }
 
@@ -49,8 +47,7 @@ public class HttpRequestMaker {
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap
-            , HttpMethod httpMethod) {
+            , MultiValueMap<String, String> queryParamMap) {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.DELETE);
     }
 
