@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import vip.yazilim.libs.springcore.exception.service.ServiceException;
+import vip.yazilim.libs.springcore.exception.service.RestException;
 import vip.yazilim.libs.springcore.rest.model.RestResponse;
 import vip.yazilim.libs.springcore.service.ICrudService;
 
@@ -32,7 +32,7 @@ public abstract class ARestCru<E, ID> extends ARestRead<E, ID> {
         try {
             entity = crudService.create(entity);
         } catch (Exception e) {
-            throw new ServiceException(e);
+            throw new RestException(e);
         }
 
         // init response
@@ -50,7 +50,7 @@ public abstract class ARestCru<E, ID> extends ARestRead<E, ID> {
         try {
             entity = crudService.update(entity);
         } catch (Exception e) {
-            throw new ServiceException(e);
+            throw new RestException(e);
         }
 
         // init response

@@ -12,7 +12,7 @@ import vip.yazilim.libs.springcore.exception.general.database.DatabaseDeleteExce
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseReadException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseUpdateException;
-import vip.yazilim.libs.springcore.exception.service.ServiceException;
+import vip.yazilim.libs.springcore.exception.service.RestException;
 
 /**
  * Abstract Implementation of ICrudService.
@@ -48,7 +48,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
      *
      * @param entity data to insert
      * @return inserted entity
-     * @throws ServiceException an exception occurred during execution of query
+     * @throws RestException an exception occurred during execution of query
      */
     private E save(E entity) throws Exception {
         JpaRepository<E, ID> repository = getRepository();

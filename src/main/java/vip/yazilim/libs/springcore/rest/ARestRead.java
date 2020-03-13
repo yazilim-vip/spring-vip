@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import vip.yazilim.libs.springcore.exception.service.ResourceNotFoundException;
-import vip.yazilim.libs.springcore.exception.service.ServiceException;
+import vip.yazilim.libs.springcore.exception.service.RestException;
 import vip.yazilim.libs.springcore.rest.model.RestResponse;
 import vip.yazilim.libs.springcore.service.ICrudService;
 
@@ -37,7 +37,7 @@ public abstract class ARestRead<E, ID> {
         try {
             entityList = crudService.getAll();
         } catch (Exception e) {
-            throw new ServiceException(e);
+            throw new RestException(e);
         }
 
         // init response
@@ -55,7 +55,7 @@ public abstract class ARestRead<E, ID> {
         try {
             entity = crudService.getById(id);
         } catch (Exception e) {
-            throw new ServiceException(e);
+            throw new RestException(e);
         }
 
         if (!entity.isPresent()) {

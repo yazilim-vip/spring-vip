@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @contact maemresen@yazilim.vip
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends MsRuntimeException {
+public class ResourceNotFoundException extends SpringCoreRuntimeException {
 
 	/**
 	 * 
