@@ -17,20 +17,6 @@
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>c0ba366775bb-releases</name>
-            <url>http://artifactory.yazilim.vip/artifactory/libs-release-local</url>
-        </repository>
-
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>c0ba366775bb-snapshots</name>
-            <url>http://artifactory.yazilim.vip/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 
     <dependencyManagement>
         <dependencies>
