@@ -1,6 +1,6 @@
 package vip.yazilim.libs.springcore.exception.general.database;
 
-import vip.yazilim.libs.springcore.exception.general.GeneralException;
+import vip.yazilim.libs.springcore.exception.general.BusinessLogicException;
 
 /**
  * Fired when a database exception occurred
@@ -8,7 +8,7 @@ import vip.yazilim.libs.springcore.exception.general.GeneralException;
  * @author Emre Sen, 26.06.2019
  * @contact maemresen@yazilim.vip
  */
-public class DatabaseException extends GeneralException {
+public class DatabaseException extends BusinessLogicException {
 
     /**
 	 * 

@@ -2,7 +2,7 @@ package vip.yazilim.libs.springcore.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import vip.yazilim.libs.springcore.exception.service.ServiceException;
+import vip.yazilim.libs.springcore.exception.service.RestException;
 import vip.yazilim.libs.springcore.rest.model.RestResponse;
 import vip.yazilim.libs.springcore.service.ICrudService;
 
@@ -31,7 +31,7 @@ public abstract class ARestCrud<E, ID> extends ARestCru<E, ID> {
         try {
             status = crudService.deleteById(id);
         } catch (Exception e) {
-            throw new ServiceException(e);
+            throw new RestException(e);
         }
 
         // init response

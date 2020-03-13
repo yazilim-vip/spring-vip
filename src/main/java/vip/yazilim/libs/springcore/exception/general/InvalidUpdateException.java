@@ -6,7 +6,7 @@ package vip.yazilim.libs.springcore.exception.general;
  * @author Emre Sen, 26.06.2019
  * @contact maemresen@yazilim.vip
  */
-public class InvalidUpdateException extends GeneralException {
+public class InvalidUpdateException extends BusinessLogicException {
 
 	/**
 	 * 

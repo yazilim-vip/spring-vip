@@ -1,6 +1,6 @@
 package vip.yazilim.libs.springcore.exception.general;
 
-public class InvalidArgumentException extends GeneralException {
+public class InvalidArgumentException extends BusinessLogicException {
 
 	/**
 	 * 

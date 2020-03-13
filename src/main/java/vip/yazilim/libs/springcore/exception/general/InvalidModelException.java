@@ -1,6 +1,6 @@
 package vip.yazilim.libs.springcore.exception.general;
 
-public class InvalidModelException extends GeneralException {
+public class InvalidModelException extends BusinessLogicException {
 	/**
 	 * 
 	 */

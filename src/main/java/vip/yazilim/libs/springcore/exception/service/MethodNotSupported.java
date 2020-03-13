@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @contact maemresen@yazilim.vip
  */
 @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-public class MethodNotSupported extends MsRuntimeException {
+public class MethodNotSupported extends SpringCoreRuntimeException {
 
     /**
      *

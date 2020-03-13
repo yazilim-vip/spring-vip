@@ -6,7 +6,7 @@ import java.util.Optional;
 import vip.yazilim.libs.springcore.exception.general.InvalidArgumentException;
 import vip.yazilim.libs.springcore.exception.general.InvalidUpdateException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseException;
-import vip.yazilim.libs.springcore.exception.service.ServiceException;
+import vip.yazilim.libs.springcore.exception.service.RestException;
 
 /**
  * Business method definitions for CRUD operations for Entity
@@ -22,7 +22,7 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param entity data to insert
 	 * @return inserted entity
-	 * @throws ServiceException                   an exception occurred during
+	 * @throws RestException                   an exception occurred during
 	 *                                            execution of query
 	 */
 	E create(E entity) throws DatabaseException;
@@ -34,7 +34,7 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param newEntity new updated values to save into data source
 	 * @return saved entity to database
-	 * @throws ServiceException       an exception occurred during execution of
+	 * @throws RestException       an exception occurred during execution of
 	 *                                query
 	 */
 	E update(E newEntity) throws DatabaseException, InvalidUpdateException, InvalidArgumentException;
@@ -45,7 +45,7 @@ public interface ICrudService<E, ID> {
 	 * Get all entities on the table
 	 *
 	 * @return list of entities
-	 * @throws ServiceException
+	 * @throws RestException
 	 */
 	List<E> getAll() throws DatabaseException;
 
@@ -55,7 +55,7 @@ public interface ICrudService<E, ID> {
 	 * @param id id field of entity
 	 * @return entity with id
 	 * @throws InvalidArgumentException 
-	 * @throws ServiceException an exception occurred during execution of query
+	 * @throws RestException an exception occurred during execution of query
 	 */
 	Optional<E> getById(ID id) throws DatabaseException, InvalidArgumentException;
 
