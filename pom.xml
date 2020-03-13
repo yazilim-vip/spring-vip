@@ -7,7 +7,7 @@
     <!-- Project Info -->
     <groupId>vip.yazilim.libs</groupId>
     <artifactId>spring-core</artifactId>
-    <version>2.1.00</version>
+    <version>2.1.01</version>
     <packaging>jar</packaging>
 
     <!-- Properties -->
@@ -16,20 +16,6 @@
         <lib-java-version>1.8</lib-java-version>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
     </properties>
-
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>c0ba366775bb-releases</name>
-            <url>http://artifactory.yazilim.vip/artifactory/libs-release-local</url>
-        </repository>
-
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>c0ba366775bb-snapshots</name>
-            <url>http://artifactory.yazilim.vip/artifactory/libs-snapshot-local</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 
     <dependencyManagement>
