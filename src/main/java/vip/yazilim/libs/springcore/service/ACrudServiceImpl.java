@@ -11,6 +11,7 @@ import vip.yazilim.libs.springcore.exception.DatabaseDeleteException;
 import vip.yazilim.libs.springcore.exception.DatabaseReadException;
 import vip.yazilim.libs.springcore.exception.DatabaseSaveException;
 import vip.yazilim.libs.springcore.exception.DatabaseUpdateException;
+import vip.yazilim.libs.springcore.util.ListHelper;
 
 /**
  * Abstract Implementation of ICrudService.
@@ -102,14 +103,15 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 	public List<E> getAll() throws DatabaseReadException {
 		try {
 			JpaRepository<E, ID> repository = getRepository();
-			return repository.findAll();
+			List<E> resultList = repository.findAll();
+			return ListHelper.getSafeList(resultList);
 		} catch (Exception exception) {
 			throw new DatabaseReadException(getClassOfEntity(), exception);
 		}
 	}
 
 	@Override
-	public Optional<E> getById(ID id) throws DatabaseReadException{
+	public Optional<E> getById(ID id) throws DatabaseReadException {
 		try {
 			JpaRepository<E, ID> repository = getRepository();
 			if (id == null) {
