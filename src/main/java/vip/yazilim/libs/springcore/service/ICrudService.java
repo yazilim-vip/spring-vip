@@ -3,9 +3,9 @@ package vip.yazilim.libs.springcore.service;
 import java.util.List;
 import java.util.Optional;
 
-import vip.yazilim.libs.springcore.exception.general.InvalidArgumentException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseException;
-import vip.yazilim.libs.springcore.exception.service.RestException;
+import vip.yazilim.libs.springcore.exception.checked.InvalidArgumentException;
+import vip.yazilim.libs.springcore.exception.checked.database.DatabaseException;
+import vip.yazilim.libs.springcore.exception.unchecked.RestException;
 
 /**
  * Business method definitions for CRUD operations for Entity

@@ -1,6 +1,6 @@
-package vip.yazilim.libs.springcore.exception.general.database;
+package vip.yazilim.libs.springcore.exception.checked.database;
 
-import vip.yazilim.libs.springcore.exception.general.BusinessLogicException;
+import vip.yazilim.libs.springcore.exception.checked.BusinessLogicException;
 
 /**
  * Fired when a database exception occurred

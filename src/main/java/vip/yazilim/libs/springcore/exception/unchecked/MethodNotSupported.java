@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springcore.exception.service;
+package vip.yazilim.libs.springcore.exception.unchecked;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

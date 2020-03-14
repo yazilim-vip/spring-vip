@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import vip.yazilim.libs.springcore.exception.service.RestException;
+import vip.yazilim.libs.springcore.exception.unchecked.RestException;
 import vip.yazilim.libs.springcore.rest.model.RestResponse;
 import vip.yazilim.libs.springcore.service.ICrudService;
 

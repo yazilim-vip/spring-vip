@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 
-import vip.yazilim.libs.springcore.exception.general.ThreadException;
+import vip.yazilim.libs.springcore.exception.checked.ThreadException;
 import vip.yazilim.libs.springcore.util.LogHelper;
 
 public abstract class AThread {

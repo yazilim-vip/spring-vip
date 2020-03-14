@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import vip.yazilim.libs.springcore.exception.service.ResourceNotFoundException;
-import vip.yazilim.libs.springcore.exception.service.RestException;
+import vip.yazilim.libs.springcore.exception.unchecked.ResourceNotFoundException;
+import vip.yazilim.libs.springcore.exception.unchecked.RestException;
 import vip.yazilim.libs.springcore.rest.model.RestResponse;
 import vip.yazilim.libs.springcore.service.ICrudService;
 

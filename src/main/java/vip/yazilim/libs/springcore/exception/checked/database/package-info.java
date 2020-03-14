@@ -6,4 +6,4 @@
  * @contact maemresen@yazilim.vip
  *
  */
-package vip.yazilim.libs.springcore.exception.general.database;
+package vip.yazilim.libs.springcore.exception.checked.database;

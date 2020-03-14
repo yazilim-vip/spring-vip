@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springcore.exception.general.database;
+package vip.yazilim.libs.springcore.exception.checked.database;
 
 public class DatabaseCreateException extends DatabaseException {
 	

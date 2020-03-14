@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springcore.exception.service;
+package vip.yazilim.libs.springcore.exception.unchecked;
 
 /**
  * @author Emre Sen, 26.06.2019

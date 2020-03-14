@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import vip.yazilim.libs.springcore.exception.general.BusinessLogicException;
-import vip.yazilim.libs.springcore.exception.general.InvalidArgumentException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseCreateException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseDeleteException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseReadException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseSaveException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseUpdateException;
+import vip.yazilim.libs.springcore.exception.checked.BusinessLogicException;
+import vip.yazilim.libs.springcore.exception.checked.InvalidArgumentException;
+import vip.yazilim.libs.springcore.exception.checked.database.DatabaseCreateException;
+import vip.yazilim.libs.springcore.exception.checked.database.DatabaseDeleteException;
+import vip.yazilim.libs.springcore.exception.checked.database.DatabaseException;
+import vip.yazilim.libs.springcore.exception.checked.database.DatabaseReadException;
+import vip.yazilim.libs.springcore.exception.checked.database.DatabaseSaveException;
+import vip.yazilim.libs.springcore.exception.checked.database.DatabaseUpdateException;
 
 /**
  * Abstract Implementation of ICrudService.
