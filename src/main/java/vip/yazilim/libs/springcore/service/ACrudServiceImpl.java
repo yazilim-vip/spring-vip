@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import vip.yazilim.libs.springcore.exception.general.InvalidArgumentException;
-import vip.yazilim.libs.springcore.exception.general.InvalidUpdateException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseCreateException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseDeleteException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseException;
@@ -52,7 +51,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
      * @return inserted entity
      * @throws RestException an exception occurred during execution of query
      */
-    private E save(E entity) throws Exception {
+    @Override
+    public E save(E entity) throws Exception {
         JpaRepository<E, ID> repository = getRepository();
 
         // save entity
@@ -86,13 +86,13 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
     }
 
     @Override
-    public E update(E newEntity) throws DatabaseException, InvalidUpdateException, InvalidArgumentException {
+    public E update(E newEntity) throws DatabaseException, InvalidArgumentException {
         // get old entity
         ID id = getId(newEntity);
         Optional<E> oldEntity = getById(id);
 
         if (!oldEntity.isPresent()) {
-            throw new InvalidUpdateException("Cannot update non-exist enity");
+            throw new InvalidArgumentException("Cannot update non-exist enity");
         }
 
         // prepare entity for update

@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import vip.yazilim.libs.springcore.exception.general.BusinessLogicException;
 import vip.yazilim.libs.springcore.exception.general.InvalidModelException;
-import vip.yazilim.libs.springcore.exception.general.InvalidUpdateException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseException;
-
 /**
  * @author Emre Sen, 26.06.2019
  * @contact maemresen@yazilim.vip
@@ -30,10 +28,6 @@ public class RestException extends SpringCoreRuntimeException {
 
 	public RestException(DatabaseException databaseException) {
 		super("Database Error", databaseException);
-	}
-
-	public RestException(InvalidUpdateException invalidUpdateException) {
-		super("Database Error", invalidUpdateException);
 	}
 
 	public RestException(BusinessLogicException generalException) {

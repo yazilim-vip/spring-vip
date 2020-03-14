@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import vip.yazilim.libs.springcore.exception.general.InvalidArgumentException;
-import vip.yazilim.libs.springcore.exception.general.InvalidUpdateException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseException;
 import vip.yazilim.libs.springcore.exception.service.RestException;
 
@@ -16,14 +15,22 @@ import vip.yazilim.libs.springcore.exception.service.RestException;
  */
 public interface ICrudService<E, ID> {
 
+	/**
+	 * Insert/Update Entity to the data source
+	 * 
+	 * @param entity entity data to insert/update
+	 * @return inserted/updated entity
+	 * @throws Exception
+	 */
+	E save(E entity) throws Exception;
+
 	// (C) create Operations
 	/**
 	 * Insert Entity to the Data source.
 	 *
 	 * @param entity data to insert
 	 * @return inserted entity
-	 * @throws RestException                   an exception occurred during
-	 *                                            execution of query
+	 * @throws RestException an exception occurred during execution of query
 	 */
 	E create(E entity) throws DatabaseException;
 
@@ -34,10 +41,9 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param newEntity new updated values to save into data source
 	 * @return saved entity to database
-	 * @throws RestException       an exception occurred during execution of
-	 *                                query
+	 * @throws RestException an exception occurred during execution of query
 	 */
-	E update(E newEntity) throws DatabaseException, InvalidUpdateException, InvalidArgumentException;
+	E update(E newEntity) throws DatabaseException, InvalidArgumentException;
 
 	// (R) read Operations
 
@@ -54,15 +60,17 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param id id field of entity
 	 * @return entity with id
-	 * @throws InvalidArgumentException 
-	 * @throws RestException an exception occurred during execution of query
+	 * @throws InvalidArgumentException
+	 * @throws RestException            an exception occurred during execution of
+	 *                                  query
 	 */
 	Optional<E> getById(ID id) throws DatabaseException, InvalidArgumentException;
 
 	// (D) delete Operations
 	boolean deleteById(ID id) throws DatabaseException;
-	
+
 	boolean delete(E entity) throws DatabaseException;
 
 	boolean deleteAll() throws DatabaseException;
+
 }
