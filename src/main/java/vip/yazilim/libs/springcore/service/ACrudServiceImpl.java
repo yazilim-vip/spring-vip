@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import vip.yazilim.libs.springcore.exception.DatabaseCreateException;
 import vip.yazilim.libs.springcore.exception.DatabaseDeleteException;
-import vip.yazilim.libs.springcore.exception.DatabaseException;
 import vip.yazilim.libs.springcore.exception.DatabaseReadException;
 import vip.yazilim.libs.springcore.exception.DatabaseSaveException;
 import vip.yazilim.libs.springcore.exception.DatabaseUpdateException;
