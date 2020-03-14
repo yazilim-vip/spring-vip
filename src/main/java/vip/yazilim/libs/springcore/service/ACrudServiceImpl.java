@@ -5,13 +5,14 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import vip.yazilim.libs.springcore.exception.general.BusinessLogicException;
 import vip.yazilim.libs.springcore.exception.general.InvalidArgumentException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseCreateException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseDeleteException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseReadException;
+import vip.yazilim.libs.springcore.exception.general.database.DatabaseSaveException;
 import vip.yazilim.libs.springcore.exception.general.database.DatabaseUpdateException;
-import vip.yazilim.libs.springcore.exception.service.RestException;
 
 /**
  * Abstract Implementation of ICrudService.
@@ -40,23 +41,22 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
      */
     protected abstract ID getId(E entity);
 
-    /**
-     * Save Entity to the Data source.
-     * <p>
-     * Insert if not exists
-     * <p>
-     * Update if exists
-     *
-     * @param entity data to insert
-     * @return inserted entity
-     * @throws RestException an exception occurred during execution of query
-     */
-    @Override
-    public E save(E entity) throws Exception {
-        JpaRepository<E, ID> repository = getRepository();
 
-        // save entity
-        return repository.save(entity);
+    public E save(E entity) throws Exception {
+        JpaRepository<E, ID> repository = this.getRepository();
+
+        E savedEntity;
+        try {
+            savedEntity = repository.save(entity);
+        } catch (Exception exception) {
+            throw new DatabaseSaveException(entity.getClass(), this.getId(entity), exception);
+        }
+
+        if (savedEntity == null) {
+            throw new BusinessLogicException("Created entity not found");
+        } else {
+            return savedEntity;
+        }
     }
 
     @Override
@@ -68,8 +68,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
         try {
             return save(initializedEntity);
-        } catch (Exception e) {
-            throw new DatabaseCreateException(e);
+        } catch (Exception exception) {
+        	throw new DatabaseCreateException(getClassOfEntity(), this.getId(initializedEntity), exception);
         }
     }
 
@@ -100,8 +100,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
         try {
             return save(preparedEntity);
-        } catch (Exception e) {
-            throw new DatabaseUpdateException(e);
+        } catch (Exception exception) {
+        	throw new DatabaseUpdateException(getClassOfEntity(), id, exception);
         }
     }
 
@@ -110,8 +110,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
         JpaRepository<E, ID> repository = getRepository();
         try {
             return repository.findAll();
-        } catch (Exception e) {
-            throw new DatabaseReadException(e);
+        } catch (Exception exception) {
+        	throw new DatabaseReadException(getClassOfEntity(), exception);
         }
     }
 
@@ -125,7 +125,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             // find entity by id
             return repository.findById(id);
         } catch (Exception exception) {
-            throw new DatabaseReadException(exception);
+        	throw new DatabaseReadException(getClassOfEntity(), exception);
         }
     }
 
@@ -149,7 +149,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             repository.deleteById(id);
             return true;
         } catch (Exception exception) {
-            throw new DatabaseDeleteException(exception);
+        	throw new DatabaseDeleteException(getClassOfEntity(), exception);
         }
     }
 
@@ -162,7 +162,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             repository.delete(entity);
             return true;
         } catch (Exception exception) {
-            throw new DatabaseDeleteException(exception);
+        	throw new DatabaseDeleteException(getClassOfEntity(), exception);
         }
     }
 
@@ -175,8 +175,8 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
             // delete entity
             repository.deleteAll();
             return true;
-        } catch (Exception e) {
-            throw new DatabaseDeleteException(e);
+        } catch (Exception exception) {
+        	throw new DatabaseDeleteException(getClassOfEntity(), exception);
         }
     }
 }

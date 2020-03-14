@@ -1,13 +1,15 @@
 package vip.yazilim.libs.springcore.exception.general.database;
 
+import java.util.Arrays;
+
 public class DatabaseReadException extends DatabaseException {
+    private static final long serialVersionUID = -3490767649996233498L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3490767649996233498L;
+    public <E, ID> DatabaseReadException(Class<E> entityClass, Exception exception) {
+        super(entityClass, "READ", "", exception);
+    }
 
-	public DatabaseReadException(Exception exception) {
-		super("An error occurred while fetching Entity", exception);
-	}
+    public <E, ID> DatabaseReadException(Class<E> entityClass, Exception exception, Object... params) {
+        super(entityClass, "READ", Arrays.toString(params), exception);
+    }
 }

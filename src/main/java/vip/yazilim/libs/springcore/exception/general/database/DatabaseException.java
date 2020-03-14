@@ -9,13 +9,9 @@ import vip.yazilim.libs.springcore.exception.general.BusinessLogicException;
  * @contact maemresen@yazilim.vip
  */
 public class DatabaseException extends BusinessLogicException {
+    private static final long serialVersionUID = 5862962376829113206L;
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 5862962376829113206L;
-
-	protected DatabaseException(String message, Exception exception) {
-        super(message, exception);
+    protected <E> DatabaseException(Class<E> entityClass, String type, String description, Exception exception) {
+        super(entityClass.getSimpleName() + " :: " + type + " Error :: " + description, exception);
     }
 }

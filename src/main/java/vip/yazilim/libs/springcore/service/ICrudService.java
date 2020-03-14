@@ -15,13 +15,17 @@ import vip.yazilim.libs.springcore.exception.service.RestException;
  */
 public interface ICrudService<E, ID> {
 
-	/**
-	 * Insert/Update Entity to the data source
-	 * 
-	 * @param entity entity data to insert/update
-	 * @return inserted/updated entity
-	 * @throws Exception
-	 */
+    /**
+     * Save Entity to the Data source.
+     * <p>
+     * Insert if not exists
+     * <p>
+     * Update if exists
+     *
+     * @param entity data to insert
+     * @return inserted entity
+     * @throws RestException an exception occurred during execution of query
+     */
 	E save(E entity) throws Exception;
 
 	// (C) create Operations
