@@ -3,7 +3,6 @@ package vip.yazilim.libs.springcore.service;
 import java.util.List;
 import java.util.Optional;
 
-import vip.yazilim.libs.springcore.exception.checked.InvalidArgumentException;
 import vip.yazilim.libs.springcore.exception.checked.database.DatabaseException;
 import vip.yazilim.libs.springcore.exception.unchecked.RestException;
 
@@ -47,7 +46,7 @@ public interface ICrudService<E, ID> {
 	 * @return saved entity to database
 	 * @throws RestException an exception occurred during execution of query
 	 */
-	E update(E newEntity) throws DatabaseException, InvalidArgumentException;
+	E update(E newEntity) throws DatabaseException, IllegalArgumentException;
 
 	// (R) read Operations
 
@@ -64,11 +63,11 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param id id field of entity
 	 * @return entity with id
-	 * @throws InvalidArgumentException
+	 * @throws IllegalArgumentException
 	 * @throws RestException            an exception occurred during execution of
 	 *                                  query
 	 */
-	Optional<E> getById(ID id) throws DatabaseException, InvalidArgumentException;
+	Optional<E> getById(ID id) throws DatabaseException, IllegalArgumentException;
 
 	// (D) delete Operations
 	boolean deleteById(ID id) throws DatabaseException;

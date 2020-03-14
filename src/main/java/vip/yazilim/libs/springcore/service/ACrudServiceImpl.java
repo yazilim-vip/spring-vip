@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import vip.yazilim.libs.springcore.exception.checked.BusinessLogicException;
-import vip.yazilim.libs.springcore.exception.checked.InvalidArgumentException;
 import vip.yazilim.libs.springcore.exception.checked.database.DatabaseCreateException;
 import vip.yazilim.libs.springcore.exception.checked.database.DatabaseDeleteException;
 import vip.yazilim.libs.springcore.exception.checked.database.DatabaseException;
@@ -45,6 +44,10 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
     public E save(E entity) throws Exception {
         JpaRepository<E, ID> repository = this.getRepository();
 
+//        if(entity == null) {
+//        	throw IllegalArgumentException("Entity cannot be ")
+//        }
+        
         E savedEntity;
         try {
             savedEntity = repository.save(entity);
@@ -86,13 +89,13 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
     }
 
     @Override
-    public E update(E newEntity) throws DatabaseException, InvalidArgumentException {
+    public E update(E newEntity) throws DatabaseException, IllegalArgumentException {
         // get old entity
         ID id = getId(newEntity);
         Optional<E> oldEntity = getById(id);
 
         if (!oldEntity.isPresent()) {
-            throw new InvalidArgumentException("Cannot update non-exist enity");
+            throw new IllegalArgumentException("Cannot update non-exist enity");
         }
 
         // prepare entity for update
@@ -116,9 +119,9 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
     }
 
     @Override
-    public Optional<E> getById(ID id) throws DatabaseException, InvalidArgumentException {
+    public Optional<E> getById(ID id) throws DatabaseException, IllegalArgumentException {
         if (id == null) {
-            throw new InvalidArgumentException("ID cannot be null");
+            throw new IllegalArgumentException("ID cannot be null");
         }
         JpaRepository<E, ID> repository = getRepository();
         try {
