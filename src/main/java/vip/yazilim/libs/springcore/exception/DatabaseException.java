@@ -1,6 +1,4 @@
-package vip.yazilim.libs.springcore.exception.checked.database;
-
-import vip.yazilim.libs.springcore.exception.checked.BusinessLogicException;
+package vip.yazilim.libs.springcore.exception;
 
 /**
  * Fired when a database exception occurred
@@ -8,7 +6,7 @@ import vip.yazilim.libs.springcore.exception.checked.BusinessLogicException;
  * @author Emre Sen, 26.06.2019
  * @contact maemresen@yazilim.vip
  */
-public class DatabaseException extends BusinessLogicException {
+public class DatabaseException extends RuntimeException {
     private static final long serialVersionUID = 5862962376829113206L;
 
     protected <E> DatabaseException(Class<E> entityClass, String type, String description, Exception exception) {

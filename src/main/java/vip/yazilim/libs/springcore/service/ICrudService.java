@@ -3,8 +3,11 @@ package vip.yazilim.libs.springcore.service;
 import java.util.List;
 import java.util.Optional;
 
-import vip.yazilim.libs.springcore.exception.checked.database.DatabaseException;
-import vip.yazilim.libs.springcore.exception.unchecked.RestException;
+import vip.yazilim.libs.springcore.exception.DatabaseCreateException;
+import vip.yazilim.libs.springcore.exception.DatabaseDeleteException;
+import vip.yazilim.libs.springcore.exception.DatabaseReadException;
+import vip.yazilim.libs.springcore.exception.DatabaseSaveException;
+import vip.yazilim.libs.springcore.exception.DatabaseUpdateException;
 
 /**
  * Business method definitions for CRUD operations for Entity
@@ -14,18 +17,19 @@ import vip.yazilim.libs.springcore.exception.unchecked.RestException;
  */
 public interface ICrudService<E, ID> {
 
-    /**
-     * Save Entity to the Data source.
-     * <p>
-     * Insert if not exists
-     * <p>
-     * Update if exists
-     *
-     * @param entity data to insert
-     * @return inserted entity
-     * @throws RestException an exception occurred during execution of query
-     */
-	E save(E entity) throws Exception;
+	/**
+	 * Save Entity to the Data source.
+	 * <p>
+	 * Insert if not exists
+	 * <p>
+	 * Update if exists
+	 *
+	 * @param entity data to insert
+	 * @return inserted entity
+	 * @throws RestInternalServerException an exception occurred during execution of
+	 *                                     query
+	 */
+	E save(E entity) throws IllegalArgumentException, DatabaseSaveException;
 
 	// (C) create Operations
 	/**
@@ -33,9 +37,10 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param entity data to insert
 	 * @return inserted entity
-	 * @throws RestException an exception occurred during execution of query
+	 * @throws RestInternalServerException an exception occurred during execution of
+	 *                                     query
 	 */
-	E create(E entity) throws DatabaseException;
+	E create(E entity) throws DatabaseCreateException;
 
 	// (U) update Operations
 
@@ -44,9 +49,10 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param newEntity new updated values to save into data source
 	 * @return saved entity to database
-	 * @throws RestException an exception occurred during execution of query
+	 * @throws RestInternalServerException an exception occurred during execution of
+	 *                                     query
 	 */
-	E update(E newEntity) throws DatabaseException, IllegalArgumentException;
+	E update(E newEntity) throws DatabaseUpdateException;
 
 	// (R) read Operations
 
@@ -54,9 +60,9 @@ public interface ICrudService<E, ID> {
 	 * Get all entities on the table
 	 *
 	 * @return list of entities
-	 * @throws RestException
+	 * @throws RestInternalServerException
 	 */
-	List<E> getAll() throws DatabaseException;
+	List<E> getAll() throws DatabaseReadException;
 
 	/**
 	 * Get an entity from table by id.
@@ -64,16 +70,16 @@ public interface ICrudService<E, ID> {
 	 * @param id id field of entity
 	 * @return entity with id
 	 * @throws IllegalArgumentException
-	 * @throws RestException            an exception occurred during execution of
-	 *                                  query
+	 * @throws RestInternalServerException an exception occurred during execution of
+	 *                                     query
 	 */
-	Optional<E> getById(ID id) throws DatabaseException, IllegalArgumentException;
+	Optional<E> getById(ID id) throws DatabaseReadException;
 
 	// (D) delete Operations
-	boolean deleteById(ID id) throws DatabaseException;
+	boolean deleteById(ID id) throws DatabaseDeleteException;
 
-	boolean delete(E entity) throws DatabaseException;
+	boolean delete(E entity) throws DatabaseDeleteException;
 
-	boolean deleteAll() throws DatabaseException;
+	boolean deleteAll() throws DatabaseDeleteException;
 
 }

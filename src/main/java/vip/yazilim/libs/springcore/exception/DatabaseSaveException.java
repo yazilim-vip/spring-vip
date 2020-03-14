@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springcore.exception.checked.database;
+package vip.yazilim.libs.springcore.exception;
 
 public class DatabaseSaveException extends DatabaseException {
     private static final long serialVersionUID = -1855909767677656982L;

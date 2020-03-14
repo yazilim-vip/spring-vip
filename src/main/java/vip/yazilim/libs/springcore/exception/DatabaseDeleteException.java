@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springcore.exception.checked.database;
+package vip.yazilim.libs.springcore.exception;
 
 import java.util.Arrays;
 

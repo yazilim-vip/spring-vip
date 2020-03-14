@@ -1,6 +1,7 @@
 package vip.yazilim.libs.springcore.rest;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import vip.yazilim.libs.springcore.exception.unchecked.ResourceNotFoundException;
-import vip.yazilim.libs.springcore.exception.unchecked.RestException;
 import vip.yazilim.libs.springcore.rest.model.RestResponse;
 import vip.yazilim.libs.springcore.service.ICrudService;
 
@@ -23,48 +22,40 @@ import vip.yazilim.libs.springcore.service.ICrudService;
  */
 public abstract class ARestRead<E, ID> {
 
-    protected abstract ICrudService<E, ID> getService();
+	protected abstract ICrudService<E, ID> getService();
 
-    // (R) read Operations
-    @GetMapping("/")
-    public RestResponse<List<E>> getAll(HttpServletRequest request, HttpServletResponse response) {
+	protected abstract Class<E> getClassOfEntity();
 
-        // get repo
-        ICrudService<E, ID> crudService = getService();
+	// (R) read Operations
+	@GetMapping("/")
+	public RestResponse<List<E>> getAll(HttpServletRequest request, HttpServletResponse response) {
 
-        // get entity list
-        List<E> entityList = null;
-        try {
-            entityList = crudService.getAll();
-        } catch (Exception e) {
-            throw new RestException(e);
-        }
+		// get repo
+		ICrudService<E, ID> crudService = getService();
 
-        // init response
-        return RestResponse.generateResponse(entityList, HttpStatus.OK, request, response);
-    }
+		// get entity list
+		List<E> entityList = null;
+		entityList = crudService.getAll();
 
-    @GetMapping("/{id}")
-    public RestResponse<E> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable ID id) {
+		// init response
+		return RestResponse.generateResponse(entityList, HttpStatus.OK, request, response);
+	}
 
-        // get repo
-        ICrudService<E, ID> crudService = getService();
+	@GetMapping("/{id}")
+	public RestResponse<E> getById(HttpServletRequest request, HttpServletResponse response, @PathVariable ID id) {
 
-        // get entity
-        Optional<E> entity;
-        try {
-            entity = crudService.getById(id);
-        } catch (Exception e) {
-            throw new RestException(e);
-        }
+		// get repo
+		ICrudService<E, ID> crudService = getService();
 
-        if (!entity.isPresent()) {
-            throw new ResourceNotFoundException("Entity Not Found");
-        }
+		// get entity
+		Optional<E> entity = crudService.getById(id);
+		if (!entity.isPresent()) {
+			String className = getClassOfEntity().getSimpleName();
+			throw new NoSuchElementException(className + " Not Found :: " + String.valueOf(id));
+		}
 
-        // init response
-        return RestResponse.generateResponse(entity.get(), HttpStatus.OK, request, response);
-    }
-
+		// init response
+		return RestResponse.generateResponse(entity.get(), HttpStatus.OK, request, response);
+	}
 
 }
