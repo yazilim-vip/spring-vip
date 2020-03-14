@@ -12,7 +12,8 @@ import vip.yazilim.libs.springcore.rest.model.RestResponse;
 import vip.yazilim.libs.springcore.service.ICrudService;
 
 /**
- * Generic REST Controller Implementations for generic CRUD operations
+ * Generic REST Controller Implementations for generic Create, Read and Update
+ * operations
  *
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
