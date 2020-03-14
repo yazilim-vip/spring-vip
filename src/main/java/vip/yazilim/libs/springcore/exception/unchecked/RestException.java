@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import vip.yazilim.libs.springcore.exception.checked.BusinessLogicException;
-import vip.yazilim.libs.springcore.exception.checked.InvalidModelException;
 import vip.yazilim.libs.springcore.exception.checked.database.DatabaseException;
+
 /**
  * @author Emre Sen, 26.06.2019
  * @contact maemresen@yazilim.vip
@@ -32,10 +32,6 @@ public class RestException extends SpringCoreRuntimeException {
 
 	public RestException(BusinessLogicException generalException) {
 		super("System Error", generalException);
-	}
-
-	public RestException(InvalidModelException invalidModelException) {
-		super("Invalid Model Error", invalidModelException);
 	}
 
 	public RestException(String message) {

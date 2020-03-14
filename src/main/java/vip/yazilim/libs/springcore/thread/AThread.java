@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 
-import vip.yazilim.libs.springcore.exception.checked.ThreadException;
 import vip.yazilim.libs.springcore.util.LogHelper;
 
 public abstract class AThread {
@@ -107,7 +106,7 @@ public abstract class AThread {
     protected void preThreadRun() {
     }
 
-    private long initializeThread() throws ThreadException {
+    private long initializeThread() {
 
         final Logger LOGGER = getLogger();
 
@@ -115,7 +114,7 @@ public abstract class AThread {
             LOGGER.info(String.format("__%s Loop Started__", threadName));
             return Calendar.getInstance().getTimeInMillis(); // get current time
         } catch (Exception e) {
-            throw new ThreadException("Error while initializing thread", e);
+            throw new RuntimeException("Error while initializing thread", e);
         }
     }
 
@@ -134,7 +133,7 @@ public abstract class AThread {
 
     protected abstract void doThreadJob() throws Exception;
 
-    private void finalizeThread(long startOfProcess) throws ThreadException {
+    private void finalizeThread(long startOfProcess) {
 
         final Logger LOGGER = getLogger();
 
@@ -150,7 +149,7 @@ public abstract class AThread {
             }
 
         } catch (Exception e) {
-            throw new ThreadException("Error while initializing thread", e);
+        	throw new RuntimeException("Error while finilize thread", e);
         }
     }
 
