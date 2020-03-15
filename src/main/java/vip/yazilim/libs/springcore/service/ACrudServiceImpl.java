@@ -1,18 +1,17 @@
 package vip.yazilim.libs.springcore.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import vip.yazilim.libs.springcore.exception.general.InvalidArgumentException;
-import vip.yazilim.libs.springcore.exception.general.InvalidUpdateException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseCreateException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseDeleteException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseReadException;
-import vip.yazilim.libs.springcore.exception.general.database.DatabaseUpdateException;
-import vip.yazilim.libs.springcore.exception.service.RestException;
+import vip.yazilim.libs.springcore.exception.DatabaseCreateException;
+import vip.yazilim.libs.springcore.exception.DatabaseDeleteException;
+import vip.yazilim.libs.springcore.exception.DatabaseReadException;
+import vip.yazilim.libs.springcore.exception.DatabaseSaveException;
+import vip.yazilim.libs.springcore.exception.DatabaseUpdateException;
+import vip.yazilim.libs.springcore.util.ListHelper;
 
 /**
  * Abstract Implementation of ICrudService.
@@ -26,155 +25,153 @@ import vip.yazilim.libs.springcore.exception.service.RestException;
  */
 public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
-    /**
-     * Repository of the entity that will be used with this implementation
-     */
-    protected abstract JpaRepository<E, ID> getRepository();
+	/**
+	 * Repository of the entity that will be used with this implementation
+	 */
+	protected abstract JpaRepository<E, ID> getRepository();
 
-    /**
-     * Get Id of the entity
-     *
-     * @param entity input entity model
-     * @return id of entity
-     */
-    protected abstract ID getId(E entity);
+	protected abstract Class<E> getClassOfEntity();
 
-    /**
-     * Save Entity to the Data source.
-     * <p>
-     * Insert if not exists
-     * <p>
-     * Update if exists
-     *
-     * @param entity data to insert
-     * @return inserted entity
-     * @throws RestException an exception occurred during execution of query
-     */
-    private E save(E entity) throws Exception {
-        JpaRepository<E, ID> repository = getRepository();
+	/**
+	 * Get Id of the entity
+	 *
+	 * @param entity input entity model
+	 * @return id of entity
+	 */
+	protected abstract ID getId(E entity);
 
-        // save entity
-        return repository.save(entity);
-    }
+	public E save(E entity) throws DatabaseSaveException {
+		try {
+			JpaRepository<E, ID> repository = this.getRepository();
+			if (entity == null) {
+				throw new IllegalArgumentException("Entity to save cannot be null");
+			}
+			E savedEntity = repository.save(entity);
+			if (savedEntity == null) {
+				throw new NoSuchElementException("Saved entity not found");
+			}
+			return savedEntity;
+		} catch (Exception exception) {
+			throw new DatabaseSaveException(entity.getClass(), getId(entity), exception);
+		}
+	}
 
-    @Override
-    public E create(E entity) throws DatabaseException {
+	@Override
+	public E create(E entity) throws DatabaseCreateException {
+		try {
+			// initialize entity to insert
+			// e.g setting unique UUID
+			E initializedEntity = preInsert(entity);
+			return save(initializedEntity);
+		} catch (Exception exception) {
+			throw new DatabaseCreateException(getClassOfEntity(), exception);
+		}
+	}
 
-        // initialize entity to insert
-        // e.g setting unique UUID
-        E initializedEntity = preInsert(entity);
+	/**
+	 * Operations before insert entity to the table
+	 * <p>
+	 * E.g.: setting uuid value
+	 *
+	 * @param entity values that will be inserted
+	 * @return entity that inserted to the data source
+	 */
+	protected E preInsert(E entity) {
+		return entity;
+	}
 
-        try {
-            return save(initializedEntity);
-        } catch (Exception e) {
-            throw new DatabaseCreateException(e);
-        }
-    }
+	@Override
+	public E update(E newEntity) throws DatabaseUpdateException {
 
-    /**
-     * Operations before insert entity to the table
-     * <p>
-     * E.g.: setting uuid value
-     *
-     * @param entity values that will be inserted
-     * @return entity that inserted to the data source
-     */
-    protected E preInsert(E entity) {
-        return entity;
-    }
+		try {
+			// get old entity
+			ID id = getId(newEntity);
+			Optional<E> oldEntity = getById(id);
+			if (!oldEntity.isPresent()) {
+				throw new IllegalArgumentException("Cannot update non-exist enity");
+			}
 
-    @Override
-    public E update(E newEntity) throws DatabaseException, InvalidUpdateException, InvalidArgumentException {
-        // get old entity
-        ID id = getId(newEntity);
-        Optional<E> oldEntity = getById(id);
+			// prepare entity for update
+			E preparedEntity = preUpdate(oldEntity.get(), newEntity);
+			return save(preparedEntity);
+		} catch (Exception exception) {
+			throw new DatabaseUpdateException(getClassOfEntity(), getId(newEntity), exception);
+		}
+	}
 
-        if (!oldEntity.isPresent()) {
-            throw new InvalidUpdateException("Cannot update non-exist enity");
-        }
+	@Override
+	public List<E> getAll() throws DatabaseReadException {
+		try {
+			JpaRepository<E, ID> repository = getRepository();
+			List<E> resultList = repository.findAll();
+			return ListHelper.getSafeList(resultList);
+		} catch (Exception exception) {
+			throw new DatabaseReadException(getClassOfEntity(), exception);
+		}
+	}
 
-        // prepare entity for update
-        E preparedEntity = preUpdate(oldEntity.get(), newEntity);
+	@Override
+	public Optional<E> getById(ID id) throws DatabaseReadException {
+		try {
+			JpaRepository<E, ID> repository = getRepository();
+			if (id == null) {
+				throw new IllegalArgumentException("ID cannot be null");
+			}
 
-        try {
-            return save(preparedEntity);
-        } catch (Exception e) {
-            throw new DatabaseUpdateException(e);
-        }
-    }
+			// find entity by id
+			return repository.findById(id);
+		} catch (Exception exception) {
+			throw new DatabaseReadException(getClassOfEntity(), exception);
+		}
+	}
 
-    @Override
-    public List<E> getAll() throws DatabaseException {
-        JpaRepository<E, ID> repository = getRepository();
-        try {
-            return repository.findAll();
-        } catch (Exception e) {
-            throw new DatabaseReadException(e);
-        }
-    }
+	/**
+	 * Operations before update operation
+	 *
+	 * @param oldEntity old data on data source
+	 * @param newEntity new data that will be saved to data source
+	 * @return prepared entity to update
+	 */
+	protected E preUpdate(E oldEntity, E newEntity) {
+		return newEntity;
+	}
 
-    @Override
-    public Optional<E> getById(ID id) throws DatabaseException, InvalidArgumentException {
-        if (id == null) {
-            throw new InvalidArgumentException("ID cannot be null");
-        }
-        JpaRepository<E, ID> repository = getRepository();
-        try {
-            // find entity by id
-            return repository.findById(id);
-        } catch (Exception exception) {
-            throw new DatabaseReadException(exception);
-        }
-    }
+	@Override
+	public boolean deleteById(ID id) throws DatabaseDeleteException {
+		try {
+			JpaRepository<E, ID> repository = getRepository();
 
-    /**
-     * Operations before update operation
-     *
-     * @param oldEntity old data on data source
-     * @param newEntity new data that will be saved to data source
-     * @return prepared entity to update
-     */
-    protected E preUpdate(E oldEntity, E newEntity) {
-        return newEntity;
-    }
+			// delete entity
+			repository.deleteById(id);
+			return true;
+		} catch (Exception exception) {
+			throw new DatabaseDeleteException(getClassOfEntity(), exception);
+		}
+	}
 
-    @Override
-    public boolean deleteById(ID id) throws DatabaseException {
-        try {
-            JpaRepository<E, ID> repository = getRepository();
+	@Override
+	public boolean delete(E entity) throws DatabaseDeleteException {
+		try {
+			JpaRepository<E, ID> repository = getRepository();
 
-            // delete entity
-            repository.deleteById(id);
-            return true;
-        } catch (Exception exception) {
-            throw new DatabaseDeleteException(exception);
-        }
-    }
+			// delete entity
+			repository.delete(entity);
+			return true;
+		} catch (Exception exception) {
+			throw new DatabaseDeleteException(getClassOfEntity(), exception);
+		}
+	}
 
-    @Override
-    public boolean delete(E entity) throws DatabaseException {
-        try {
-            JpaRepository<E, ID> repository = getRepository();
+	@Override
+	public boolean deleteAll() throws DatabaseDeleteException {
+		try {
+			JpaRepository<E, ID> repository = getRepository();
 
-            // delete entity
-            repository.delete(entity);
-            return true;
-        } catch (Exception exception) {
-            throw new DatabaseDeleteException(exception);
-        }
-    }
-
-
-    @Override
-    public boolean deleteAll() throws DatabaseException {
-        try {
-            JpaRepository<E, ID> repository = getRepository();
-
-            // delete entity
-            repository.deleteAll();
-            return true;
-        } catch (Exception e) {
-            throw new DatabaseDeleteException(e);
-        }
-    }
+			// delete entity
+			repository.deleteAll();
+			return true;
+		} catch (Exception exception) {
+			throw new DatabaseDeleteException(getClassOfEntity(), exception);
+		}
+	}
 }
