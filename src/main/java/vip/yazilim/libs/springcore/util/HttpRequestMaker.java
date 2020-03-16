@@ -1,6 +1,7 @@
 package vip.yazilim.libs.springcore.util;
 
 import java.net.URI;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -64,6 +66,14 @@ public class HttpRequestMaker {
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         HttpEntity<B> request = new HttpEntity<>(body, headers);
 
+        if(urlParamMap == null) {
+            urlParamMap = new LinkedHashMap<>();
+        }
+        
+        if(queryParamMap == null) {
+            queryParamMap = new LinkedMultiValueMap<>();
+        }
+        
         URI uri = UriComponentsBuilder
                 .fromUriString(baseUri + resource)
                 .queryParams(queryParamMap)
