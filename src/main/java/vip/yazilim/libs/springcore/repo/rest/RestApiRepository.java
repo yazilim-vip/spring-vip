@@ -20,7 +20,7 @@ import vip.yazilim.libs.springcore.exception.RestApiCallError;
  * @author Emre Sen, 26.07.2019
  * @contact maemresen@yazilim.vip
  */
-public abstract class HttpRequestMaker {
+public abstract class RestApiRepository {
 
     
     public <B, R> R getRequest(String baseUri, String resource
@@ -92,5 +92,5 @@ public abstract class HttpRequestMaker {
         return httpResponseEntity.getBody();
     }
     
-    protected abstract <R> boolean hasError(ResponseEntity<R>  resposneEntity);
+    protected abstract <R> boolean hasError(ResponseEntity<R>  responseEntity);
 }
