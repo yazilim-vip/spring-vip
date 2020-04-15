@@ -2,6 +2,7 @@ package vip.yazilim.libs.springcore.rest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public abstract class ARestCru<E, ID> extends ARestRead<E, ID> {
 
 	// (C) create Operations
 	@PostMapping("/")
-	public RestResponse<E> create(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
+	public RestResponse<E> create(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody E entity) {
 
 		// get repo
 		ICrudService<E, ID> crudService = getService();
@@ -36,7 +37,7 @@ public abstract class ARestCru<E, ID> extends ARestRead<E, ID> {
 
 	// (U) update Operations
 	@PutMapping("/")
-	public RestResponse<E> update(HttpServletRequest request, HttpServletResponse response, @RequestBody E entity) {
+	public RestResponse<E> update(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody E entity) {
 
 		// get repo
 		ICrudService<E, ID> crudService = getService();
