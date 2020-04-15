@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springcore.util;
+package vip.yazilim.libs.springcore.repo.rest;
 
 import java.net.URI;
 import java.util.LinkedHashMap;
@@ -14,18 +14,20 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import vip.yazilim.libs.springcore.exception.RestApiCallError;
 
 /**
  * @author Emre Sen, 26.07.2019
  * @contact maemresen@yazilim.vip
  */
-public class HttpRequestMaker {
+public abstract class HttpRequestMaker {
 
+    
     public <B, R> R getRequest(String baseUri, String resource
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap) {
+            , MultiValueMap<String, String> queryParamMap) throws RestApiCallError {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.GET);
     }
 
@@ -33,15 +35,15 @@ public class HttpRequestMaker {
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap) {
+            , MultiValueMap<String, String> queryParamMap) throws RestApiCallError {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.PUT);
     }
 
     public <B, R> R postRequest(String baseUri, String resource
             , B body
             , ParameterizedTypeReference<R> typeReference
-            , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap) {
+            , Map<String, String> urlParamMap 
+            , MultiValueMap<String, String> queryParamMap) throws RestApiCallError {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.POST);
     }
 
@@ -49,7 +51,7 @@ public class HttpRequestMaker {
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap) {
+            , MultiValueMap<String, String> queryParamMap) throws RestApiCallError {
         return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.DELETE);
     }
 
@@ -58,7 +60,7 @@ public class HttpRequestMaker {
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
             , MultiValueMap<String, String> queryParamMap
-            , HttpMethod httpMethod) {
+            , HttpMethod httpMethod) throws RestApiCallError {
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -82,6 +84,13 @@ public class HttpRequestMaker {
                 .toUri();
 
         ResponseEntity<R> httpResponseEntity = restTemplate.exchange(uri, httpMethod, request, typeReference);
+        
+        if(hasError(httpResponseEntity)){
+            throw new RestApiCallError();
+        }
+        
         return httpResponseEntity.getBody();
     }
+    
+    protected abstract <R> boolean hasError(ResponseEntity<R>  resposneEntity);
 }
