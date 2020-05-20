@@ -7,13 +7,13 @@ import lombok.Data;
  * @contact maemresen@yazilim.vip
  */
 @Data
-public class RestError {
+public class RestError<C> {
 
     private int errorCode;
-    private String message;
+    private C errorCause;
 
-    public RestError(int errorCode, String message) {
+    public RestError(int errorCode, C errorCause) {
         this.errorCode = errorCode;
-        this.message = message;
+        this.errorCause = errorCause;
     }
 }
