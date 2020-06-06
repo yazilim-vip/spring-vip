@@ -32,7 +32,6 @@ Add following lines  to your `pom.xml` file;
  
 
 ## Quick Start
---------------------
 1. template proje oluştur
 2. maven archtype tanımla
    * http://maven.apache.org/guides/mini/guide-creating-archetypes.html
