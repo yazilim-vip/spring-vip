@@ -31,7 +31,7 @@ Add following lines  to your `pom.xml` file;
 *\* For now the library is only published to our maven repository. When it will be published to Maven Central Repo, this section will be updated.*
  
 
-## Quick Start
+# Quick Start
 1. template proje oluştur
 2. maven archtype tanımla
    * http://maven.apache.org/guides/mini/guide-creating-archetypes.html
