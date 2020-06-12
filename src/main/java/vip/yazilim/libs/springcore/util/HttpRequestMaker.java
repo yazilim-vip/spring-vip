@@ -23,47 +23,31 @@ import vip.yazilim.libs.springcore.exception.RestApiCallError;
  */
 public class HttpRequestMaker {
 
-    public <B, R> ResponseEntity<R> getRequest(String baseUri, String resource
-            , B body
-            , ParameterizedTypeReference<R> typeReference
-            , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap) throws RestApiCallError {
-        return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.GET);
-    }
-
-    public <B, R> ResponseEntity<R> putRequest(String baseUri, String resource
-            , B body
-            , ParameterizedTypeReference<R> typeReference
-            , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap) throws RestApiCallError {
-        return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.PUT);
-    }
-
-    public <B, R> ResponseEntity<R> postRequest(String baseUri, String resource
-            , B body
-            , ParameterizedTypeReference<R> typeReference
-            , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap) throws RestApiCallError {
-        return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.POST);
-    }
-
-    public <B, R> ResponseEntity<R> deleteRequest(String baseUri, String resource
-            , B body
-            , ParameterizedTypeReference<R> typeReference
-            , Map<String, String> urlParamMap
-            , MultiValueMap<String, String> queryParamMap) throws RestApiCallError{
-        return jsonRequest(baseUri, resource, body, typeReference, urlParamMap, queryParamMap, HttpMethod.DELETE);
-    }
-
     public <B, R> ResponseEntity<R> jsonRequest(String baseUri, String resource
             , B body
             , ParameterizedTypeReference<R> typeReference
             , Map<String, String> urlParamMap
             , MultiValueMap<String, String> queryParamMap
             , HttpMethod httpMethod) throws RestApiCallError {
+        return jsonRequest(baseUri
+                , resource
+                , body
+                , typeReference
+                , urlParamMap
+                , queryParamMap
+                , httpMethod
+                , new RestTemplate());
+    }
+    
+    public <B, R> ResponseEntity<R> jsonRequest(String baseUri, String resource
+            , B body
+            , ParameterizedTypeReference<R> typeReference
+            , Map<String, String> urlParamMap
+            , MultiValueMap<String, String> queryParamMap
+            , HttpMethod httpMethod
+            , RestTemplate restTemplate) throws RestApiCallError {
 
         try {
-            RestTemplate restTemplate = new RestTemplate();
 
             HttpHeaders headers = new HttpHeaders();
             headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
