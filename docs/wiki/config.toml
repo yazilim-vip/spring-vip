@@ -1,4 +1,4 @@
-baseURL = "http://howto.yazilim.vip/"
+baseURL = "https://docs.springcore.yazilim.vip/wiki/"
 contentdir    = "content"
 layoutdir     = "layouts"
 publishdir    = "public"
