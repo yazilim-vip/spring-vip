@@ -18,6 +18,7 @@ build:
     - master
 
 pages:
+  stage: build
   script:
     - echo "generating javadoc"
   artifacts:
