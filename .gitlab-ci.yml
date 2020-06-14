@@ -16,7 +16,7 @@ pages:
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
     - mkdir -p public/apidocs && cp -R target/site/apidocs/* public/apidocs
     - cd docs/wiki && hugo
-    - cd ../../ && cp -R docs/index.html public/ && cp -R docs/wiki public/
+    - cd ../../ && cp -R docs/index.html public/ && cp -R docs/wiki/public public/wiki
   artifacts:
     paths:
       - public
