@@ -14,6 +14,7 @@ build:
   script:
     - mvn $MAVEN_CLI_OPTS compile
   only:
+    - master
     - rel-dev
     - rel-stable
     
