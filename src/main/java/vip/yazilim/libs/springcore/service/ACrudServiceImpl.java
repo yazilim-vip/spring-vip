@@ -27,6 +27,7 @@ public abstract class ACrudServiceImpl<E, ID> implements ICrudService<E, ID> {
 
 	/**
 	 * Repository of the entity that will be used with this implementation
+	 * @return JPARepository Instance
 	 */
 	protected abstract JpaRepository<E, ID> getRepository();
 

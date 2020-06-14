@@ -15,6 +15,7 @@ public class ListHelper {
      * To get a not-null safe list
      * 
      * @param list input list
+     * @param <T> type of list items
      * @return not-null list
      */
     public static <T> List<T> getSafeList(List<T> list) {
