@@ -13,9 +13,21 @@ build:
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS compile
+    - mvn $MAVEN_CLI_OPTS javadoc:javadoc
   only:
     - master
-    
+
+pages:
+  script:
+    - hugo
+  artifacts:
+    paths:
+      - target/site/apidocs
+  only:
+    - master
+
+
+
 deploy:
   stage: deploy
   script:
