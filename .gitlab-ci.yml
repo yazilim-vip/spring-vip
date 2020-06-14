@@ -14,7 +14,7 @@ pages:
   script:
     - mvn $MAVEN_CLI_OPTS compile
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
-    - mkdir -p public/apidocs && cp -R target/site/apidocs public/apidocs
+    - mkdir -p public/apidocs && cp -R target/site/apidocs/* public/apidocs
     - cd rm -rf wiki/public && wiki && hugo
     - mkdir -p public/wiki && cp -R wiki/public/* public/wiki
   artifacts:
