@@ -13,12 +13,13 @@ cache:
 pages:
   stage: deploy
   script:
+    - sudo apt install -y hugo
     - mvn $MAVEN_CLI_OPTS compile
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
     - VERSION=$(mvn -q  -Dexec.executable="echo"  -Dexec.args='${project.version}'  --non-recursive  org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
-    - mkdir -p public/$VERSION
     - cp -R target/site/apidocs public/
-    - cp -R wiki public/
+    - cd rm -rf wiki/public && wiki && hugo
+    - cp -R wiki/public/* public/wiki
   artifacts:
     paths:
       - public
