@@ -14,8 +14,7 @@ pages:
   script:
     - mvn $MAVEN_CLI_OPTS compile
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
-    - VERSION=$(mvn -q  -Dexec.executable="echo"  -Dexec.args='${project.version}'  --non-recursive  org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
-    - cp -R target/site/apidocs public/
+    - mkdir -p public/apidocs && cp -R target/site/apidocs public/apidocs
     - cd rm -rf wiki/public && wiki && hugo
     - mkdir -p public/wiki && cp -R wiki/public/* public/wiki
   artifacts:
