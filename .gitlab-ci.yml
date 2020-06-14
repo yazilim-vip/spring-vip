@@ -19,7 +19,7 @@ build:
 
 pages:
   script:
-    - hugo
+    - echo "generating javadoc"
   artifacts:
     paths:
       - target/site/apidocs
