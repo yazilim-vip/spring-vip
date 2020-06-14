@@ -34,7 +34,7 @@ pages:
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
     - VERSION=$(mvn -q  -Dexec.executable="echo"  -Dexec.args='${project.version}'  --non-recursive  org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
     - mkdir -p public/$VERSION
-    - mv target/site/apidocs public/$VERSION
+    - mv target/site/apidocs/* public/$VERSION
   artifacts:
     paths:
       - public
