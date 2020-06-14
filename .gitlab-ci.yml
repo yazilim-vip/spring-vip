@@ -14,13 +14,13 @@ build:
   script:
     - mvn $MAVEN_CLI_OPTS compile
   only:
-    - dev
-    - master
-
+    - rel-dev
+    - rel-stable
+    
 deploy:
   stage: deploy
   script:
     - mvn $MAVEN_CLI_OPTS deploy
   only:
-    - dev
-    - master
+    - rel-dev
+    - rel-stable
