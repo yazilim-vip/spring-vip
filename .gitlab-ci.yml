@@ -25,6 +25,5 @@ deploy:
   only:
     variables:
       - $CI_PIPELINE_SOURCE == "merge_request_event"
-      - $CI_PIPELINE_SOURCE = "push"
       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
       - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "dev"
