@@ -12,6 +12,8 @@ cache:
 build:
   stage: build
   script:
+    - echo $MAVEN_REPO_PASS
+    - echo $MAVEN_REPO_USER
     - mvn $MAVEN_CLI_OPTS compile
   only:
     - master
