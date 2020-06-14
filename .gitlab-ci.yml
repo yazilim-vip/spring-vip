@@ -1,4 +1,4 @@
-image: maven:3.6.3-jdk-8
+image: maven:3.6.3- jdk-8
 
 variables:
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
@@ -18,7 +18,7 @@ build:
 
 pages:
   stage: build
-  script:
+  before_script:
     - echo "generating javadoc"
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
   artifacts:
