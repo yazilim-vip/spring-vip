@@ -14,16 +14,12 @@ build:
   script:
     - mvn $MAVEN_CLI_OPTS compile
   only:
-    variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
-      - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "dev"
+    - dev
+    - master
 
 deploy:
   stage: deploy
   script:
     - mvn $MAVEN_CLI_OPTS deploy
   only:
-    variable:
-      - $CI_PIPELINE_SOURCE == "merge_request_event"
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
-      - $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "dev"
+    - master
