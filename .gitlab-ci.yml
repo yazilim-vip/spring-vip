@@ -19,7 +19,7 @@ build:
 deploy:
   stage: deploy
   script:
-    - mvn $MAVEN_CLI_OPTS -Drepo.user=$MAVEN_REPO_USER -Drepo.pass=$MAVEN_REPO_PASS deploy
+    - mvn $MAVEN_CLI_OPTS deploy
   only:
     - master
     - tags
