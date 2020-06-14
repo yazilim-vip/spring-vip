@@ -17,14 +17,16 @@ build:
     - master
 
 pages:
+  stage: deploy
   script:
-    - echo "generating javadoc"
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
+    - mv target/site/apidocs public
   artifacts:
     paths:
-      - target/site/apidocs
+      - public
   only:
     - master
+
 
 
 
