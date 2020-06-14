@@ -26,8 +26,6 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param entity data to insert
 	 * @return inserted entity
-	 * @throws RestInternalServerException an exception occurred during execution of
-	 *                                     query
 	 */
 	E save(E entity) throws IllegalArgumentException, DatabaseSaveException;
 
@@ -37,8 +35,6 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param entity data to insert
 	 * @return inserted entity
-	 * @throws RestInternalServerException an exception occurred during execution of
-	 *                                     query
 	 */
 	E create(E entity) throws DatabaseCreateException;
 
@@ -49,8 +45,6 @@ public interface ICrudService<E, ID> {
 	 *
 	 * @param newEntity new updated values to save into data source
 	 * @return saved entity to database
-	 * @throws RestInternalServerException an exception occurred during execution of
-	 *                                     query
 	 */
 	E update(E newEntity) throws DatabaseUpdateException;
 
@@ -60,7 +54,7 @@ public interface ICrudService<E, ID> {
 	 * Get all entities on the table
 	 *
 	 * @return list of entities
-	 * @throws RestInternalServerException
+	 *
 	 */
 	List<E> getAll() throws DatabaseReadException;
 
@@ -70,7 +64,7 @@ public interface ICrudService<E, ID> {
 	 * @param id id field of entity
 	 * @return entity with id
 	 * @throws IllegalArgumentException
-	 * @throws RestInternalServerException an exception occurred during execution of
+	 *
 	 *                                     query
 	 */
 	Optional<E> getById(ID id) throws DatabaseReadException;

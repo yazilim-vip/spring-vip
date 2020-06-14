@@ -35,8 +35,8 @@ public class DataTypeHelper {
 
     /**
      * TODO: explain commnet
-     * @param object
-     * @return
+     * @param object input string
+     * @return null safe string
      */
     public static String getNullSafeToString(Object object) {
         if (object == null) {

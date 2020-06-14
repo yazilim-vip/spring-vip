@@ -13,13 +13,14 @@ build:
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS compile
-    - mvn $MAVEN_CLI_OPTS javadoc:javadoc
   only:
     - master
 
 pages:
+  stage: build
   script:
     - echo "generating javadoc"
+    - mvn $MAVEN_CLI_OPTS javadoc:javadoc
   artifacts:
     paths:
       - target/site/apidocs

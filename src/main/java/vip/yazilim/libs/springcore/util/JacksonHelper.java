@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  * @author Emre Sen - Dec 26, 2019
  * @contact maemresen@yazilim.vip
- *
  */
 public class JacksonHelper {
 
@@ -42,8 +41,7 @@ public class JacksonHelper {
         }
     }
 
-    public static <T> T fromJson(String json, TypeReference<T> typeReference)
-            throws JsonMappingException, JsonProcessingException {
+    public static <T> T fromJson(String json, TypeReference<T> typeReference) throws JsonProcessingException {
         return new ObjectMapper().readValue(json, typeReference);
     }
 }
