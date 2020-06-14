@@ -1,4 +1,4 @@
-image: maven:3.6.3-jdk-8
+image: yazilimvip/hugo-maven:hugo0.72-maven3.6.3
 
 variables:
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
@@ -9,11 +9,9 @@ cache:
     - .m2/repository/
     - target/
 
-
 pages:
   stage: deploy
   script:
-    - sudo apt install -y hugo
     - mvn $MAVEN_CLI_OPTS compile
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
     - VERSION=$(mvn -q  -Dexec.executable="echo"  -Dexec.args='${project.version}'  --non-recursive  org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
@@ -25,7 +23,6 @@ pages:
       - public
   only:
     - master
-
 
 deploy:
   stage: deploy
