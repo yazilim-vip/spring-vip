@@ -1,8 +1,9 @@
 ---
-title: "Generic Crud Service"
-date: 2020-06-14T22:29:53+03:00
-weight: 1
+weight: 10
+bookFlatSection: false
 ---
+
+## Generic CRUD Service
 
 You can manage the flow from the Entity level to the REST or View (MVC's View) level with the Spring Core Library. 
  

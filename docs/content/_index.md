@@ -1,9 +1,16 @@
 ---
-title: "Quick Start"
-date: 2020-06-14T20:53:02+03:00
-weight: 2
+title: Introduction
+type: docs
+bookToc: false
 ---
 
+# About
+
+The Spring Core library is a generic auxiliary library for `Spring Web Applications`, `Spring RESTful Web Services`, which includes the implementation of generic services and auxiliary structures. It is a well designed library and allows developers to create services quickly.
+
+
+# Quick Start
+ 
 Add following lines  to your `pom.xml` file; 
 
 ```xml
@@ -31,4 +38,3 @@ Add following lines  to your `pom.xml` file;
 
 *\* For now the library is only published to our maven repository. When it will be published to Maven Central Repo, this section will be updated.*
  
-
