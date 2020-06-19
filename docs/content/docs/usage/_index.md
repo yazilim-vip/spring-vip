@@ -5,7 +5,7 @@ bookFlatSection: false
 
 ## Generic CRUD Service
 
-You can manage the flow from the Entity level to the REST or View (MVC's View) level with the Spring Core Library. 
+You can manage the flow from the Entity level to the REST or View (MVC's View) level with the SpringVIP Library. 
  
 (diagram konacak)
 
@@ -13,15 +13,15 @@ You can manage the flow from the Entity level to the REST or View (MVC's View) l
 
 
 * `JPARepository` which is a generic repository, already provided by `Sping Data`. 
-* In additon to that `ICrudService` and `ACrudServiceImpl` provided by `Spring Core` library.
+* In additon to that `ICrudService` and `ACrudServiceImpl` provided by `SpringVIP` library.
 
 
-The core feature provided by `Spring Core` library is that  `Generic CRUD Service` implementation for service layer. `Generic CRUD Service` consists of two components.
+The core feature provided by `SpringVIP` library is that  `Generic CRUD Service` implementation for service layer. `Generic CRUD Service` consists of two components.
 
 * **ICrudService** provides definiitons of generic CRUD methods for entities 
 * **ACrudServiceImpl** implements methods defined in `ICrudService`  in a generic manner.
 
-Services extends to ACrudServiceImpl inherits methods from Spring Core Library, like create, read, update, delete methods and so on. Thus developers can use boilerplate service methods quickly.
+Services extends to ACrudServiceImpl inherits methods from SpringVIP Library, like create, read, update, delete methods and so on. Thus developers can use boilerplate service methods quickly.
 
 
 ### Example Usage
