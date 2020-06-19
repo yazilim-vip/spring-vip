@@ -1,6 +1,6 @@
 # hugo server --minify --themesDir ... --baseURL=http://0.0.0.0:1313/theme/hugo-book/
 
-baseURL = 'https://docs.springcore.yazilim.vip/'
+baseURL = 'https://springvip.yazilim.vip/'
 title = 'SpringVIP'
 theme = 'hugo-book'
 
@@ -27,8 +27,8 @@ enableGitInfo = false
   weight = 1
 
 [menu]
-# [[menu.before]]
-[[menu.after]]
+[[menu.before]]
+#[[menu.after]]
   name = "Apidocs"
   url = "/apidocs/"
   weight = 10
