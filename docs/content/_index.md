@@ -29,7 +29,7 @@ Add following lines  to your `pom.xml` file;
     <!-- SpringCore Dependency -->
     <dependency>
         <groupId>vip.yazilim.libs</groupId>
-        <artifactId>spring-core</artifactId>
+        <artifactId>spring-vip</artifactId>
         <version>{VERSION}</version>
     </dependency>
     
