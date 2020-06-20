@@ -29,5 +29,5 @@ deploy:
   script:
     - mvn $MAVEN_CLI_OPTS deploy
   only:
-    variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == master
+    - tags
+
