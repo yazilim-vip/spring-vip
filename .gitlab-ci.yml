@@ -21,11 +21,13 @@ pages:
     paths:
       - public
   only:
-    - master
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == master
 
 deploy:
   stage: deploy
   script:
     - mvn $MAVEN_CLI_OPTS deploy
   only:
-    - tags
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == master
