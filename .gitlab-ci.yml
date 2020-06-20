@@ -23,9 +23,8 @@ mvn_build:
   script:
     - mvn $MAVEN_CLI_OPTS compile
   rules:
-    - if: $CI_MERGE_REQUEST_IID
     - if: $CI_COMMIT_TAG
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_MERGE_REQUEST_IID && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
 
 
 deploy:
