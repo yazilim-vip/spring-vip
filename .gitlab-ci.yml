@@ -29,9 +29,6 @@ pages:
   artifacts:
     paths:
       - public
-#  only:
-#    variables:
-#      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == master
 
 deploy:
   stage: deploy
