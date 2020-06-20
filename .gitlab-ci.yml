@@ -17,6 +17,12 @@ stages:
 mvn_build:
   stage: build
   script:
+    - VERSION=$(mvn -q \
+      -Dexec.executable="echo" \
+      -Dexec.args='${project.version}' \
+      --non-recursive \
+      org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
+    - echo $VERSION
     - mvn $MAVEN_CLI_OPTS compile
   only:
     - merge_requests
