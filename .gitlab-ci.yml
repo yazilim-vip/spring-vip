@@ -14,7 +14,7 @@ stages:
   - documentation
   - deployment
 
-build:
+mvn_build:
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS compile
