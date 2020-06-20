@@ -24,7 +24,10 @@ mvn_build:
     - mvn $MAVEN_CLI_OPTS compile
   rules:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
-      when: always
+      when: never
+    - if: '$CI_COMMIT_TAG'
+      when: never
+    - when: always
 
 deploy:
   stage: deployment
@@ -32,7 +35,7 @@ deploy:
     - mvn $MAVEN_CLI_OPTS deploy
   only:
     - tags
-    - merge_requests
+    - merge_requestsrequ
 
 pages:
   stage: documentation
