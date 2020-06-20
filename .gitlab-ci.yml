@@ -16,11 +16,22 @@ stages:
 
 mvn_build:
   stage: build
+  before_script:
+    - VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
+    - if [[ "${VERSION}" == .*"SNAPSHOT".* ]] ; then echo "version contains snapshot" ; exit 1 ; fi
   script:
     - mvn $MAVEN_CLI_OPTS compile
   rules:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
       when: always
+
+deploy:
+  stage: deployment
+  script:
+    - mvn $MAVEN_CLI_OPTS deploy
+  only:
+    - tags
+    - merge_requests
 
 pages:
   stage: documentation
@@ -34,14 +45,3 @@ pages:
       - public
   only:
     - tags
-
-deploy:
-  stage: deployment
-  script:
-    - VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
-    - echo $
-    - if [[ "${VERSION}" == .*"SNAPSHOT".* ]] ; then echo "version contains snapshot" ; exit 1 ; fi
-    - mvn $MAVEN_CLI_OPTS deploy
-  only:
-    - tags
-    - merge_requests
