@@ -18,6 +18,8 @@ build:
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS compile
+  only:
+    - merge_requests
 
 pages:
   stage: documentation
