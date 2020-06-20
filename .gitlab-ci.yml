@@ -4,10 +4,6 @@ variables:
   MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
 
-before_script:
-  - VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
-  - export $VERSION
-
 cache:
   paths:
     - .m2/repository/
@@ -28,10 +24,11 @@ compile_mvn:
 deploy_jar:
   stage: deploy
   script:
-    - mvn $MAVEN_CLI_OPTS deploy
+    - VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
+    - if [[ -z $CI_COMMIT_TAG ]] && [[ $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH ]] && [[ "${VERSION}" == *"SNAPSHOT"* ]]; then mvn $MAVEN_CLI_OPTS deploy; else echo "Non-Snapshot version deployment not allowed in merge. Skipping Deployment"; fi
   rules:
     - if: $CI_COMMIT_TAG
-    - if: $CI_MERGE_REQUEST_IID && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $VERSION == /^SNAPSHOT/
+    - if: $CI_MERGE_REQUEST_IID && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
 
 pages:
   stage: deploy
