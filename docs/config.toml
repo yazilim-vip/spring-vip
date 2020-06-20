@@ -33,6 +33,13 @@ enableGitInfo = false
   url = "/apidocs/"
   weight = 10
 
+[[menu.before]]
+#[[menu.after]]
+  name = "Source Code"
+  url = "https://gitlab.com/yazilim.vip/projects/vip-libraries/spring-vip"
+  weight = 10
+
+
 [params]
   # (Optional, default true) Controls table of contents visibility on right side of pages.
   # Start and end levels can be controlled with markup.tableOfContents setting.
