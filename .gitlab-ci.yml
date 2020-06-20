@@ -11,9 +11,9 @@ cache:
 
 stages:
   - build
-  - docs
+  - deploy
 
-build_and_deploy:
+build:
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS compile
@@ -23,8 +23,17 @@ build_and_deploy:
     - if: $CI_COMMIT_TAG
     - if: $CI_MERGE_REQUEST_IID
 
+
+publish_jar:
+  stage: deploy
+  script:
+    - mvn $MAVEN_CLI_OPTS deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+
+
 pages:
-  stage: docs
+  stage: deploy
   script:
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
     - mkdir -p public/apidocs && cp -R target/site/apidocs/* public/apidocs
