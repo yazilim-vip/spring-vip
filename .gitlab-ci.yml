@@ -16,10 +16,6 @@ stages:
 
 mvn_build:
   stage: build
-  before_script:
-    - export
-    - VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
-    - if [[ "${VERSION}" == *"SNAPSHOT"* ]] ; then echo "version contains snapshot" ; exit 1 ; fi
   script:
     - mvn $MAVEN_CLI_OPTS compile
   rules:
@@ -28,6 +24,9 @@ mvn_build:
 
 deploy:
   stage: deployment
+  before_script:
+    - VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
+    - if [[ $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH ]] && [[ "${VERSION}" == *"SNAPSHOT"* ]]; then echo "version contains snapshot" ; exit 1 ; fi
   script:
     - mvn $MAVEN_CLI_OPTS deploy
   rules:
