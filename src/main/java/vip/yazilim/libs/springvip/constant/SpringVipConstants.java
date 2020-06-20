@@ -5,5 +5,5 @@ package vip.yazilim.libs.springvip.constant;
  * @contact maemresen@yazilim.vip
  */
 public class SpringVipConstants {
-    public static final String ROOT_PACKAGE = "vip.yazilim.libs.springcore";
+    public static final String ROOT_PACKAGE = "vip.yazilim.libs.springvip";
 }
