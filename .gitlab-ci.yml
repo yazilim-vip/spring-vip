@@ -11,8 +11,7 @@ cache:
 
 stages:
   - build
-  - deployment
-  - documentation
+  - deploy
 
 compile_mvn:
   stage: build
@@ -23,7 +22,7 @@ compile_mvn:
     - if: $CI_MERGE_REQUEST_IID
 
 deploy_jar:
-  stage: deployment
+  stage: deploy
   before_script:
     - VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
     - if [[ -z $CI_COMMIT_TAG ]] && [[ $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH ]] && [[ "${VERSION}" == *"SNAPSHOT"* ]]; then echo "Deploying"; else echo "Non-Snapshot version deployment not allowed in merge"; exit 1 ; fi
@@ -34,7 +33,7 @@ deploy_jar:
     - if: $CI_MERGE_REQUEST_IID && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
 
 pages:
-  stage: documentation
+  stage: deploy
   script:
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
     - mkdir -p public/apidocs && cp -R target/site/apidocs/* public/apidocs
