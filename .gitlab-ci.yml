@@ -9,10 +9,19 @@ cache:
     - .m2/repository/
     - target/
 
-pages:
-  stage: deploy
+stages:
+  - build
+  - documentation
+  - deployment
+
+build:
+  stage: build
   script:
     - mvn $MAVEN_CLI_OPTS compile
+
+pages:
+  stage: documentation
+  script:
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc
     - mkdir -p public/apidocs && cp -R target/site/apidocs/* public/apidocs
     - cd docs && hugo
@@ -30,4 +39,3 @@ deploy:
     - mvn $MAVEN_CLI_OPTS deploy
   only:
     - tags
-
