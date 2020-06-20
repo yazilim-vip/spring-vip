@@ -34,6 +34,7 @@ pages:
   only:
     - merge_requests
 
+
 deploy:
   stage: deployment
   script:
