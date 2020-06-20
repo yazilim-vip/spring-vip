@@ -32,8 +32,7 @@ pages:
     paths:
       - public
   only:
-    - merge_requests
-
+    - tags
 
 deploy:
   stage: deployment
