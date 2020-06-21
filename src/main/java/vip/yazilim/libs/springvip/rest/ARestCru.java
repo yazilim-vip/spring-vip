@@ -25,6 +25,7 @@ public abstract class ARestCru<E, ID> extends ARestRead<E, ID> {
 	@PostMapping("/")
 	public RestResponse<E> create(HttpServletRequest request, HttpServletResponse response, @Valid @RequestBody E entity) {
 
+
 		// get repo
 		ICrudService<E, ID> crudService = getService();
 
