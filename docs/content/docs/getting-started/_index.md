@@ -25,26 +25,19 @@ The core feature provided by `SpringVIP` library is that  `Generic CRUD Service`
 Services extends to ACrudServiceImpl inherits methods from SpringVIP Library, like create, read, update, delete methods and so on. Thus developers can use boilerplate service methods quickly.
 
 ### Methods
-There are some methods for basic CRUD operations are included in `Generic CRUD Service`. They are;
-
-If there is an error occurred on `JPARepository` then an exception thrown
-
+All DB operations are done via `JPARepository` in `Generic CRUD Service`. All exceptions occurred on `JPARepository` layer is handled by `Generic CRUD Service` then an exception thrown. There are some methods for basic CRUD operations are included in `Generic CRUD Service`. They are;
 * GetAll: To get all records on the database
 * GetById: To get record that matching id
   * Id passed as parameter to select **must not** be null
-* Save:
+* Save: To save entity
   * Entity passed as parameter to save **must not** be null
-  * If Entity not found after saving via `JPARepository` an exception thrown
-* Create
-  
-* Update
-  * If Entity passed as parameter to update not found on database an exception thrown
-  
-* Delete
-  
-* DeleteById
-  
-
+* Create: To create a record by entity
+* Update: To update a record by entity
+  * Entity passed as parameter to update **must** be exists on db
+* Delete: To delete a record by entity
+  * Entity passed as parameter to save **must not** be null
+* DeleteById: To delete record by Id
+  * Id passed as parameter to select **must not** be null  
 
 
 #### GetAll
