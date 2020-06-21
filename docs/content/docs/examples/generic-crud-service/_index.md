@@ -39,7 +39,30 @@ Then implment service created on previous step
 
 ```java
 @Service
-public interface UserServiceImpl extends ACrudServiceImpl <User, Integer> implements ICrudService <User, Integer> {
+public class UserServiceImpl extends ACrudServiceImpl<User, Integer> implements IUserService {
+
+    private final IUserRepo  Generic CRUD Service ExampleuserRepo;
+
+    public UserServiceImpl(IUserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
+
+    @Override
+    protected JpaRepository<User, Integer> getRepository() {
+        return userRepo;
+    }
+
+    @Override
+    protected Class<User> getClassOfEntity() {
+        return User.class;
+    }
+
+    @Override
+    protected Integer getId(User entity) {
+        return entity.getId();
+    }
+
     ....
 }
+
 ```

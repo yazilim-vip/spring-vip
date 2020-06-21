@@ -37,30 +37,7 @@ All DB operations are done via `JPARepository` in `Generic CRUD Service`. All ex
 * Delete: To delete a record by entity
   * Entity passed as parameter to save **must not** be null
 * DeleteById: To delete record by Id
-  * Id passed as parameter to select **must not** be null  
-
-
-#### GetAll
-
-Hepsini almaya yarar
-JPA:findAll()
-
-
-#### GetById
-id ile alınır
-
-id null ise DataBaseReadException atılır
-
-#### Save
-save yapılır
-
-#### Create
-
-#### Update
-
-#### Delete
-
-#### DeleteById
+  * Id passed as parameter to select **must not** be null
 
 
 
@@ -74,9 +51,19 @@ There are some general exceptions can be thrown by generic CRUD service implemen
 
 
 
-## Crud Rest Controller
-crud rest
+## CRUD REST Controller
+Generic CRUD operations defined in service layer can be used in REST layer too. This can be achieved by extending a `Rest Controller` to these classes:
 
+* ARestRead: Read operation
+* ARestCru: Create, Read and Update operations
+* ARestCrud: Create, Read, Update and Delete operations
+
+Note that default mappings 
+
+### REST Responses
+  * RestError
+  * RestErrorResponse
+  * RestResponse
 
 ## Utility Classes
 
