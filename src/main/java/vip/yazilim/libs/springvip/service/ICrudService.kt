@@ -1,13 +1,7 @@
-package vip.yazilim.libs.springvip.service;
+package vip.yazilim.libs.springvip.service
 
-import java.util.List;
-import java.util.Optional;
-
-import vip.yazilim.libs.springvip.exception.DatabaseCreateException;
-import vip.yazilim.libs.springvip.exception.DatabaseDeleteException;
-import vip.yazilim.libs.springvip.exception.DatabaseReadException;
-import vip.yazilim.libs.springvip.exception.DatabaseSaveException;
-import vip.yazilim.libs.springvip.exception.DatabaseUpdateException;
+import vip.yazilim.libs.springvip.exception.*
+import java.util.*
 
 /**
  * Business method definitions for CRUD operations for Entity
@@ -15,19 +9,22 @@ import vip.yazilim.libs.springvip.exception.DatabaseUpdateException;
  * @author Emre Sen, 27.06.2019
  * @contact maemresen@yazilim.vip
  */
-public interface ICrudService<E, ID> {
+interface ICrudService<E, ID> {
 
     /**
      * Save Entity to the Data source.
-     * <p>
+     *
+     *
      * Insert if not exists
-     * <p>
+     *
+     *
      * Update if exists
      *
      * @param entity data to insert
      * @return inserted entity
      */
-    E save(E entity) throws IllegalArgumentException, DatabaseSaveException;
+    @Throws(IllegalArgumentException::class, DatabaseSaveException::class)
+    fun save(entity: E): E
 
     // (C) create Operations
 
@@ -37,7 +34,8 @@ public interface ICrudService<E, ID> {
      * @param entity data to insert
      * @return inserted entity
      */
-    E create(E entity) throws DatabaseCreateException;
+    @Throws(DatabaseCreateException::class)
+    fun create(entity: E): E
 
     // (U) update Operations
 
@@ -47,7 +45,8 @@ public interface ICrudService<E, ID> {
      * @param newEntity new updated values to save into data source
      * @return saved entity to database
      */
-    E update(E newEntity) throws DatabaseUpdateException;
+    @Throws(DatabaseUpdateException::class)
+    fun update(newEntity: E): E
 
     // (R) read Operations
 
@@ -56,7 +55,8 @@ public interface ICrudService<E, ID> {
      *
      * @return list of entities
      */
-    List<E> getAll() throws DatabaseReadException;
+    @get:Throws(DatabaseReadException::class)
+    val all: List<E>?
 
     /**
      * Get an entity from table by id.
@@ -66,7 +66,8 @@ public interface ICrudService<E, ID> {
      * @throws DatabaseReadException    indicates an error in JPARepository
      * @throws IllegalArgumentException id given as argument is null
      */
-    Optional<E> getById(ID id) throws DatabaseReadException;
+    @Throws(DatabaseReadException::class)
+    fun getById(id: ID): Optional<E>
 
     // (D) delete Operations
 
@@ -75,19 +76,21 @@ public interface ICrudService<E, ID> {
      * @return
      * @throws DatabaseDeleteException
      */
-    boolean deleteById(ID id) throws DatabaseDeleteException;
+    @Throws(DatabaseDeleteException::class)
+    fun deleteById(id: ID): Boolean
 
     /**
      * @param entity
      * @return
      * @throws DatabaseDeleteException
      */
-    boolean delete(E entity) throws DatabaseDeleteException;
+    @Throws(DatabaseDeleteException::class)
+    fun delete(entity: E): Boolean
 
     /**
      * @return
      * @throws DatabaseDeleteException
      */
-    boolean deleteAll() throws DatabaseDeleteException;
-
+    @Throws(DatabaseDeleteException::class)
+    fun deleteAll(): Boolean
 }
