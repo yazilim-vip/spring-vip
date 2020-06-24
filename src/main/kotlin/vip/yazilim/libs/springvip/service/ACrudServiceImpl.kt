@@ -1,5 +1,6 @@
 package vip.yazilim.libs.springvip.service
 
+import org.jetbrains.annotations.NotNull
 import org.springframework.data.jpa.repository.JpaRepository
 import vip.yazilim.libs.springvip.exception.*
 import java.util.*
@@ -31,7 +32,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
      * @param entity input entity model
      * @return id of entity
      */
-    protected abstract fun getId(entity: E): ID
+    protected abstract fun getId( entity: E): ID
 
     @Throws(DatabaseSaveException::class)
     override fun save(entity: E): E {
@@ -63,7 +64,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
      * @param entity values that will be inserted
      * @return entity that inserted to the data source
      */
-    protected fun preInsert(entity: E): E {
+    protected open fun preInsert(entity: E): E {
         return entity
     }
 
@@ -111,7 +112,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
      * @param newEntity new data that will be saved to data source
      * @return prepared entity to update
      */
-    protected fun preUpdate(oldEntity: E, newEntity: E): E {
+    protected open fun preUpdate(oldEntity: E, newEntity: E): E {
         return newEntity
     }
 
@@ -140,7 +141,6 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
     @Throws(DatabaseDeleteException::class)
     override fun deleteAll(): Boolean {
         return try {
-
             // delete entity
             repository.deleteAll()
             true
