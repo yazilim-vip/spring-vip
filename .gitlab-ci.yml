@@ -35,6 +35,7 @@ publish_jar:
 pages:
   stage: deploy
   script:
+    - mkdir -p public
 #    - mvn $MAVEN_CLI_OPTS javadoc:javadoc
 #    - mkdir -p public/apidocs && cp -R target/site/apidocs/* public/apidocs
     - cd docs && hugo
