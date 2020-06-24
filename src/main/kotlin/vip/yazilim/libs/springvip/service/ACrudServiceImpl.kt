@@ -2,8 +2,8 @@ package vip.yazilim.libs.springvip.service
 
 import org.springframework.data.jpa.repository.JpaRepository
 import vip.yazilim.libs.springvip.exception.*
-import vip.yazilim.libs.springvip.util.ListHelper
 import java.util.*
+import kotlin.reflect.KClass
 
 /**
  * Abstract Implementation of ICrudService.
@@ -17,12 +17,13 @@ import java.util.*
  * @contact maemresen@yazilim.vip
 </ID></E> */
 abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
+
     /**
      * Repository of the entity that will be used with this implementation
      * @return JPARepository Instance
      */
     protected abstract val repository: JpaRepository<E, ID>
-    protected abstract val classOfEntity: KClass<*>
+    protected abstract val classOfEntity: KClass<E>
 
     /**
      * Get Id of the entity
@@ -35,9 +36,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
     @Throws(DatabaseSaveException::class)
     override fun save(entity: E): E {
         return try {
-            val repository: JpaRepository<E, ID> = repository
-            val savedEntity = repository.save(entity) ?: throw NoSuchElementException("Saved entity not found")
-            savedEntity
+            repository.save(entity) ?: throw NoSuchElementException("Saved entity not found")
         } catch (exception: Exception) {
             throw DatabaseSaveException(entity::class, getId(entity), exception)
         }
@@ -74,7 +73,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
             // get old entity
             val id = getId(newEntity)
             val oldEntity = getById(id)
-            require(oldEntity.isPresent) { "Cannot update non-exist enity" }
+            require(oldEntity.isPresent) { "Cannot update non-exist entity" }
 
             // prepare entity for update
             val preparedEntity = preUpdate(oldEntity.get(), newEntity)
@@ -84,21 +83,19 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
         }
     }
 
-    @get:Throws(DatabaseReadException::class)
-    override val all: List<E>?
-        get() = try {
-            val repository = repository
-            val resultList = repository.findAll()
-            ListHelper.getSafeList(resultList)
+    override fun getAll(): List<E> {
+        return try {
+            // find entity by id
+            repository.findAll()
         } catch (exception: Exception) {
             throw DatabaseReadException(classOfEntity, exception)
         }
+    }
 
     @Throws(DatabaseReadException::class)
-    override fun getById(id: ID?): Optional<E?> {
+    override fun getById(id: ID): Optional<E> {
         return try {
             val repository = repository
-            requireNotNull(id) { "ID cannot be null" }
 
             // find entity by id
             repository.findById(id)
@@ -114,15 +111,13 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
      * @param newEntity new data that will be saved to data source
      * @return prepared entity to update
      */
-    protected fun preUpdate(oldEntity: E?, newEntity: E?): E? {
+    protected fun preUpdate(oldEntity: E, newEntity: E): E {
         return newEntity
     }
 
     @Throws(DatabaseDeleteException::class)
-    override fun deleteById(id: ID?): Boolean {
+    override fun deleteById(id: ID): Boolean {
         return try {
-            val repository = repository
-
             // delete entity
             repository.deleteById(id)
             true
@@ -132,10 +127,8 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
     }
 
     @Throws(DatabaseDeleteException::class)
-    override fun delete(entity: E?): Boolean {
+    override fun delete(entity: E): Boolean {
         return try {
-            val repository = repository
-
             // delete entity
             repository.delete(entity)
             true
@@ -147,7 +140,6 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
     @Throws(DatabaseDeleteException::class)
     override fun deleteAll(): Boolean {
         return try {
-            val repository = repository
 
             // delete entity
             repository.deleteAll()

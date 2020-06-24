@@ -12,8 +12,7 @@ import kotlin.reflect.KClass
 open class DatabaseException(entityClass: KClass<*>, type: String, description: String, exception: Exception)
     : RuntimeException(entityClass.simpleName + " :: " + type + " Error :: " + description, exception)
 
-
-
+;
 // SAVE
 class DatabaseSaveException(entityClass: KClass<*>, id: Any, exception: Exception)
     : DatabaseException(entityClass, "SAVE", id.toString(), exception)
@@ -45,5 +44,6 @@ class DatabaseDeleteException : DatabaseException {
 }
 
 // Rest API Call
+
 
 class RestApiCallError(e: Exception) : RuntimeException("API call returned an error message", e)

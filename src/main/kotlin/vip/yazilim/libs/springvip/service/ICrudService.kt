@@ -55,8 +55,9 @@ interface ICrudService<E, ID> {
      *
      * @return list of entities
      */
-    @get:Throws(DatabaseReadException::class)
-    val all: List<E>?
+
+    @Throws(DatabaseReadException::class)
+    fun getAll(): List<E>
 
     /**
      * Get an entity from table by id.
