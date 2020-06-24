@@ -96,8 +96,6 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
     @Throws(DatabaseReadException::class)
     override fun getById(id: ID): Optional<E> {
         return try {
-            val repository = repository
-
             // find entity by id
             repository.findById(id)
         } catch (exception: Exception) {
