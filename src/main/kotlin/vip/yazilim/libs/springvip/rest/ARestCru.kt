@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
+import vip.yazilim.libs.springvip.config.SpringVipConfiguration
 import vip.yazilim.libs.springvip.rest.model.RestResponse
 import vip.yazilim.libs.springvip.rest.model.generateResponse
 import javax.servlet.http.HttpServletRequest
@@ -17,7 +18,7 @@ import javax.validation.Valid
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
  */
-abstract class ARestCru<E : Any, ID> : ARestRead<E, ID>() {
+abstract class ARestCru<E : Any, ID>(springVipConfiguration: SpringVipConfiguration) : ARestRead<E, ID>(springVipConfiguration) {
 
     // (C) create Operations
     @PostMapping("/")

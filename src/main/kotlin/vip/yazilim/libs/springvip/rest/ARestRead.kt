@@ -6,11 +6,11 @@ package vip.yazilim.libs.springvip.rest
  */
 
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import vip.yazilim.libs.springvip.rest.model.RestResponse
-import vip.yazilim.libs.springvip.rest.model.generateResponse
+import vip.yazilim.libs.springvip.config.SpringVipConfiguration
 import vip.yazilim.libs.springvip.service.ICrudService
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -22,24 +22,24 @@ import kotlin.reflect.KClass
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
  */
-abstract class ARestRead<E : Any, ID> {
+abstract class ARestRead<E : Any, ID>(
+        private val springVipConfiguration: SpringVipConfiguration
+) {
 
     protected abstract val crudService: ICrudService<E, ID>
     protected abstract val classOfEntity: KClass<E>
 
     // (R) read Operations
     @GetMapping("/")
-    fun getAll(request: HttpServletRequest, response: HttpServletResponse): RestResponse<List<E>> {
-
-        // init response
-        return generateResponse(responseBody = crudService.getAll()
+    fun getAll(request: HttpServletRequest, response: HttpServletResponse): Any {
+        return springVipConfiguration.generateResponse(responseBody = crudService.getAll()
                 , httpStatus = HttpStatus.OK
                 , request = request
-                , response = response)
+                , response = response);
     }
 
     @GetMapping("/{id}")
-    fun getById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): RestResponse<E> {
+    fun getById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
 
         // get entity
         val entity = crudService.getById(id)
@@ -48,7 +48,7 @@ abstract class ARestRead<E : Any, ID> {
         }
 
         // init response
-        return generateResponse(responseBody = entity.get()
+        return springVipConfiguration.generateResponse(responseBody = entity.get()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
