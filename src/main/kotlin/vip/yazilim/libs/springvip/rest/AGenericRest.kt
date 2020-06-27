@@ -8,12 +8,12 @@ import vip.yazilim.libs.springvip.rest.model.RestResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-open class AGenericRest<E : Any, ID : Any> (
+open class AGenericRest<E : Any, ID : Any>(
         private val restConfig: ARestConfig<E, ID>
 ) {
 
 
-    fun restGetAll(request: HttpServletRequest
+    open fun restGetAll(request: HttpServletRequest
                    , response: HttpServletResponse): Any {
         return restConfig.generateResponse(responseBody = restConfig.crudService.getAll()
                 , httpStatus = HttpStatus.OK
@@ -21,7 +21,7 @@ open class AGenericRest<E : Any, ID : Any> (
                 , response = response)
     }
 
-    fun restGetById(request: HttpServletRequest
+    open fun restGetById(request: HttpServletRequest
                     , response: HttpServletResponse
                     , @PathVariable id: ID): Any {
 
@@ -39,7 +39,7 @@ open class AGenericRest<E : Any, ID : Any> (
     }
 
 
-    fun restCreate(request: HttpServletRequest
+    open fun restCreate(request: HttpServletRequest
                    , response: HttpServletResponse
                    , entity: E): Any {
 
@@ -54,7 +54,7 @@ open class AGenericRest<E : Any, ID : Any> (
     }
 
 
-    fun restUpdate(request: HttpServletRequest
+    open fun restUpdate(request: HttpServletRequest
                    , response: HttpServletResponse
                    , entity: E): Any {
 
@@ -69,7 +69,7 @@ open class AGenericRest<E : Any, ID : Any> (
     }
 
     // (D) delete Operations
-    fun restDelete(request: HttpServletRequest
+    open fun restDelete(request: HttpServletRequest
                    , response: HttpServletResponse
                    , @PathVariable id: ID): Any {
 
