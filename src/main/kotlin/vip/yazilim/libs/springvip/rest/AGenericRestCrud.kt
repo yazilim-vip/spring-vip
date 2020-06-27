@@ -14,10 +14,11 @@ import javax.servlet.http.HttpServletResponse
  * @contact maemresen@yazilim.vip
  */
 abstract class AGenericRestCrud<E : Any, ID : Any>(private val restConfig: ARestConfig<E, ID>) : AGenericRestCru<E, ID>(restConfig) {
+
     // (D) delete Operations
     @DeleteMapping("/{id}")
-    fun delete(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
-        return restDelete(request = request, response = response, id = id)
+    override fun restDelete(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
+        return super.restDelete(request, response, id)
     }
 
 }

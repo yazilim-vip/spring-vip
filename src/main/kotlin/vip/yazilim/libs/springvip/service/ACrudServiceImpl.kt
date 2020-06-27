@@ -1,6 +1,5 @@
 package vip.yazilim.libs.springvip.service
 
-import org.jetbrains.annotations.NotNull
 import org.springframework.data.jpa.repository.JpaRepository
 import vip.yazilim.libs.springvip.exception.*
 import java.util.*

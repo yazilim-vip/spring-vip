@@ -19,15 +19,12 @@ abstract class AGenericRestCru<E : Any, ID : Any>(restConfig: ARestConfig<E, ID>
 
     // (C) create Operations
     @PostMapping("/")
-    open fun create(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
-        return restCreate(request = request, response = response, entity = entity)
+    override fun restCreate(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
+        return super.restCreate(request, response, entity)
     }
 
-    // (U) update Operations
     @PutMapping("/")
-    open fun update(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
-        return restUpdate(request = request, response = response, entity = entity)
+    override fun restUpdate(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
+        return super.restUpdate(request, response, entity)
     }
-
-
 }

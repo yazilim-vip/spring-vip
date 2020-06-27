@@ -22,12 +22,12 @@ abstract class AGenericRestRead<E : Any, ID : Any>(restConfig: ARestConfig<E, ID
 
     // (R) read Operations
     @GetMapping("/")
-    fun getAll(request: HttpServletRequest, response: HttpServletResponse): Any {
-        return restGetAll(request = request, response = response)
+    override fun restGetAll(request: HttpServletRequest, response: HttpServletResponse): Any {
+        return super.restGetAll(request, response)
     }
 
     @GetMapping("/{id}")
-    fun getById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
-        return restGetById(request = request, response = response, id = id)
+    override fun restGetById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
+        return super.restGetById(request, response, id)
     }
 }
