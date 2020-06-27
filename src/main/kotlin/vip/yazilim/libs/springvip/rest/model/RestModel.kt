@@ -39,19 +39,3 @@ class RestErrorResponse(timestamp: Long
  * @contact maemresen@yazilim.vip
  */
 data class RestError<C>(private val errorCode: Int, private val errorCause: C)
-
-
-fun <B> generateResponse(responseBody: B
-                         , httpStatus: HttpStatus
-                         , request: HttpServletRequest
-                         , response: HttpServletResponse): RestResponse<B> {
-    val path = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE) as String
-    val restResponse: RestResponse<B> = RestResponse(
-            timestamp = Date().time,
-            path = path,
-            message = httpStatus.reasonPhrase,
-            data = responseBody
-    )
-    response.setIntHeader("status", httpStatus.value())
-    return restResponse
-}
