@@ -16,16 +16,15 @@ import javax.servlet.http.HttpServletResponse
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
  */
-abstract class ARestCrud<E : Any, ID>(springVipConfiguration: SpringVipConfiguration) : ARestCru<E, ID>(springVipConfiguration) {
+abstract class ARestCrud<E : Any, ID>(private val springVipConfiguration: SpringVipConfiguration) : ARestCru<E, ID>(springVipConfiguration) {
     // (D) delete Operations
     @DeleteMapping("/{id}")
-    fun delete(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): RestResponse<Boolean> {
-
-        // delete entity
-        val status: Boolean = crudService.deleteById(id)
-
-        // init response
-        return generateResponse(status, HttpStatus.OK, request, response)
+    fun delete(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
+        return restDelete(springVipConfiguration = springVipConfiguration
+                , restConfig = this
+                , request = request
+                , response = response
+                , id = id)
     }
 
 }
