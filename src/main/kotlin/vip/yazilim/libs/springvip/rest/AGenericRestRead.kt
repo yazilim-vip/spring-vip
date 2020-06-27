@@ -8,9 +8,11 @@ package vip.yazilim.libs.springvip.rest
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import vip.yazilim.libs.springvip.config.ARestConfig
+import vip.yazilim.libs.springvip.config.DefaultSpringVipConfig
+import vip.yazilim.libs.springvip.service.ICrudService
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import kotlin.reflect.KClass
 
 /**
  * Generic REST Controller Implementations for generic Read operations
@@ -18,7 +20,8 @@ import javax.servlet.http.HttpServletResponse
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
  */
-abstract class AGenericRestRead<E : Any, ID : Any>(restConfig: ARestConfig<E, ID>) : AGenericRest<E, ID>(restConfig) {
+abstract class AGenericRestRead<E : Any, ID : Any>(springVipConfig: DefaultSpringVipConfig, crudService: ICrudService<E, ID>, classOfEntity: KClass<E>)
+    : AGenericRest<E, ID>(springVipConfig, crudService, classOfEntity) {
 
     // (R) read Operations
     @GetMapping("/")

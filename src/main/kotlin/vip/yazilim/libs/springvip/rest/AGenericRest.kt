@@ -3,36 +3,39 @@ package vip.yazilim.libs.springvip.rest
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import vip.yazilim.libs.springvip.config.ARestConfig
-import vip.yazilim.libs.springvip.rest.model.RestResponse
+import vip.yazilim.libs.springvip.config.SpringVipConfig
+import vip.yazilim.libs.springvip.service.ICrudService
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import kotlin.reflect.KClass
 
-open class AGenericRest<E : Any, ID : Any>(
-        private val restConfig: ARestConfig<E, ID>
+abstract class AGenericRest<E : Any, ID : Any>(
+        protected val springVipConfig: SpringVipConfig,
+        protected val crudService: ICrudService<E, ID>,
+        protected val classOfEntity: KClass<E>
 ) {
 
 
     open fun restGetAll(request: HttpServletRequest
-                   , response: HttpServletResponse): Any {
-        return restConfig.generateResponse(responseBody = restConfig.crudService.getAll()
+                        , response: HttpServletResponse): Any {
+        return springVipConfig.restResponseGenerator(responseBody = crudService.getAll()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
     }
 
     open fun restGetById(request: HttpServletRequest
-                    , response: HttpServletResponse
-                    , @PathVariable id: ID): Any {
+                         , response: HttpServletResponse
+                         , @PathVariable id: ID): Any {
 
         // get entity
-        val entity = restConfig.crudService.getById(id)
+        val entity = crudService.getById(id)
         require(entity.isPresent) {
-            throw NoSuchElementException("${restConfig.classOfEntity.simpleName} Not Found :: ${id.toString()}")
+            throw NoSuchElementException("${classOfEntity.simpleName} Not Found :: ${id.toString()}")
         }
 
         // init response
-        return restConfig.generateResponse(responseBody = entity.get()
+        return springVipConfig.restResponseGenerator(responseBody = entity.get()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -40,14 +43,14 @@ open class AGenericRest<E : Any, ID : Any>(
 
 
     open fun restCreate(request: HttpServletRequest
-                   , response: HttpServletResponse
-                   , entity: E): Any {
+                        , response: HttpServletResponse
+                        , entity: E): Any {
 
         // create entity
-        val createdEntity = restConfig.crudService.create(entity)
+        val createdEntity = crudService.create(entity)
 
         // init response
-        return restConfig.generateResponse(responseBody = createdEntity
+        return springVipConfig.restResponseGenerator(responseBody = createdEntity
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -55,14 +58,14 @@ open class AGenericRest<E : Any, ID : Any>(
 
 
     open fun restUpdate(request: HttpServletRequest
-                   , response: HttpServletResponse
-                   , entity: E): Any {
+                        , response: HttpServletResponse
+                        , entity: E): Any {
 
         // update entity
-        val updatedEntity = restConfig.crudService.update(entity)
+        val updatedEntity = crudService.update(entity)
 
         // init response
-        return restConfig.generateResponse(responseBody = updatedEntity
+        return springVipConfig.restResponseGenerator(responseBody = updatedEntity
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -70,11 +73,11 @@ open class AGenericRest<E : Any, ID : Any>(
 
     // (D) delete Operations
     open fun restDelete(request: HttpServletRequest
-                   , response: HttpServletResponse
-                   , @PathVariable id: ID): Any {
+                        , response: HttpServletResponse
+                        , @PathVariable id: ID): Any {
 
         // init response
-        return restConfig.generateResponse(responseBody = restConfig.crudService.deleteById(id)
+        return springVipConfig.restResponseGenerator(responseBody = crudService.deleteById(id)
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response);

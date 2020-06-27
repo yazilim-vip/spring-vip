@@ -2,9 +2,11 @@ package vip.yazilim.libs.springvip.rest
 
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
-import vip.yazilim.libs.springvip.config.ARestConfig
+import vip.yazilim.libs.springvip.config.DefaultSpringVipConfig
+import vip.yazilim.libs.springvip.service.ICrudService
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import kotlin.reflect.KClass
 
 
 /**
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpServletResponse
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
  */
-abstract class AGenericRestCrud<E : Any, ID : Any>(private val restConfig: ARestConfig<E, ID>) : AGenericRestCru<E, ID>(restConfig) {
+abstract class AGenericRestCrud<E : Any, ID : Any>(springVipConfig: DefaultSpringVipConfig, crudService: ICrudService<E, ID>, classOfEntity: KClass<E>) : AGenericRestCru<E, ID>(springVipConfig, crudService, classOfEntity) {
 
     // (D) delete Operations
     @DeleteMapping("/{id}")
