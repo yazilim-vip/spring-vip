@@ -1,6 +1,5 @@
 package vip.yazilim.libs.springvip.config
 
-import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerMapping
@@ -9,17 +8,17 @@ import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-interface IRestResponseGenerator<B : Any, R : Any> {
+interface IRestResponseGenerator {
 
-    fun generateResponse(responseBody: B
+    fun generateResponse(responseBody: Any
                          , httpStatus: HttpStatus
                          , request: HttpServletRequest
-                         , response: HttpServletResponse): R
+                         , response: HttpServletResponse): Any
 
 }
 
 @Component
-open class DefaultRestResponseGenerator : IRestResponseGenerator<Any, RestResponse<Any>> {
+open class DefaultRestResponseGenerator : IRestResponseGenerator {
 
     override fun generateResponse(responseBody: Any, httpStatus: HttpStatus, request: HttpServletRequest, response: HttpServletResponse): RestResponse<Any> {
         val path = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE) as String
