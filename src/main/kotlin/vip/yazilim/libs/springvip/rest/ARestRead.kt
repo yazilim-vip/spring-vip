@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  */
 abstract class ARestRead<E : Any, ID> {
 
-    protected abstract val service: ICrudService<E, ID>
+    protected abstract val crudService: ICrudService<E, ID>
     protected abstract val classOfEntity: KClass<E>
 
     // (R) read Operations
@@ -32,7 +32,7 @@ abstract class ARestRead<E : Any, ID> {
     fun getAll(request: HttpServletRequest, response: HttpServletResponse): RestResponse<List<E>> {
 
         // init response
-        return generateResponse(responseBody = service.getAll()
+        return generateResponse(responseBody = crudService.getAll()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -42,7 +42,7 @@ abstract class ARestRead<E : Any, ID> {
     fun getById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): RestResponse<E> {
 
         // get entity
-        val entity = service.getById(id)
+        val entity = crudService.getById(id)
         require(entity.isPresent) {
             throw NoSuchElementException("${classOfEntity.simpleName} Not Found :: ${id.toString()}")
         }

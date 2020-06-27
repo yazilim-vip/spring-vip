@@ -23,10 +23,6 @@ abstract class ARestCru<E : Any, ID> : ARestRead<E, ID>() {
     @PostMapping("/")
     open fun create(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): RestResponse<E> {
 
-
-        // get repo
-        val crudService = service
-
         // create entity
         val createdEntity = crudService.create(entity)
 
@@ -37,9 +33,6 @@ abstract class ARestCru<E : Any, ID> : ARestRead<E, ID>() {
     // (U) update Operations
     @PutMapping("/")
     open fun update(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): RestResponse<E> {
-
-        // get repo
-        val crudService = service
 
         // update entity
         val updatedEntity = crudService.update(entity)

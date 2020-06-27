@@ -1,6 +1,5 @@
 package vip.yazilim.libs.springvip.rest.model
 
-import lombok.Data
 import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.HandlerMapping
 import java.util.*

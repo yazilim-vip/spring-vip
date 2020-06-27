@@ -20,14 +20,8 @@ abstract class ARestCrud<E : Any, ID> : ARestCru<E, ID>() {
     @DeleteMapping("/{id}")
     fun delete(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): RestResponse<Boolean> {
 
-        // get repo
-        val crudService = service
-
-        // delete status
-        val status: Boolean
-
         // delete entity
-        status = crudService.deleteById(id)
+        val status: Boolean = crudService.deleteById(id)
 
         // init response
         return generateResponse(status, HttpStatus.OK, request, response)
