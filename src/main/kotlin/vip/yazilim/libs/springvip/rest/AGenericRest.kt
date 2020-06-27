@@ -18,7 +18,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
 
     open fun restGetAll(request: HttpServletRequest
                         , response: HttpServletResponse): Any {
-        return springVipConfig.restResponseGenerator(responseBody = crudService.getAll()
+        return springVipConfig.generateRestResponse(responseBody = crudService.getAll()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -35,7 +35,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
         }
 
         // init response
-        return springVipConfig.restResponseGenerator(responseBody = entity.get()
+        return springVipConfig.generateRestResponse(responseBody = entity.get()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -50,7 +50,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
         val createdEntity = crudService.create(entity)
 
         // init response
-        return springVipConfig.restResponseGenerator(responseBody = createdEntity
+        return springVipConfig.generateRestResponse(responseBody = createdEntity
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -65,7 +65,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
         val updatedEntity = crudService.update(entity)
 
         // init response
-        return springVipConfig.restResponseGenerator(responseBody = updatedEntity
+        return springVipConfig.generateRestResponse(responseBody = updatedEntity
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -77,7 +77,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
                         , @PathVariable id: ID): Any {
 
         // init response
-        return springVipConfig.restResponseGenerator(responseBody = crudService.deleteById(id)
+        return springVipConfig.generateRestResponse(responseBody = crudService.deleteById(id)
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response);

@@ -10,22 +10,8 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Configuration
-open class DefaultSpringVipConfig() : SpringVipConfig() {
-
+open class DefaultSpringVipConfig : SpringVipConfig() {
     init {
         logger().debug("Using Default SpringVIP Configuration")
     }
-
-    override fun restResponseGenerator(responseBody: Any, httpStatus: HttpStatus, request: HttpServletRequest, response: HttpServletResponse): RestResponse<Any> {
-        val path = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE) as String
-        val restResponse: RestResponse<Any> = RestResponse(
-                timestamp = Date().time,
-                path = path,
-                message = httpStatus.reasonPhrase,
-                data = responseBody
-        )
-        response.setIntHeader("status", httpStatus.value())
-        return restResponse
-    }
-
 }
