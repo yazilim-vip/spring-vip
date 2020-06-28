@@ -44,6 +44,4 @@ class DatabaseDeleteException : DatabaseException {
 }
 
 // Rest API Call
-
-
 class RestApiCallError(e: Exception) : RuntimeException("API call returned an error message", e)

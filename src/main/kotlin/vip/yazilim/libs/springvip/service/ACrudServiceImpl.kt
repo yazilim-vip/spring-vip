@@ -1,6 +1,5 @@
 package vip.yazilim.libs.springvip.service
 
-import org.jetbrains.annotations.NotNull
 import org.springframework.data.jpa.repository.JpaRepository
 import vip.yazilim.libs.springvip.exception.*
 import java.util.*
@@ -17,14 +16,10 @@ import kotlin.reflect.KClass
  * @author Emre Sen, 19.07.2019
  * @contact maemresen@yazilim.vip
 </ID></E> */
-abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
-
-    /**
-     * Repository of the entity that will be used with this implementation
-     * @return JPARepository Instance
-     */
-    protected abstract val repository: JpaRepository<E, ID>
-    protected abstract val classOfEntity: KClass<E>
+abstract class ACrudServiceImpl<E : Any, ID : Any>(
+        protected val repository: JpaRepository<E, ID>,
+        protected val classOfEntity: KClass<E>
+) : ICrudService<E, ID> {
 
     /**
      * Get Id of the entity
@@ -32,7 +27,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any> : ICrudService<E, ID> {
      * @param entity input entity model
      * @return id of entity
      */
-    protected abstract fun getId( entity: E): ID
+    protected abstract fun getId(entity: E): ID
 
     @Throws(DatabaseSaveException::class)
     override fun save(entity: E): E {
