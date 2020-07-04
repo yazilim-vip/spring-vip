@@ -1,5 +1,9 @@
 [<<< back](./README.md)
 
+* Examples 
+    * [Generic CRUD Rest Controller](./wiki/generic-crud-restcontroller.md)
+    * [Generic CRUD Service](./wiki/generic-crud-service.md)
+
 ## Generic CRUD Service
 
 You can manage the flow from the Entity level to the REST or View (MVC's View) level with the SpringVIP Library. 
