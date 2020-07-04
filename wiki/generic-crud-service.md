@@ -1,11 +1,12 @@
 [<<< back](./README.md)
 
 * [Getting Started](./wiki/getting-started.md)
-* [Example: Generic CRUD Rest Controller](./wiki/generic-restcontroller.md) 
+* [Example: Generic CRUD Rest Controller](./wiki/generic-crud-restcontroller.md) 
 * [Example: Generic CRUD Service](./wiki/generic-crud-service.md)
 
 ---
 
+# Example: Generic CRUD Service
 
 ### Generic CRUD Service Example Usage
 To use `Generic CRUD Service` feature you need following; \
