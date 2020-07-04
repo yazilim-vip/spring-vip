@@ -7,7 +7,7 @@ bookFlatSection: false
 
 You can manage the flow from the Entity level to the REST or View (MVC's View) level with the SpringVIP Library. 
  
-![res](./images/spring_core_diagram_rev3.svg)
+![res](./images/spring_core_diagram_rev3.png)
  
 
 `JPARepository`, `ICrudService` and `ACrudServiceImpl` components could be seen on the figure above already provided by library and Spring Framework to the developer.
