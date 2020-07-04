@@ -1,8 +1,11 @@
----
-weight: 2
-bookFlatSection: false
-bookToC: false
----
+[<<< back](./README.md)
+
+* [Getting Started](./wiki/getting-started.md)
+
+**Examples** 
+* [Generic CRUD Rest Controller](./wiki/generic-crud-restcontroller.md)
+* Generic CRUD Service
+
 
 ### Generic CRUD Service Example Usage
 To use `Generic CRUD Service` feature you need following; \

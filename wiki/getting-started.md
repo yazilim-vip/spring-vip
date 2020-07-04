@@ -1,8 +1,10 @@
 [<<< back](./README.md)
 
-* Examples 
-    * [Generic CRUD Rest Controller](./wiki/generic-crud-restcontroller.md)
-    * [Generic CRUD Service](./wiki/generic-crud-service.md)
+* Getting Started
+
+**Examples** 
+* [Generic CRUD Rest Controller](./wiki/generic-crud-restcontroller.md)
+* [Generic CRUD Service](./wiki/generic-crud-service.md)
 
 ## Generic CRUD Service
 
