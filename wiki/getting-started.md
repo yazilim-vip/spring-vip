@@ -1,7 +1,4 @@
----
-weight: 1
-bookFlatSection: false
----
+[<<< back](./README.md)
 
 ## Generic CRUD Service
 
