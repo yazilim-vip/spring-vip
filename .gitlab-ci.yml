@@ -21,6 +21,8 @@ build:
   only:
     - master
 
+
+
 publish_jar:
   stage: release
   script:
