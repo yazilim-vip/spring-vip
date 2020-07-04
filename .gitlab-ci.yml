@@ -15,11 +15,13 @@ stages:
 
 build:
   stage: build
+  before_script:
+    - VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
   script:
     - mvn $MAVEN_CLI_OPTS compile
-    - mvn $MAVEN_CLI_OPTS deploy
   rules:
-    - if: [[ $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH ]] && [[ $(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec) == *"SNAPSHOT"* ]]
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ $CI_DEFAULT_BRANCH
+    - if: $VERSION == "/^SNAPSHOT^/"
 
 publish_jar:
   stage: deploy
