@@ -1,6 +1,6 @@
-[<<< back](./README.md)
+[<<< home](./README.md)
 
-* [Getting Started](./wiki/getting-started.md)
+* Getting Started
 * [Example: Generic CRUD Rest Controller](./wiki/generic-crud-restcontroller.md) 
 * [Example: Generic CRUD Service](./wiki/generic-crud-service.md)
 
