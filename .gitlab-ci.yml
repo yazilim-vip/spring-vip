@@ -21,10 +21,6 @@ build:
   only:
     - merge_requests
 
-
-
-
-
 publish_jar:
   stage: release
   script:
