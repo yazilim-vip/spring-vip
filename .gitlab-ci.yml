@@ -25,7 +25,6 @@ build:
     - if: $CI_MERGE_REQUEST_IID && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_MESSAGE =~ /.*build$/
 
-
 publish_jar:
   stage: release
   script:
