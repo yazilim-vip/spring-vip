@@ -10,6 +10,7 @@ cache:
     - .m2/repository/
     - target/
 
+
 stages:
   - build
   - release
