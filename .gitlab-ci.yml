@@ -19,7 +19,7 @@ build:
     - VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:1.6.0:exec)
     - if [[ "${VERSION}" == *"SNAPSHOT"* ]]; then mvn $MAVEN_CLI_OPTS compile; mvn $MAVEN_CLI_OPTS deploy; else echo "Non-Snapshot version deployment not allowed in merge. Skipping Deployment"; fi
   rules:
-    - if: '$CI_COMMIT_MESSAGE == /:build:/'
+    - if: '$CI_COMMIT_MESSAGE == /\b:build:\b/'
 
 
 publish_jar:
