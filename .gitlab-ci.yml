@@ -21,6 +21,7 @@ build:
   rules:
     - if: '$CI_COMMIT_MESSAGE == /:build:/'
 
+
 publish_jar:
   stage: release
   script:
