@@ -3,7 +3,6 @@ package vip.yazilim.libs.springvip.thread
 import java.time.Instant
 import java.time.ZoneId
 import java.util.*
-import java.util.logging.Logger
 
 abstract class AThread(
         // Name of the thread
@@ -20,14 +19,26 @@ abstract class AThread(
 ) {
 
     // --- Properties ----------
-    private var firstJob: Boolean = true
-    private var threadFittingToInterval: Boolean = false
-    private var stopThread: Boolean = false
-    private var threadError: Boolean = false // any error occurred during the execution of the thread
-    private var tryCount: Int = 0
-    private var goodMorningFlag: Boolean = false
-    private var preJobOverflowTime: Long = 0
-    private var preJobHasErrorFlag = false
+    var firstJob: Boolean = true
+        private set
+    var threadFittingToInterval: Boolean = false
+        private set
+    var stopThread: Boolean = false
+        private set
+    var threadError: Boolean = false // any error occurred during the execution of the thread
+        private set
+    var tryCount: Int = 0
+        private set
+    var goodMorningFlag: Boolean = false
+        private set
+    var preJobOverflowTime: Long = 0
+        private set
+    var preJobHasErrorFlag = false
+        private set
+    var startOfJobTime: Long = 0
+        private set
+
+    // --- Getters ----------
 
 
     // --- Logging Methods ----------
@@ -46,34 +57,25 @@ abstract class AThread(
     fun run() {
         logTrace("__$threadName Started__")
         preThreadRun()
-        threadLoop()
-        postThreadRun()
-        logTrace("__$threadName Ended__")
-    }
-
-    private fun threadLoop() {
         do {
             try {
-                if(handleError()){
+                if (threadError) {
+                    errorSleep()
+                    threadFittingToInterval = false
                     continue
                 }
 
-                if (tryCount > 0) {
-                    logDebug("Try[$tryCount]")
-                }
-
-                val startOfProcess = initializeThread()
+                initializeThread()
                 if (threadFittingToInterval) {
                     threadFittingToInterval = false
-                } else if (goodMorningFlag || firstJob || preJobHasOverflow()) {
-                    preJobOverflowTime = fitIntoInterval(startOfProcess, preJobOverflowTime)
+                } else if (goodMorningFlag || firstJob || preJobHasErrorFlag) {
+                    fitJobIntoInterval()
                     goodMorningFlag = false
                     threadFittingToInterval = true
                     continue
                 }
-
-                preJobHasErrorFlag = applyThreadAlgorithm(startOfProcess, preJobOverflowTime, preJobHasErrorFlag)
-                preJobOverflowTime = finalizeThread(startOfProcess)
+                applyThreadAlgorithm()
+                finalizeThread()
             } catch (e: Exception) {
                 logError("Handled $threadName Deamon Error!! :: ${e.message} ", e)
                 raiseError()
@@ -81,30 +83,21 @@ abstract class AThread(
                 firstJob = false
             }
         } while (!stopThread)
+        postThreadRun()
+        logTrace("__$threadName Ended__")
     }
 
-    private fun handleError(): Boolean{
-        if (threadError) {
-            errorSleep()
-            threadFittingToInterval = false
-            return true
-        }
-        return false
-    }
-
-    private fun initializeThread(): Long {
-        return Calendar.getInstance().timeInMillis; // get current time
+    private fun initializeThread() {
+        startOfJobTime = Calendar.getInstance().timeInMillis; // get current time
     }
 
     /**
      *
-     * @param startOfProcess
-     * @param preJobOverflowTime
      * @return total overflow
      */
     @Throws(InterruptedException::class)
-    private fun fitIntoInterval(startOfProcess: Long, preJobOverflowTime: Long): Long {
-        val instant = Instant.ofEpochMilli(startOfProcess)
+    private fun fitJobIntoInterval() {
+        val instant = Instant.ofEpochMilli(startOfJobTime)
         val date = instant.atZone(ZoneId.systemDefault()).toLocalDateTime()
         val waitSecond = 60 - date.second.toLong()
         val waitMillis = waitSecond * 1000
@@ -121,19 +114,22 @@ abstract class AThread(
             }
         }
         sleepThread(waitMillis)
-        return totalOverflow
+        setPreJobOverflow(totalOverflow)
     }
 
-    private fun applyThreadAlgorithm(startOfProcess: Long, preJobOverflowTime: Long, preJobHasError: Boolean): Boolean {
-        return try {
+    private fun applyThreadAlgorithm() {
+        preJobHasErrorFlag = try {
+            if (tryCount > 0) {
+                logDebug("Try[$tryCount]")
+            }
             logTrace("__$threadName Loop Started__")
-            doThreadJob(startOfProcess, preJobOverflowTime, preJobHasError)
+            doThreadJob(startOfJobTime, preJobOverflowTime, preJobHasErrorFlag)
             logTrace("__$threadName Loop Ended__")
-            false;
+            false
         } catch (e: Exception) {
             logError("Error", e)
             incrementTryCount()
-            true;
+            true
         }
     }
 
@@ -146,13 +142,13 @@ abstract class AThread(
     @Throws(Exception::class)
     protected abstract fun doThreadJob(startOfProcess: Long, preJobOverflowTime: Long, preJobHasError: Boolean)
 
-    private fun finalizeThread(startOfProcess: Long): Long {
+    private fun finalizeThread() {
         val endOfProcess = Calendar.getInstance().timeInMillis
 
         // calculate remaining time to sleep thread
-        val execTimeOfProcess = endOfProcess - startOfProcess
+        val execTimeOfProcess = endOfProcess - startOfJobTime
         val remaining = threadInterval - execTimeOfProcess
-        logDebug("$threadName Execution Start=$startOfProcess"
+        logDebug("$threadName Execution Start=$startOfJobTime"
                 + ", End=$endOfProcess"
                 + ", Duration=$execTimeOfProcess"
                 + ", Interval=$threadInterval"
@@ -160,9 +156,9 @@ abstract class AThread(
         )
         if (remaining > 0) {
             sleepThread(remaining)
-            return 0
+            return
         }
-        return -remaining
+        setPreJobOverflow(-remaining)
     }
 
     // --- Thread Helper Methods ----------
@@ -208,10 +204,9 @@ abstract class AThread(
         threadError = true
     }
 
-
-    private fun preJobHasOverflow() : Boolean{
-        logg
-        return preJobOverflowTime > 0
+    private fun setPreJobOverflow(preJobOverflowTime: Long) {
+        this.preJobOverflowTime = preJobOverflowTime
+        preJobHasErrorFlag = (preJobOverflowTime > 0)
     }
 
     // --- Public Methods ----------
