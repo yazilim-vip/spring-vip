@@ -21,20 +21,31 @@ abstract class AThread(
     // --- Properties ----------
     var firstJob: Boolean = true
         private set
-    var threadFittingToInterval: Boolean = false
+
+    var currentThreadJobFitsIntoIntervalFlag: Boolean = false
         private set
+
     var stopThread: Boolean = false
         private set
+
     var threadError: Boolean = false // any error occurred during the execution of the thread
         private set
+
     var tryCount: Int = 0
         private set
-    var goodMorningFlag: Boolean = false
+
+    var firstJobAfterErrorFlag: Boolean = false
         private set
+
     var preJobOverflowTime: Long = 0
         private set
+
+    var preJobHasOverflowFlag: Boolean = false
+        private set
+
     var preJobHasErrorFlag = false
         private set
+
     var startOfJobTime: Long = 0
         private set
 
@@ -61,17 +72,17 @@ abstract class AThread(
             try {
                 if (threadError) {
                     errorSleep()
-                    threadFittingToInterval = false
+                    firstJobAfterErrorFlag = true
+                    currentThreadJobFitsIntoIntervalFlag = false
                     continue
                 }
 
                 initializeThread()
-                if (threadFittingToInterval) {
-                    threadFittingToInterval = false
-                } else if (goodMorningFlag || firstJob || preJobHasErrorFlag) {
+                if (currentThreadJobFitsIntoIntervalFlag) {
+                    currentThreadJobFitsIntoIntervalFlag = false
+                } else if (firstJob || firstJobAfterErrorFlag || preJobHasOverflowFlag) {
                     fitJobIntoInterval()
-                    goodMorningFlag = false
-                    threadFittingToInterval = true
+                    firstJobAfterErrorFlag = false
                     continue
                 }
                 applyThreadAlgorithm()
@@ -106,7 +117,7 @@ abstract class AThread(
             firstJob -> {
                 logDebug("$threadName Fitting first JOB into starting second of minute. Wait=$waitMillis")
             }
-            goodMorningFlag -> {
+            firstJobAfterErrorFlag -> {
                 logDebug("$threadName Wakes up new. Fitting JOB.  Wait=$waitMillis")
             }
             else -> {
@@ -115,6 +126,7 @@ abstract class AThread(
         }
         sleepThread(waitMillis)
         setPreJobOverflow(totalOverflow)
+        currentThreadJobFitsIntoIntervalFlag = true
     }
 
     private fun applyThreadAlgorithm() {
@@ -123,7 +135,7 @@ abstract class AThread(
                 logDebug("Try[$tryCount]")
             }
             logTrace("__$threadName Loop Started__")
-            doThreadJob(startOfJobTime, preJobOverflowTime, preJobHasErrorFlag)
+            doThreadJob()
             logTrace("__$threadName Loop Ended__")
             false
         } catch (e: Exception) {
@@ -135,12 +147,10 @@ abstract class AThread(
 
     /**
      * The main JOB of the thread that will be applied repeatedly
-     * @param startOfProcess start time of the Thread JOB in millis
-     * @param preJobOverflowTime overflow of the previous Thread JOB in milliseconds. It will be 0 if no overflow
      * @throws Exception
      */
     @Throws(Exception::class)
-    protected abstract fun doThreadJob(startOfProcess: Long, preJobOverflowTime: Long, preJobHasError: Boolean)
+    protected abstract fun doThreadJob()
 
     private fun finalizeThread() {
         val endOfProcess = Calendar.getInstance().timeInMillis
@@ -177,7 +187,6 @@ abstract class AThread(
         logDebug("An error occurred while doing thread JOB. Sleeping $threadName for $errorSleepTime")
         sleepThread(errorSleepTime)
         removeError()
-        goodMorningFlag = true
     }
 
     /**
@@ -206,7 +215,7 @@ abstract class AThread(
 
     private fun setPreJobOverflow(preJobOverflowTime: Long) {
         this.preJobOverflowTime = preJobOverflowTime
-        preJobHasErrorFlag = (preJobOverflowTime > 0)
+        preJobHasOverflowFlag = (preJobOverflowTime > 0)
     }
 
     // --- Public Methods ----------
