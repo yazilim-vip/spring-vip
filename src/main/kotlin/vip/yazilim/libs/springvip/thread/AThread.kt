@@ -1,137 +1,175 @@
 package vip.yazilim.libs.springvip.thread
 
-import org.slf4j.Logger
-import org.springframework.scheduling.annotation.Async
+import java.time.Instant
+import java.time.ZoneId
 import java.util.*
-import javax.annotation.PostConstruct
+
+abstract class AThread(
+        // Name of the thread
+        private val threadName: String
+
+        // Interval of the thread in milliseconds
+        , private val threadInterval: Long
+
+        // Threshold to try on error condition
+        , private val errorTryCountThreshold: Int
+
+        // Time to sleep on error in milliseconds
+        , private val errorSleepTime: Long
+) {
+
+    // --- Properties ----------
+    var firstJob: Boolean = true
+        private set
+
+    var currentThreadJobFitsIntoIntervalFlag: Boolean = false
+        private set
+
+    var stopThread: Boolean = false
+        private set
+
+    var threadError: Boolean = false // any error occurred during the execution of the thread
+        private set
+
+    var tryCount: Int = 0
+        private set
+
+    var firstJobAfterErrorFlag: Boolean = false
+        private set
+
+    var preJobOverflowTime: Long = 0
+        private set
+
+    var preJobHasOverflowFlag: Boolean = false
+        private set
+
+    var preJobHasErrorFlag = false
+        private set
+
+    var startOfJobTime: Long = 0
+        private set
+
+    // --- Getters ----------
 
 
-/**
- * @author Emre Sen, 24.06.2020
- * @contact yazilim.vip
- */
+    // --- Logging Methods ----------
+    abstract fun logError(msg: String, throwable: Throwable)
+    abstract fun logWarn(msg: String, throwable: Throwable)
+    abstract fun logWarn(msg: String)
+    abstract fun logInfo(msg: String)
+    abstract fun logDebug(msg: String)
+    abstract fun logTrace(msg: String)
 
-abstract class AThread {
-    private var stopThread = false
-    private var threadName: String? = null
-    private var threadInterval: Long = 0
-
-    // Error fields
-    private var threadError // any error occurred during the execution of the thread
-            = false
-    private var errorTryCountThreshold = 0
-    private var tryCount = 0
-    private var errorSleepTime: Long = 0
-
-    // --- Thread Initialization ----------
-    @PostConstruct
-    fun init() {
-        stopThread = false
-        threadName = getThreadName()
-        threadInterval = getThreadInterval()
-        threadError = false
-        errorTryCountThreshold = getErrorTryCountThreshold()
-        tryCount = 0
-        errorSleepTime = getErrorSleepTime().toLong()
-        initThread()
-    }
-
-    /**
-     * Used to initialize thread if needed
-     */
-    protected open fun initThread() {}
-    protected abstract val logger: Logger
-
-    /**
-     * It is just using for logging
-     *
-     * @return name of the thread
-     */
-    protected abstract fun getThreadName(): String
-
-    /**
-     * Interval of the thread in milliseconds
-     *
-     * @return long value in milliseconds
-     */
-    protected abstract fun getThreadInterval(): Long
-
-    /**
-     * @return long value in milliseconds
-     */
-    protected open fun getErrorTryCountThreshold(): Int {
-        return 3
-    }
-
-    /**
-     * @return long value in milliseconds
-     */
-    protected open fun getErrorSleepTime(): Int {
-        return 15 * 60 * 1000
-    }
+    // --- Pre/Post methods ----------
+    open fun preThreadRun() {}
+    open fun postThreadRun() {}
 
     // --- Thread Loop ----------
-    @Async
     fun run() {
-        logger.info(String.format("__%s Started__", threadName))
+        logTrace("__$threadName Started__")
         preThreadRun()
         do {
-            if (hasError()) {
-                errorSleep()
-                continue
-            }
             try {
-                val startOfProcess = initializeThread()
+                if (threadError) {
+                    errorSleep()
+                    firstJobAfterErrorFlag = true
+                    currentThreadJobFitsIntoIntervalFlag = false
+                    continue
+                }
+
+                initializeThread()
+                if (currentThreadJobFitsIntoIntervalFlag) {
+                    currentThreadJobFitsIntoIntervalFlag = false
+                } else if (firstJob || firstJobAfterErrorFlag || preJobHasOverflowFlag) {
+                    fitJobIntoInterval()
+                    firstJobAfterErrorFlag = false
+                    continue
+                }
                 applyThreadAlgorithm()
-                finalizeThread(startOfProcess)
+                finalizeThread()
             } catch (e: Exception) {
-                logger.error("Handled " + getThreadName() + " Deamon Error!! :: " + e.message, e)
+                logError("Handled $threadName Deamon Error!! :: ${e.message} ", e)
                 raiseError()
+            } finally {
+                firstJob = false
             }
         } while (!stopThread)
         postThreadRun()
-        logger.info(String.format("__%s Ended__", threadName))
+        logTrace("__$threadName Ended__")
     }
 
-    protected open fun preThreadRun() {}
+    private fun initializeThread() {
+        startOfJobTime = Calendar.getInstance().timeInMillis; // get current time
+    }
 
-    private fun initializeThread(): Long {
-        return try {
-            logger.info(String.format("__%s Loop Started__", threadName))
-            Calendar.getInstance().timeInMillis // get current time
-        } catch (e: Exception) {
-            throw RuntimeException("Error while initializing thread", e)
+    /**
+     *
+     * @return total overflow
+     */
+    @Throws(InterruptedException::class)
+    private fun fitJobIntoInterval() {
+        val instant = Instant.ofEpochMilli(startOfJobTime)
+        val date = instant.atZone(ZoneId.systemDefault()).toLocalDateTime()
+        val waitSecond = 60 - date.second.toLong()
+        val waitMillis = waitSecond * 1000
+        val totalOverflow = preJobOverflowTime + waitMillis
+        when {
+            firstJob -> {
+                logDebug("$threadName Fitting first JOB into starting second of minute. Wait=$waitMillis")
+            }
+            firstJobAfterErrorFlag -> {
+                logDebug("$threadName Wakes up new. Fitting JOB.  Wait=$waitMillis")
+            }
+            else -> {
+                logDebug("$threadName handling previous JOB is taking more time than normal. Overflow=$preJobOverflowTime Wait=$waitMillis")
+            }
         }
+        sleepThread(waitMillis)
+        setPreJobOverflow(totalOverflow)
+        currentThreadJobFitsIntoIntervalFlag = true
     }
 
     private fun applyThreadAlgorithm() {
-        try {
+        preJobHasErrorFlag = try {
+            if (tryCount > 0) {
+                logDebug("Try[$tryCount]")
+            }
+            logTrace("__$threadName Loop Started__")
             doThreadJob()
+            logTrace("__$threadName Loop Ended__")
+            false
         } catch (e: Exception) {
-            logger.error("Error", e);
+            logError("Error", e)
             incrementTryCount()
+            true
         }
     }
 
+    /**
+     * The main JOB of the thread that will be applied repeatedly
+     * @throws Exception
+     */
     @Throws(Exception::class)
     protected abstract fun doThreadJob()
-    private fun finalizeThread(startOfProcess: Long) {
-        try {
-            val endOfProcess = Calendar.getInstance().timeInMillis
-            logger.info(String.format("__%s Loop Ended__", threadName))
 
-            // calculate remaining time to sleep thread
-            val execTimeOfProcess = endOfProcess - startOfProcess
-            val remaining = threadInterval - execTimeOfProcess
-            if (remaining > 0) {
-                sleepThread(remaining)
-            }
-        } catch (e: Exception) {
-            throw RuntimeException("Error while finilize thread", e)
+    private fun finalizeThread() {
+        val endOfProcess = Calendar.getInstance().timeInMillis
+
+        // calculate remaining time to sleep thread
+        val execTimeOfProcess = endOfProcess - startOfJobTime
+        val remaining = threadInterval - execTimeOfProcess
+        logDebug("$threadName Execution Start=$startOfJobTime"
+                + ", End=$endOfProcess"
+                + ", Duration=$execTimeOfProcess"
+                + ", Interval=$threadInterval"
+                + ", Remaining=$remaining"
+        )
+        if (remaining > 0) {
+            sleepThread(remaining)
+            return
         }
+        setPreJobOverflow(-remaining)
     }
-
-    protected open fun postThreadRun() {}
 
     // --- Thread Helper Methods ----------
     /**
@@ -146,11 +184,24 @@ abstract class AThread {
     }
 
     private fun errorSleep() {
-        try {
-            sleepThread(errorSleepTime)
-            removeError()
-        } catch (e: InterruptedException) {
-            logger.error("Handled " + getThreadName() + " Deamon Error!! :: " + e.message, e)
+        logDebug("An error occurred while doing thread JOB. Sleeping $threadName for $errorSleepTime")
+        sleepThread(errorSleepTime)
+        removeError()
+    }
+
+    /**
+     * To remove error flag of the thread
+     */
+    private fun removeError() {
+        threadError = false
+        tryCount = 0
+    }
+
+    /**
+     * To increment try count
+     */
+    private fun incrementTryCount() {
+        if (++tryCount > errorTryCountThreshold) {
             raiseError()
         }
     }
@@ -162,25 +213,13 @@ abstract class AThread {
         threadError = true
     }
 
-    /**
-     * To remove error flag of the thread
-     */
-    private fun removeError() {
-        threadError = false
-        tryCount = 0
+    private fun setPreJobOverflow(preJobOverflowTime: Long) {
+        this.preJobOverflowTime = preJobOverflowTime
+        preJobHasOverflowFlag = (preJobOverflowTime > 0)
     }
 
-    private fun hasError(): Boolean {
-        return threadError
-    }
-
-    private fun incrementTryCount() {
-        if (++tryCount > errorTryCountThreshold) {
-            raiseError()
-        }
-    }
-
-    protected fun stopThread() {
+    // --- Public Methods ----------
+    fun stopThread() {
         stopThread = true
     }
 }
