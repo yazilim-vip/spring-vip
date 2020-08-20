@@ -12,11 +12,6 @@ import vip.yazilim.libs.springvip.exception.RestApiCallError
 import java.net.URI
 import java.util.*
 
-
-/**
- * @author Emre Sen, 24.06.2020
- * @contact yazilim.vip
- */
 /**
  * @author Emre Sen, 26.07.2019
  * @contact maemresen@yazilim.vip
