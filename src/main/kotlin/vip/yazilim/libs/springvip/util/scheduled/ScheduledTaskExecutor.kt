@@ -1,12 +1,15 @@
-package vip.yazilim.libs.springvip.thread
+package vip.yazilim.libs.springvip.util.scheduled
 
+import org.slf4j.Logger
 import java.time.Instant
 import java.time.ZoneId
 import java.util.*
 
-abstract class AThread(
+class ScheduledTaskExecutor(
+        private val log: Logger
+
         // Name of the thread
-        private val threadName: String
+        , private val threadName: String
 
         // Interval of the thread in milliseconds
         , private val threadInterval: Long
@@ -49,24 +52,13 @@ abstract class AThread(
     var startOfJobTime: Long = 0
         private set
 
-    // --- Getters ----------
-
-
-    // --- Logging Methods ----------
-    abstract fun logError(msg: String, throwable: Throwable)
-    abstract fun logWarn(msg: String, throwable: Throwable)
-    abstract fun logWarn(msg: String)
-    abstract fun logInfo(msg: String)
-    abstract fun logDebug(msg: String)
-    abstract fun logTrace(msg: String)
-
     // --- Pre/Post methods ----------
     open fun preThreadRun() {}
     open fun postThreadRun() {}
 
     // --- Thread Loop ----------
-    fun run() {
-        logTrace("__$threadName Started__")
+    fun run(task: () -> Unit) {
+        log.trace("__$threadName Started__")
         preThreadRun()
         do {
             try {
@@ -85,17 +77,17 @@ abstract class AThread(
                     firstJobAfterErrorFlag = false
                     continue
                 }
-                applyThreadAlgorithm()
+                applyThreadAlgorithm(task)
                 finalizeThread()
             } catch (e: Exception) {
-                logError("Handled $threadName Deamon Error!! :: ${e.message} ", e)
+                log.error("Handled $threadName Deamon Error!! :: ${e.message} ", e)
                 raiseError()
             } finally {
                 firstJob = false
             }
         } while (!stopThread)
         postThreadRun()
-        logTrace("__$threadName Ended__")
+        log.trace("__$threadName Ended__")
     }
 
     private fun initializeThread() {
@@ -115,13 +107,13 @@ abstract class AThread(
         val totalOverflow = preJobOverflowTime + waitMillis
         when {
             firstJob -> {
-                logDebug("$threadName Fitting first JOB into starting second of minute. Wait=$waitMillis")
+                log.debug("$threadName Fitting first JOB into starting second of minute. Wait=$waitMillis")
             }
             firstJobAfterErrorFlag -> {
-                logDebug("$threadName Wakes up new. Fitting JOB.  Wait=$waitMillis")
+                log.debug("$threadName Wakes up new. Fitting JOB.  Wait=$waitMillis")
             }
-            else -> {
-                logDebug("$threadName handling previous JOB is taking more time than normal. Overflow=$preJobOverflowTime Wait=$waitMillis")
+            preJobHasOverflowFlag -> {
+                log.debug("$threadName handling previous JOB is taking more time than normal. Overflow=$preJobOverflowTime Wait=$waitMillis")
             }
         }
         sleepThread(waitMillis)
@@ -129,28 +121,21 @@ abstract class AThread(
         currentThreadJobFitsIntoIntervalFlag = true
     }
 
-    private fun applyThreadAlgorithm() {
+    private fun applyThreadAlgorithm(task: () -> Unit) {
         preJobHasErrorFlag = try {
             if (tryCount > 0) {
-                logDebug("Try[$tryCount]")
+                log.debug("Try[$tryCount]")
             }
-            logTrace("__$threadName Loop Started__")
-            doThreadJob()
-            logTrace("__$threadName Loop Ended__")
+            log.trace("__$threadName Loop Started__")
+            task.invoke()
+            log.trace("__$threadName Loop Ended__")
             false
         } catch (e: Exception) {
-            logError("Error", e)
+            log.error("Error", e)
             incrementTryCount()
             true
         }
     }
-
-    /**
-     * The main JOB of the thread that will be applied repeatedly
-     * @throws Exception
-     */
-    @Throws(Exception::class)
-    protected abstract fun doThreadJob()
 
     private fun finalizeThread() {
         val endOfProcess = Calendar.getInstance().timeInMillis
@@ -158,7 +143,7 @@ abstract class AThread(
         // calculate remaining time to sleep thread
         val execTimeOfProcess = endOfProcess - startOfJobTime
         val remaining = threadInterval - execTimeOfProcess
-        logDebug("$threadName Execution Start=$startOfJobTime"
+        log.debug("$threadName Execution Start=$startOfJobTime"
                 + ", End=$endOfProcess"
                 + ", Duration=$execTimeOfProcess"
                 + ", Interval=$threadInterval"
@@ -184,7 +169,7 @@ abstract class AThread(
     }
 
     private fun errorSleep() {
-        logDebug("An error occurred while doing thread JOB. Sleeping $threadName for $errorSleepTime")
+        log.debug("An error occurred while doing thread JOB. Sleeping $threadName for $errorSleepTime")
         sleepThread(errorSleepTime)
         removeError()
     }

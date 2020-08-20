@@ -1,7 +1,9 @@
 package vip.yazilim.libs.springvip.config
 
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.HandlerMapping
+import vip.yazilim.libs.springvip.constants.ROOT_PACKAGE
 import vip.yazilim.libs.springvip.rest.model.RestResponse
 import java.util.*
 import javax.servlet.http.HttpServletRequest
@@ -23,3 +25,6 @@ abstract class SpringVipConfig {
 
 }
 
+
+@ComponentScan(basePackages = [ROOT_PACKAGE])
+class S
