@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springvip.service
+package vip.yazilim.libs.springvip.util.generic.service.impl
 
 import org.springframework.data.jpa.repository.JpaRepository
 import vip.yazilim.libs.springvip.exception.*
@@ -10,7 +10,7 @@ import kotlin.reflect.KClass
  * @author maemresen - <maemresen@yazilim.vip>
  * 22.08.2020
  */
-abstract class GenericCrudMethod<E : Any, ID : Any>(
+abstract class AGenericService<E : Any, ID : Any>(
         protected val repository: JpaRepository<E, ID>,
         protected val classOfEntity: KClass<E>
 ) {

@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springvip.rest.model
+package vip.yazilim.libs.springvip.util.generic.rest.model
 
 /**
  * @author Emre Sen, 24.07.2019

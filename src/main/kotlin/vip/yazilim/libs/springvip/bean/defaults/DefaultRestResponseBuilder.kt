@@ -3,7 +3,7 @@ package vip.yazilim.libs.springvip.bean.defaults
 import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.HandlerMapping
 import vip.yazilim.libs.springvip.bean.IRestResponseBuilder
-import vip.yazilim.libs.springvip.rest.model.RestResponse
+import vip.yazilim.libs.springvip.util.generic.rest.model.RestResponse
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse

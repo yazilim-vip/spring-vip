@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springvip.rest
+package vip.yazilim.libs.springvip.util.generic.rest.impl
 
 /**
  * @author Emre Sen, 24.06.2020
@@ -9,7 +9,7 @@ package vip.yazilim.libs.springvip.rest
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import vip.yazilim.libs.springvip.bean.IRestResponseBuilder
-import vip.yazilim.libs.springvip.service.IGenericServiceCrud
+import vip.yazilim.libs.springvip.util.generic.service.IGenericServiceCrud
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
