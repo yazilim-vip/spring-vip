@@ -17,6 +17,6 @@ interface IGenericRestMethodGetAll<E, ID> {
      * @return list of entities
      */
     @Throws(DatabaseReadException::class)
-    fun getAll(request: HttpServletRequest, response: HttpServletResponse): List<E>
+    fun getAll(request: HttpServletRequest, response: HttpServletResponse): Any
 
 }

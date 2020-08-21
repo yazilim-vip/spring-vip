@@ -72,12 +72,33 @@ abstract class AGenericRest<E : Any, ID : Any>(
     }
 
     // (D) delete Operations
-    open fun deleteGenericImpl(request: HttpServletRequest
-                               , response: HttpServletResponse
-                               , @PathVariable id: ID): Any {
+    open fun deleteByIdGenericImpl(request: HttpServletRequest
+                                   , response: HttpServletResponse
+                                   , id: ID): Any {
 
         // init response
         return restResponseBuilder.generateRestResponse(responseBody = genericServiceCrud.deleteById(id)
+                , httpStatus = HttpStatus.OK
+                , request = request
+                , response = response);
+    }
+
+    open fun deleteGenericImpl(request: HttpServletRequest
+                                   , response: HttpServletResponse
+                                   , entity: E): Any {
+
+        // init response
+        return restResponseBuilder.generateRestResponse(responseBody = genericServiceCrud.delete(entity)
+                , httpStatus = HttpStatus.OK
+                , request = request
+                , response = response);
+    }
+
+    open fun deleteAllGenericImpl(request: HttpServletRequest
+                               , response: HttpServletResponse
+    ): Any {
+        // init response
+        return restResponseBuilder.generateRestResponse(responseBody = genericServiceCrud.deleteAll()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response);

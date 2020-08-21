@@ -23,7 +23,7 @@ interface IGenericRestMethodSave<E, ID> {
      * @return inserted entity
      */
     @Throws(IllegalArgumentException::class, DatabaseSaveException::class)
-    fun save(request: HttpServletRequest, response: HttpServletResponse, entity: E): E
+    fun save(request: HttpServletRequest, response: HttpServletResponse, entity: E): Any
 
 
 }

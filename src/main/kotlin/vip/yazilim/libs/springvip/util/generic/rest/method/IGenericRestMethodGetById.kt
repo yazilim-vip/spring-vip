@@ -20,6 +20,6 @@ interface IGenericRestMethodGetById<E, ID> {
      * @throws IllegalArgumentException id given as argument is null
      */
     @Throws(DatabaseReadException::class)
-    fun getById(request: HttpServletRequest, response: HttpServletResponse, id: ID): Optional<E>
+    fun getById(request: HttpServletRequest, response: HttpServletResponse, id: ID): Any
 
 }

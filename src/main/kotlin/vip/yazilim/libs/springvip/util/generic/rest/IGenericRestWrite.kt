@@ -1,5 +1,8 @@
 package vip.yazilim.libs.springvip.util.generic.rest
 
+import vip.yazilim.libs.springvip.util.generic.rest.method.IGenericRestMethodCreate
+import vip.yazilim.libs.springvip.util.generic.rest.method.IGenericRestMethodSave
+import vip.yazilim.libs.springvip.util.generic.rest.method.IGenericRestMethodUpdate
 import vip.yazilim.libs.springvip.util.generic.service.method.IGenericServiceMethodCreate
 import vip.yazilim.libs.springvip.util.generic.service.method.IGenericServiceMethodSave
 import vip.yazilim.libs.springvip.util.generic.service.method.IGenericServiceMethodUpdate
@@ -10,4 +13,4 @@ import vip.yazilim.libs.springvip.util.generic.service.method.IGenericServiceMet
  * @author Emre Sen, 27.06.2019
  * @contact maemresen@yazilim.vip
  */
-interface IGenericRestWrite<E, ID> : IGenericServiceMethodSave<E, ID>, IGenericServiceMethodCreate<E, ID>, IGenericServiceMethodUpdate<E, ID>
+interface IGenericRestWrite<E, ID> : IGenericRestMethodSave<E, ID>, IGenericRestMethodCreate<E, ID>, IGenericRestMethodUpdate<E, ID>

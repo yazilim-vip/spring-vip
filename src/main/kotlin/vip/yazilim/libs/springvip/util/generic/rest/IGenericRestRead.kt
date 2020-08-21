@@ -1,5 +1,7 @@
 package vip.yazilim.libs.springvip.util.generic.rest
 
+import vip.yazilim.libs.springvip.util.generic.rest.method.IGenericRestMethodGetAll
+import vip.yazilim.libs.springvip.util.generic.rest.method.IGenericRestMethodGetById
 import vip.yazilim.libs.springvip.util.generic.service.method.IGenericServiceMethodGetAll
 import vip.yazilim.libs.springvip.util.generic.service.method.IGenericServiceMethodGetById
 
@@ -9,4 +11,4 @@ import vip.yazilim.libs.springvip.util.generic.service.method.IGenericServiceMet
  * @author Emre Sen, 27.06.2019
  * @contact maemresen@yazilim.vip
  */
-interface IGenericRestRead<E, ID> : IGenericServiceMethodGetAll<E, ID>, IGenericServiceMethodGetById<E, ID>
+interface IGenericRestRead<E, ID> : IGenericRestMethodGetAll<E, ID>, IGenericRestMethodGetById<E, ID>

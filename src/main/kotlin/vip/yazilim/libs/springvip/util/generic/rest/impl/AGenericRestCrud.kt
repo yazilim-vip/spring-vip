@@ -22,8 +22,8 @@ abstract class AGenericRestCrud<E : Any, ID : Any>(
 
     // (D) delete Operations
     @DeleteMapping("/{id}")
-    override fun deleteGenericImpl(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
-        return super.deleteGenericImpl(request, response, id)
+    override fun deleteById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
+        return super.deleteByIdGenericImpl(request, response, id)
     }
 
 }

@@ -17,7 +17,7 @@ interface IGenericRestMethodCreate<E, ID> {
      * @return inserted entity
      */
     @Throws(DatabaseCreateException::class)
-    fun create(request: HttpServletRequest, response: HttpServletResponse, entity: E): E
+    fun create(request: HttpServletRequest, response: HttpServletResponse, entity: E): Any
 
     // (U) update Operations
 

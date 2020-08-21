@@ -17,6 +17,6 @@ interface IGenericRestMethodUpdate<E, ID> {
      * @return saved entity to database
      */
     @Throws(DatabaseUpdateException::class)
-    fun update(request: HttpServletRequest, response: HttpServletResponse, newEntity: E): E
+    fun update(request: HttpServletRequest, response: HttpServletResponse, newEntity: E): Any
 
 }

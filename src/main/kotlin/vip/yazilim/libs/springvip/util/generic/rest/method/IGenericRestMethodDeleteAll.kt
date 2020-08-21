@@ -15,5 +15,5 @@ interface IGenericRestMethodDeleteAll<E, ID> {
      * @throws DatabaseDeleteException
      */
     @Throws(DatabaseDeleteException::class)
-    fun deleteAll(request: HttpServletRequest, response: HttpServletResponse): Boolean
+    fun deleteAll(request: HttpServletRequest, response: HttpServletResponse): Any
 }
