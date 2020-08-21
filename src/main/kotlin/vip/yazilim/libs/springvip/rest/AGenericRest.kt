@@ -3,22 +3,22 @@ package vip.yazilim.libs.springvip.rest
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import vip.yazilim.libs.springvip.config.SpringVipConfig
+import vip.yazilim.libs.springvip.bean.ISpringVipHttpRestConfig
 import vip.yazilim.libs.springvip.service.ICrudService
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
 
 abstract class AGenericRest<E : Any, ID : Any>(
-        protected val springVipConfig: SpringVipConfig,
-        protected val crudService: ICrudService<E, ID>,
-        protected val classOfEntity: KClass<E>
+        private val springVipHttpRestConfig: ISpringVipHttpRestConfig,
+        private val crudService: ICrudService<E, ID>,
+        private val classOfEntity: KClass<E>
 ) {
 
 
     open fun restGetAll(request: HttpServletRequest
                         , response: HttpServletResponse): Any {
-        return springVipConfig.generateRestResponse(responseBody = crudService.getAll()
+        return springVipHttpRestConfig.generateRestResponse(responseBody = crudService.getAll()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -35,7 +35,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
         }
 
         // init response
-        return springVipConfig.generateRestResponse(responseBody = entity.get()
+        return springVipHttpRestConfig.generateRestResponse(responseBody = entity.get()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -50,7 +50,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
         val createdEntity = crudService.create(entity)
 
         // init response
-        return springVipConfig.generateRestResponse(responseBody = createdEntity
+        return springVipHttpRestConfig.generateRestResponse(responseBody = createdEntity
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -65,7 +65,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
         val updatedEntity = crudService.update(entity)
 
         // init response
-        return springVipConfig.generateRestResponse(responseBody = updatedEntity
+        return springVipHttpRestConfig.generateRestResponse(responseBody = updatedEntity
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
@@ -77,7 +77,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
                         , @PathVariable id: ID): Any {
 
         // init response
-        return springVipConfig.generateRestResponse(responseBody = crudService.deleteById(id)
+        return springVipHttpRestConfig.generateRestResponse(responseBody = crudService.deleteById(id)
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response);
