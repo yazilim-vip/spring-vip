@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import vip.yazilim.libs.springvip.bean.IRestResponseBuilder
-import vip.yazilim.libs.springvip.util.generic.rest.IGenericRestCrud
 import vip.yazilim.libs.springvip.util.generic.rest.IGenericRestWrite
 import vip.yazilim.libs.springvip.util.generic.service.IGenericServiceCrud
 import javax.servlet.http.HttpServletRequest
@@ -24,12 +23,12 @@ abstract class AGenericRestWrite<E : Any, ID : Any>(restResponseBuilder: IRestRe
 
     // (C) create Operations
     @PostMapping("/")
-    override fun restCreate(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
-        return super.restCreate(request, response, entity)
+    override fun createGenericImpl(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
+        return super.createGenericImpl(request, response, entity)
     }
 
     @PutMapping("/")
-    override fun restUpdate(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
-        return super.restUpdate(request, response, entity)
+    override fun updateGenericImpl(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
+        return super.updateGenericImpl(request, response, entity)
     }
 }

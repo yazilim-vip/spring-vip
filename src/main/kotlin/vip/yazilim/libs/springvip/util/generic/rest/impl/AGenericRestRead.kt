@@ -9,7 +9,6 @@ package vip.yazilim.libs.springvip.util.generic.rest.impl
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import vip.yazilim.libs.springvip.bean.IRestResponseBuilder
-import vip.yazilim.libs.springvip.util.generic.rest.IGenericRestCrud
 import vip.yazilim.libs.springvip.util.generic.rest.IGenericRestRead
 import vip.yazilim.libs.springvip.util.generic.service.IGenericServiceCrud
 import javax.servlet.http.HttpServletRequest
@@ -27,12 +26,12 @@ abstract class AGenericRestRead<E : Any, ID : Any>(restResponseBuilder: IRestRes
 
     // (R) read Operations
     @GetMapping("/")
-    override fun restGetAll(request: HttpServletRequest, response: HttpServletResponse): Any {
-        return super.restGetAll(request, response)
+    override fun getAllGenericImpl(request: HttpServletRequest, response: HttpServletResponse): Any {
+        return super.getAllGenericImpl(request, response)
     }
 
     @GetMapping("/{id}")
-    override fun restGetById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
-        return super.restGetById(request, response, id)
+    override fun getByIdGenericImpl(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
+        return super.getByIdGenericImpl(request, response, id)
     }
 }

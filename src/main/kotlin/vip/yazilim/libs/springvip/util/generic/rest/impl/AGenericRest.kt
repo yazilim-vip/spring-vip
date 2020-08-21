@@ -16,17 +16,17 @@ abstract class AGenericRest<E : Any, ID : Any>(
 ) {
 
 
-    open fun restGetAll(request: HttpServletRequest
-                        , response: HttpServletResponse): Any {
+    open fun getAllGenericImpl(request: HttpServletRequest
+                               , response: HttpServletResponse): Any {
         return restResponseBuilder.generateRestResponse(responseBody = genericServiceCrud.getAll()
                 , httpStatus = HttpStatus.OK
                 , request = request
                 , response = response)
     }
 
-    open fun restGetById(request: HttpServletRequest
-                         , response: HttpServletResponse
-                         , @PathVariable id: ID): Any {
+    open fun getByIdGenericImpl(request: HttpServletRequest
+                                , response: HttpServletResponse
+                                , @PathVariable id: ID): Any {
 
         // get entity
         val entity = genericServiceCrud.getById(id)
@@ -42,9 +42,9 @@ abstract class AGenericRest<E : Any, ID : Any>(
     }
 
 
-    open fun restCreate(request: HttpServletRequest
-                        , response: HttpServletResponse
-                        , entity: E): Any {
+    open fun createGenericImpl(request: HttpServletRequest
+                               , response: HttpServletResponse
+                               , entity: E): Any {
 
         // create entity
         val createdEntity = genericServiceCrud.create(entity)
@@ -57,9 +57,9 @@ abstract class AGenericRest<E : Any, ID : Any>(
     }
 
 
-    open fun restUpdate(request: HttpServletRequest
-                        , response: HttpServletResponse
-                        , entity: E): Any {
+    open fun updateGenericImpl(request: HttpServletRequest
+                               , response: HttpServletResponse
+                               , entity: E): Any {
 
         // update entity
         val updatedEntity = genericServiceCrud.update(entity)
@@ -72,9 +72,9 @@ abstract class AGenericRest<E : Any, ID : Any>(
     }
 
     // (D) delete Operations
-    open fun restDelete(request: HttpServletRequest
-                        , response: HttpServletResponse
-                        , @PathVariable id: ID): Any {
+    open fun deleteGenericImpl(request: HttpServletRequest
+                               , response: HttpServletResponse
+                               , @PathVariable id: ID): Any {
 
         // init response
         return restResponseBuilder.generateRestResponse(responseBody = genericServiceCrud.deleteById(id)
