@@ -1,17 +1,16 @@
-package vip.yazilim.libs.springvip.config
+package vip.yazilim.libs.springvip.bean.defaults
 
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.HandlerMapping
-import vip.yazilim.libs.springvip.constants.ROOT_PACKAGE
+import vip.yazilim.libs.springvip.bean.ISpringVipHttpRestConfig
 import vip.yazilim.libs.springvip.rest.model.RestResponse
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-abstract class SpringVipConfig {
+class DefaultSpringVipHttpRestConfig : ISpringVipHttpRestConfig {
 
-    open fun generateRestResponse(responseBody: Any, httpStatus: HttpStatus, request: HttpServletRequest, response: HttpServletResponse): Any {
+    override fun generateRestResponse(responseBody: Any, httpStatus: HttpStatus, request: HttpServletRequest, response: HttpServletResponse): Any {
         val path = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE) as String
         val restResponse: RestResponse<Any> = RestResponse(
                 timestamp = Date().time,
@@ -23,8 +22,5 @@ abstract class SpringVipConfig {
         return restResponse
     }
 
+
 }
-
-
-@ComponentScan(basePackages = [ROOT_PACKAGE])
-class S
