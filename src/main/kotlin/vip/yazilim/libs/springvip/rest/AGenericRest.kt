@@ -3,14 +3,14 @@ package vip.yazilim.libs.springvip.rest
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import vip.yazilim.libs.springvip.config.SpringVipHttpRestConfig
+import vip.yazilim.libs.springvip.bean.ISpringVipHttpRestConfig
 import vip.yazilim.libs.springvip.service.ICrudService
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
 
 abstract class AGenericRest<E : Any, ID : Any>(
-        private val springVipHttpRestConfig: SpringVipHttpRestConfig,
+        private val springVipHttpRestConfig: ISpringVipHttpRestConfig,
         private val crudService: ICrudService<E, ID>,
         private val classOfEntity: KClass<E>
 ) {
