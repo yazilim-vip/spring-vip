@@ -9,8 +9,15 @@ import java.util.*
  * @author Emre Sen, 27.06.2019
  * @contact maemresen@yazilim.vip
  */
-interface ICrudService<E, ID> {
+interface IGenericServiceCrud<E, ID> : IGenericServiceRead<E, ID>, IGenericServiceWrite<E, ID>, IGenericServiceDelete<E, ID>
 
+interface IGenericServiceRead<E, ID> : IGenericServiceMethodGetAll<E, ID>, IGenericServiceMethodGetById<E, ID>
+
+interface IGenericServiceDelete<E, ID> : IGenericServiceMethodDeleteById<E, ID>, IGenericServiceMethodDelete<E, ID>, IGenericServiceMethodDeleteAll<E, ID>
+
+interface IGenericServiceWrite<E, ID> : IGenericServiceMethodSave<E, ID>, IGenericServiceMethodCreate<E, ID>, IGenericServiceMethodUpdate<E, ID>
+
+interface IGenericServiceMethodSave<E, ID> {
     /**
      * Save Entity to the Data source.
      *
@@ -24,10 +31,13 @@ interface ICrudService<E, ID> {
      * @return inserted entity
      */
     @Throws(IllegalArgumentException::class, DatabaseSaveException::class)
-    fun save(entity: E): E
+    fun save(entity: E, id: ID?): E
 
     // (C) create Operations
 
+}
+
+interface IGenericServiceMethodCreate<E, ID> {
     /**
      * Insert Entity to the Data source.
      *
@@ -39,6 +49,9 @@ interface ICrudService<E, ID> {
 
     // (U) update Operations
 
+}
+
+interface IGenericServiceMethodUpdate<E, ID> {
     /**
      * Update table with given model
      *
@@ -56,9 +69,15 @@ interface ICrudService<E, ID> {
      * @return list of entities
      */
 
+}
+
+interface IGenericServiceMethodGetAll<E, ID> {
     @Throws(DatabaseReadException::class)
     fun getAll(): List<E>
 
+}
+
+interface IGenericServiceMethodGetById<E, ID> {
     /**
      * Get an entity from table by id.
      *
@@ -72,6 +91,9 @@ interface ICrudService<E, ID> {
 
     // (D) delete Operations
 
+}
+
+interface IGenericServiceMethodDeleteById<E, ID> {
     /**
      * @param id
      * @return
@@ -80,6 +102,9 @@ interface ICrudService<E, ID> {
     @Throws(DatabaseDeleteException::class)
     fun deleteById(id: ID): Boolean
 
+}
+
+interface IGenericServiceMethodDelete<E, ID> {
     /**
      * @param entity
      * @return
@@ -88,6 +113,9 @@ interface ICrudService<E, ID> {
     @Throws(DatabaseDeleteException::class)
     fun delete(entity: E): Boolean
 
+}
+
+interface IGenericServiceMethodDeleteAll<E, ID> {
     /**
      * @return
      * @throws DatabaseDeleteException

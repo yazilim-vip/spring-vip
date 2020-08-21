@@ -9,7 +9,7 @@ package vip.yazilim.libs.springvip.rest
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import vip.yazilim.libs.springvip.bean.IRestResponseBuilder
-import vip.yazilim.libs.springvip.service.ICrudService
+import vip.yazilim.libs.springvip.service.IGenericServiceCrud
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
@@ -20,8 +20,8 @@ import kotlin.reflect.KClass
  * @author Emre Sen, 23.07.2019
  * @contact maemresen@yazilim.vip
  */
-abstract class AGenericRestRead<E : Any, ID : Any>(restResponseBuilder: IRestResponseBuilder, crudService: ICrudService<E, ID>, classOfEntity: KClass<E>)
-    : AGenericRest<E, ID>(restResponseBuilder, crudService, classOfEntity) {
+abstract class AGenericRestRead<E : Any, ID : Any>(restResponseBuilder: IRestResponseBuilder, genericServiceCrud: IGenericServiceCrud<E, ID>, classOfEntity: KClass<E>)
+    : AGenericRest<E, ID>(restResponseBuilder, genericServiceCrud, classOfEntity) {
 
     // (R) read Operations
     @GetMapping("/")

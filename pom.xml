@@ -100,6 +100,13 @@
             <artifactId>validation-api</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+        </dependency>
+
+
 
         <!--Database -->
         <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->

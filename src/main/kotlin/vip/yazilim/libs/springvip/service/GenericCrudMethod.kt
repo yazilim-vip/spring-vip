@@ -6,20 +6,15 @@ import java.util.*
 import kotlin.reflect.KClass
 
 /**
- * Abstract Implementation of ICrudService.
  *
- *
- * Basic CRUD operations for an entity is implemented.
- *
- * @param <E>  type entity
- * @param <ID> type of identity of entity
- * @author Emre Sen, 19.07.2019
- * @contact maemresen@yazilim.vip
-</ID></E> */
-abstract class ACrudServiceImpl<E : Any, ID : Any>(
+ * @author maemresen - <maemresen@yazilim.vip>
+ * 22.08.2020
+ */
+abstract class GenericCrudMethod<E : Any, ID : Any>(
         protected val repository: JpaRepository<E, ID>,
         protected val classOfEntity: KClass<E>
-) : ICrudService<E, ID> {
+) {
+
 
     /**
      * Get Id of the entity
@@ -30,7 +25,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     protected abstract fun getId(entity: E): ID
 
     @Throws(DatabaseSaveException::class)
-    override fun save(entity: E): E {
+    protected fun saveGenericImpl(entity: E): E {
         return try {
             repository.save(entity) ?: throw NoSuchElementException("Saved entity not found")
         } catch (exception: Exception) {
@@ -39,12 +34,12 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseCreateException::class)
-    override fun create(entity: E): E {
+    protected fun createGenericImpl(entity: E): E {
         return try {
             // initialize entity to insert
             // e.g setting unique UUID
             val initializedEntity = preInsert(entity)
-            save(initializedEntity)
+            saveGenericImpl(initializedEntity)
         } catch (exception: Exception) {
             throw DatabaseCreateException(classOfEntity, exception)
         }
@@ -64,22 +59,22 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseUpdateException::class)
-    override fun update(newEntity: E): E {
+    protected fun updateGenericImpl(newEntity: E): E {
         return try {
             // get old entity
             val id = getId(newEntity)
-            val oldEntity = getById(id)
+            val oldEntity = getByIdGenericImpl(id)
             require(oldEntity.isPresent) { "Cannot update non-exist entity" }
 
             // prepare entity for update
             val preparedEntity = preUpdate(oldEntity.get(), newEntity)
-            save(preparedEntity)
+            saveGenericImpl(preparedEntity)
         } catch (exception: Exception) {
             throw DatabaseUpdateException(classOfEntity, getId(newEntity), exception)
         }
     }
 
-    override fun getAll(): List<E> {
+    protected fun getAllGenericImpl(): List<E> {
         return try {
             // find entity by id
             repository.findAll()
@@ -89,7 +84,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseReadException::class)
-    override fun getById(id: ID): Optional<E> {
+    protected fun getByIdGenericImpl(id: ID): Optional<E> {
         return try {
             // find entity by id
             repository.findById(id)
@@ -110,7 +105,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    override fun deleteById(id: ID): Boolean {
+    protected fun deleteByIdGenericImpl(id: ID): Boolean {
         return try {
             // delete entity
             repository.deleteById(id)
@@ -121,7 +116,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    override fun delete(entity: E): Boolean {
+    protected fun deleteGenericImpl(entity: E): Boolean {
         return try {
             // delete entity
             repository.delete(entity)
@@ -132,7 +127,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    override fun deleteAll(): Boolean {
+    protected fun deleteAllGenericImpl(): Boolean {
         return try {
             // delete entity
             repository.deleteAll()
@@ -141,4 +136,5 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
             throw DatabaseDeleteException(classOfEntity, exception)
         }
     }
+
 }
