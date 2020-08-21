@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse
  * @author maemresen - <maemresen@yazilim.vip>
  * 21.08.2020
  */
-interface ISpringVipHttpRestConfig {
+interface IRestResponseBuilder {
 
     fun generateRestResponse(responseBody: Any
                              , httpStatus: HttpStatus
