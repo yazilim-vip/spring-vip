@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springvip.util.generic.service.impl
+package vip.yazilim.libs.springvip.util.generic.service
 
 import org.springframework.data.jpa.repository.JpaRepository
 import vip.yazilim.libs.springvip.exception.*
@@ -25,7 +25,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     protected abstract fun getId(entity: E): ID
 
     @Throws(DatabaseSaveException::class)
-    protected fun saveGenericImpl(entity: E): E {
+    fun save(entity: E): E {
         return try {
             repository.save(entity) ?: throw NoSuchElementException("Saved entity not found")
         } catch (exception: Exception) {
@@ -34,12 +34,12 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseCreateException::class)
-    protected fun createGenericImpl(entity: E): E {
+    fun create(entity: E): E {
         return try {
             // initialize entity to insert
             // e.g setting unique UUID
             val initializedEntity = preInsert(entity)
-            saveGenericImpl(initializedEntity)
+            save(initializedEntity)
         } catch (exception: Exception) {
             throw DatabaseCreateException(classOfEntity, exception)
         }
@@ -59,22 +59,22 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseUpdateException::class)
-    protected fun updateGenericImpl(newEntity: E): E {
+    fun update(newEntity: E): E {
         return try {
             // get old entity
             val id = getId(newEntity)
-            val oldEntity = getByIdGenericImpl(id)
+            val oldEntity = getById(id)
             require(oldEntity.isPresent) { "Cannot update non-exist entity" }
 
             // prepare entity for update
             val preparedEntity = preUpdate(oldEntity.get(), newEntity)
-            saveGenericImpl(preparedEntity)
+            save(preparedEntity)
         } catch (exception: Exception) {
             throw DatabaseUpdateException(classOfEntity, getId(newEntity), exception)
         }
     }
 
-    protected fun getAllGenericImpl(): List<E> {
+    fun getAll(): List<E> {
         return try {
             // find entity by id
             repository.findAll()
@@ -84,7 +84,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseReadException::class)
-    protected fun getByIdGenericImpl(id: ID): Optional<E> {
+    fun getById(id: ID): Optional<E> {
         return try {
             // find entity by id
             repository.findById(id)
@@ -105,7 +105,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    protected fun deleteByIdGenericImpl(id: ID): Boolean {
+    fun deleteById(id: ID): Boolean {
         return try {
             // delete entity
             repository.deleteById(id)
@@ -116,7 +116,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    protected fun deleteGenericImpl(entity: E): Boolean {
+    fun delete(entity: E): Boolean {
         return try {
             // delete entity
             repository.delete(entity)
@@ -127,7 +127,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    protected fun deleteAllGenericImpl(): Boolean {
+    fun deleteAll(): Boolean {
         return try {
             // delete entity
             repository.deleteAll()
