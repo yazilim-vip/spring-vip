@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springvip.service
+package vip.yazilim.libs.springvip.util.generic.service
 
 import org.springframework.data.jpa.repository.JpaRepository
 import vip.yazilim.libs.springvip.exception.*
@@ -6,20 +6,15 @@ import java.util.*
 import kotlin.reflect.KClass
 
 /**
- * Abstract Implementation of ICrudService.
  *
- *
- * Basic CRUD operations for an entity is implemented.
- *
- * @param <E>  type entity
- * @param <ID> type of identity of entity
- * @author Emre Sen, 19.07.2019
- * @contact maemresen@yazilim.vip
-</ID></E> */
-abstract class ACrudServiceImpl<E : Any, ID : Any>(
+ * @author maemresen - <maemresen@yazilim.vip>
+ * 22.08.2020
+ */
+abstract class AGenericService<E : Any, ID : Any>(
         protected val repository: JpaRepository<E, ID>,
         protected val classOfEntity: KClass<E>
-) : ICrudService<E, ID> {
+) {
+
 
     /**
      * Get Id of the entity
@@ -30,7 +25,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     protected abstract fun getId(entity: E): ID
 
     @Throws(DatabaseSaveException::class)
-    override fun save(entity: E): E {
+    fun save(entity: E): E {
         return try {
             repository.save(entity) ?: throw NoSuchElementException("Saved entity not found")
         } catch (exception: Exception) {
@@ -39,7 +34,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseCreateException::class)
-    override fun create(entity: E): E {
+    fun create(entity: E): E {
         return try {
             // initialize entity to insert
             // e.g setting unique UUID
@@ -64,7 +59,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseUpdateException::class)
-    override fun update(newEntity: E): E {
+    fun update(newEntity: E): E {
         return try {
             // get old entity
             val id = getId(newEntity)
@@ -79,7 +74,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
         }
     }
 
-    override fun getAll(): List<E> {
+    fun getAll(): List<E> {
         return try {
             // find entity by id
             repository.findAll()
@@ -89,7 +84,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseReadException::class)
-    override fun getById(id: ID): Optional<E> {
+    fun getById(id: ID): Optional<E> {
         return try {
             // find entity by id
             repository.findById(id)
@@ -110,7 +105,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    override fun deleteById(id: ID): Boolean {
+    fun deleteById(id: ID): Boolean {
         return try {
             // delete entity
             repository.deleteById(id)
@@ -121,7 +116,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    override fun delete(entity: E): Boolean {
+    fun delete(entity: E): Boolean {
         return try {
             // delete entity
             repository.delete(entity)
@@ -132,7 +127,7 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    override fun deleteAll(): Boolean {
+    fun deleteAll(): Boolean {
         return try {
             // delete entity
             repository.deleteAll()
@@ -141,4 +136,5 @@ abstract class ACrudServiceImpl<E : Any, ID : Any>(
             throw DatabaseDeleteException(classOfEntity, exception)
         }
     }
+
 }

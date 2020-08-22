@@ -5,7 +5,7 @@ import java.time.Instant
 import java.time.ZoneId
 import java.util.*
 
-class ScheduledTaskExecutor(
+open class ScheduledTaskExecutor(
         private val log: Logger
 
         // Name of the thread

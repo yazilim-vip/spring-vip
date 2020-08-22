@@ -14,7 +14,7 @@ open class DatabaseException(entityClass: KClass<*>, type: String, description: 
 
 ;
 // SAVE
-class DatabaseSaveException(entityClass: KClass<*>, id: Any, exception: Exception)
+class DatabaseSaveException(entityClass: KClass<*>, id: Any?, exception: Exception)
     : DatabaseException(entityClass, "SAVE", id.toString(), exception)
 
 // create
