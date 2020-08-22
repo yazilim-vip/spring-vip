@@ -41,6 +41,19 @@ abstract class AGenericRest<E : Any, ID : Any>(
                 , response = response)
     }
 
+    open fun saveGenericImpl(request: HttpServletRequest
+                               , response: HttpServletResponse
+                               , entity: E): Any {
+
+        // create entity
+        val savedEntity = genericServiceCrud.save(entity)
+
+        // init response
+        return restResponseBuilder.generateRestResponse(responseBody = savedEntity
+                , httpStatus = HttpStatus.OK
+                , request = request
+                , response = response)
+    }
 
     open fun createGenericImpl(request: HttpServletRequest
                                , response: HttpServletResponse

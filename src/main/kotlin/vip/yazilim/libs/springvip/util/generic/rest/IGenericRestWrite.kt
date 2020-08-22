@@ -13,4 +13,4 @@ import vip.yazilim.libs.springvip.util.generic.service.method.IGenericServiceMet
  * @author Emre Sen, 27.06.2019
  * @contact maemresen@yazilim.vip
  */
-interface IGenericRestWrite<E, ID> : IGenericRestMethodSave<E, ID>, IGenericRestMethodCreate<E, ID>, IGenericRestMethodUpdate<E, ID>
+interface IGenericRestWrite<E, ID> : IGenericRestMethodCreate<E, ID>, IGenericRestMethodUpdate<E, ID>

@@ -1,8 +1,11 @@
 package vip.yazilim.libs.springvip.util.generic.rest.method
 
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import vip.yazilim.libs.springvip.exception.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import javax.validation.Valid
 
 /**
  *
@@ -17,7 +20,8 @@ interface IGenericRestMethodCreate<E, ID> {
      * @return inserted entity
      */
     @Throws(DatabaseCreateException::class)
-    fun create(request: HttpServletRequest, response: HttpServletResponse, entity: E): Any
+    @PostMapping("/")
+    fun create(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any
 
     // (U) update Operations
 

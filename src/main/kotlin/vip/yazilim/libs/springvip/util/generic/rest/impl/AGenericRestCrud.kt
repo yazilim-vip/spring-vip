@@ -21,8 +21,8 @@ abstract class AGenericRestCrud<E : Any, ID : Any>(
 ) : AGenericRestWrite<E, ID>(restResponseBuilder, genericServiceCrud, classOfEntity), IGenericRestCrud<E, ID> {
 
     // (D) delete Operations
-    @DeleteMapping("/{id}")
-    override fun deleteById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
+
+    override fun deleteById(request: HttpServletRequest, response: HttpServletResponse, id: ID): Any {
         return super.deleteByIdGenericImpl(request, response, id)
     }
 

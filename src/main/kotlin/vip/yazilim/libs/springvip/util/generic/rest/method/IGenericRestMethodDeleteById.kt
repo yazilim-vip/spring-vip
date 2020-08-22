@@ -1,6 +1,8 @@
 package vip.yazilim.libs.springvip.util.generic.rest.method
 
-import vip.yazilim.libs.springvip.exception.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.PathVariable
+import vip.yazilim.libs.springvip.exception.DatabaseDeleteException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -16,6 +18,7 @@ interface IGenericRestMethodDeleteById<E, ID> {
      * @throws DatabaseDeleteException
      */
     @Throws(DatabaseDeleteException::class)
-    fun deleteById(request: HttpServletRequest, response: HttpServletResponse, id: ID): Any
+    @DeleteMapping("/{id}")
+    fun deleteById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any
 
 }

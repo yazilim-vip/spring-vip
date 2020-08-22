@@ -25,13 +25,11 @@ abstract class AGenericRestRead<E : Any, ID : Any>(restResponseBuilder: IRestRes
     : AGenericRest<E, ID>(restResponseBuilder, genericServiceCrud, classOfEntity), IGenericRestRead<E, ID> {
 
     // (R) read Operations
-    @GetMapping("/")
     override fun getAll(request: HttpServletRequest, response: HttpServletResponse): Any {
         return super.getAllGenericImpl(request, response)
     }
 
-    @GetMapping("/{id}")
-    override fun getById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any {
+    override fun getById(request: HttpServletRequest, response: HttpServletResponse, id: ID): Any {
         return super.getByIdGenericImpl(request, response, id)
     }
 }

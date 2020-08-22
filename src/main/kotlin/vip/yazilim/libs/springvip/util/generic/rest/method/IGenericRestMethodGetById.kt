@@ -1,5 +1,7 @@
 package vip.yazilim.libs.springvip.util.generic.rest.method
 
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import vip.yazilim.libs.springvip.exception.*
 import java.util.*
 import javax.servlet.http.HttpServletRequest
@@ -20,6 +22,7 @@ interface IGenericRestMethodGetById<E, ID> {
      * @throws IllegalArgumentException id given as argument is null
      */
     @Throws(DatabaseReadException::class)
-    fun getById(request: HttpServletRequest, response: HttpServletResponse, id: ID): Any
+    @GetMapping("/{id}")
+    fun getById(request: HttpServletRequest, response: HttpServletResponse, @PathVariable id: ID): Any
 
 }

@@ -22,13 +22,11 @@ abstract class AGenericRestWrite<E : Any, ID : Any>(restResponseBuilder: IRestRe
     : AGenericRestRead<E, ID>(restResponseBuilder, genericServiceCrud, classOfEntity), IGenericRestWrite<E, ID> {
 
     // (C) create Operations
-    @PostMapping("/")
-    override fun createGenericImpl(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
+    override fun create(request: HttpServletRequest, response: HttpServletResponse, entity: E): Any {
         return super.createGenericImpl(request, response, entity)
     }
 
-    @PutMapping("/")
-    override fun updateGenericImpl(request: HttpServletRequest, response: HttpServletResponse, @Valid @RequestBody entity: E): Any {
+    override fun update(request: HttpServletRequest, response: HttpServletResponse, entity: E): Any {
         return super.updateGenericImpl(request, response, entity)
     }
 }
