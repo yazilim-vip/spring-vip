@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springvip.util.generic.rest.impl
+package vip.yazilim.libs.springvip.util.generic.rest
 
 
 import org.springframework.http.HttpStatus

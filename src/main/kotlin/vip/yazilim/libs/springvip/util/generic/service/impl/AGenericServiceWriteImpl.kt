@@ -20,16 +20,4 @@ abstract class AGenericServiceWriteImpl<E : Any, ID : Any>(
         classOfEntity: KClass<E>
 ) : AGenericServiceReadImpl<E, ID>(repository, classOfEntity), IGenericServiceWrite<E, ID> {
 
-    override fun save(entity: E): E {
-        return super.saveGenericImpl(entity);
-    }
-
-
-    override fun create(entity: E): E {
-        return super.createGenericImpl(entity);
-    }
-
-    override fun update(newEntity: E): E {
-        return super.updateGenericImpl(newEntity);
-    }
 }

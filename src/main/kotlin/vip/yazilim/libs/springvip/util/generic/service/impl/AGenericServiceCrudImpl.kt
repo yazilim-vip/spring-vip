@@ -20,15 +20,4 @@ abstract class AGenericServiceCrudImpl<E : Any, ID : Any>(
         classOfEntity: KClass<E>
 ) : AGenericServiceWriteImpl<E, ID>(repository, classOfEntity), IGenericServiceCrud<E, ID> {
 
-    override fun deleteById(id: ID): Boolean {
-        return super.deleteByIdGenericImpl(id);
-    }
-
-    override fun delete(entity: E): Boolean {
-        return super.deleteGenericImpl(entity);
-    }
-
-    override fun deleteAll(): Boolean {
-        return super.deleteAllGenericImpl();
-    }
 }

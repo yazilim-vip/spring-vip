@@ -21,11 +21,4 @@ abstract class AGenericServiceReadImpl<E : Any, ID : Any>(
         classOfEntity: KClass<E>
 ) : AGenericService<E, ID>(repository, classOfEntity), IGenericServiceRead<E, ID> {
 
-    override fun getAll(): List<E> {
-        return super.getAllGenericImpl();
-    }
-
-    override fun getById(id: ID): Optional<E> {
-        return super.getByIdGenericImpl(id);
-    }
 }
