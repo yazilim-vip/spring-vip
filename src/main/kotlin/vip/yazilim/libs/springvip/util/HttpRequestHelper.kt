@@ -16,7 +16,7 @@ import java.util.*
  * @author Emre Sen, 26.07.2019
  * @contact maemresen@yazilim.vip
  */
-class HttpRequestMaker {
+class HttpRequestHelper {
 
     @Throws(RestApiCallError::class)
     fun <B, R> jsonRequest(baseUri: String, resource: String
@@ -25,10 +25,12 @@ class HttpRequestMaker {
                            , urlParamMap: MutableMap<String?, String?> = LinkedHashMap()
                            , queryParamMap: MultiValueMap<String?, String?> = LinkedMultiValueMap()
                            , httpMethod: HttpMethod
+                           , headerParamMap: MultiValueMap<String?, String?> = LinkedMultiValueMap()
                            , restTemplate: RestTemplate = RestTemplate()): ResponseEntity<R?> {
         return try {
             val headers = HttpHeaders()
             headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+            headers.addAll(headerParamMap)
             val request: HttpEntity<B?> = HttpEntity(body, headers)
             val uri: URI = UriComponentsBuilder
                     .fromUriString(baseUri + resource)
