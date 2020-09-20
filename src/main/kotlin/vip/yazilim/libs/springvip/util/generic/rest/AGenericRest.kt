@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
 
+/**
+ * Generic Implementation of a REST controller
+ */
 abstract class AGenericRest<E : Any, ID : Any>(
         private val restResponseBuilder: IRestResponseBuilder,
         private val genericServiceCrud: IGenericServiceCrud<E, ID>,

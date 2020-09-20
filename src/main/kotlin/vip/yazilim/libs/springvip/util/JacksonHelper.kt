@@ -4,12 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 
-
 /**
- * Helper methods to use Jackson library
+ * Convert object to JSON
  *
- * @author Emre Sen - Dec 26, 2019
- * @contact maemresen@yazilim.vip
+ * @param `object` object that will be converted to JSON
+ * @param indented  if true, output JSON will be prettified
+ * @return Object JSON String
  */
 fun toJson(`object`: Any?, indented: Boolean): String {
     if (`object` == null) {
@@ -38,6 +38,12 @@ fun toJson(`object`: Any?): String {
     }
 }
 
+/**
+ * Map object from JSON
+ * @param json input that Object will be parsed from
+ * @param typeReference type of the Object that will be mapped from input JSON
+ * @return mapped Object instance
+ */
 fun <T> fromJson(json: String, typeReference: TypeReference<T>): T {
     return ObjectMapper().readValue(json, typeReference)
 }

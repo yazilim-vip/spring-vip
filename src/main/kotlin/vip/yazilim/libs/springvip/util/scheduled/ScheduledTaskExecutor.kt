@@ -5,6 +5,19 @@ import java.time.Instant
 import java.time.ZoneId
 import java.util.*
 
+/**
+ * To execute Library's ScheduledTask instance
+ * @see vip.yazilim.libs.springvip.util.scheduled.ScheduledTask
+ *
+ * @param log logger will be used for inform
+ * @param threadName Name of the thread
+ * @param threadInterval Interval of the thread in milliseconds
+ * @param errorTryCountThreshold Threshold to try on error condition
+ * @param errorSleepTime Time to sleep on error in milliseconds
+ *
+ * @author Emre Sen - maemresen@yazilim.vip
+ * 20.09.2020
+ */
 open class ScheduledTaskExecutor(
         private val log: Logger
 

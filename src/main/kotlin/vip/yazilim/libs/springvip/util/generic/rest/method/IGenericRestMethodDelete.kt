@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletResponse
 @RequestMapping("/default")
 interface IGenericRestMethodDelete<E, ID> {
     /**
-     * @param entity
-     * @return
+     *
+     * @param entity to delete
+     * @return 
      * @throws DatabaseDeleteException
      */
     @Throws(DatabaseDeleteException::class)

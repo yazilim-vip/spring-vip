@@ -15,14 +15,12 @@ interface IGenericRestMethodSave<E, ID> {
     /**
      * Save Entity to the Data source.
      *
-     *
      * Insert if not exists
-     *
      *
      * Update if exists
      *
      * @param entity data to insert
-     * @return inserted entity
+     * @return saved entity
      */
     @Throws(IllegalArgumentException::class, DatabaseSaveException::class)
     fun save(request: HttpServletRequest, response: HttpServletResponse, entity: E): Any

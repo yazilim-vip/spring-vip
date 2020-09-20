@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
 
 /**
+ * Generic RestService implementation that provides basic read functions
  *
  * @author maemresen - <maemresen@yazilim.vip>
  * 22.08.2020

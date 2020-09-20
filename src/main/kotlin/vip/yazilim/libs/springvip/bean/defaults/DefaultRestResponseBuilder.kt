@@ -8,6 +8,9 @@ import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+/**
+ * Default  RestResponse Builder Implementation
+ */
 class DefaultRestResponseBuilder : IRestResponseBuilder {
 
     override fun generateRestResponse(responseBody: Any, httpStatus: HttpStatus, request: HttpServletRequest, response: HttpServletResponse): Any {

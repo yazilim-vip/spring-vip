@@ -1,8 +1,10 @@
 package vip.yazilim.libs.springvip.util.generic.rest.model
 
 /**
- * @author Emre Sen, 24.07.2019
- * @contact maemresen@yazilim.vip
+ * The model that RestController used as a response when an error occurred
+ *
+ * @author Emre Sen - maemresen@yazilim.vip
+ * 24.07.2019
  */
 class RestErrorResponse(timestamp: Long
                         , path: String

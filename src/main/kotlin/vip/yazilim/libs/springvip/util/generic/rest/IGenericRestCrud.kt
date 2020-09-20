@@ -5,7 +5,6 @@ import vip.yazilim.libs.springvip.util.generic.rest.method.IGenericRestMethodDel
 /**
  * Business method definitions for CRUD operations for Entity
  *
- * @author Emre Sen, 27.06.2019
- * @contact maemresen@yazilim.vip
+ * @author Emre Sen (maemresen@yazilim.vip), 27.06.2019
  */
 interface IGenericRestCrud<E, ID> : IGenericRestWrite<E, ID>, IGenericRestMethodDeleteById<E, ID>
