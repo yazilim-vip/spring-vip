@@ -15,8 +15,7 @@ import java.util.*
 /**
  * Helper class for Http Request
  *
- * @author Emre Sen, 26.07.2019
- * @contact maemresen@yazilim.vip
+ * @author Emre Sen (maemresen@yazilim.vip), 26.07.2019
  */
 class HttpRequestHelper {
 
