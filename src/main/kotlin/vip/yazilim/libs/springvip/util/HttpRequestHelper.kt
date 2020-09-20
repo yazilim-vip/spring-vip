@@ -13,11 +13,27 @@ import java.net.URI
 import java.util.*
 
 /**
+ * Helper class for Http Request
+ *
  * @author Emre Sen, 26.07.2019
  * @contact maemresen@yazilim.vip
  */
 class HttpRequestHelper {
 
+    /**
+     * To Make an HTTP request to a REST Service etc.
+     *
+     *
+     * @param baseUri the base URI that request will be mde
+     * @param resource the resource requested by server
+     * @param typeReference the response type of HTTP response will be mapped
+     * @param urlParamMap URL parameters passed through URI (e.g. /api/car/{brand} => /api/car/BMW)
+     * @param queryParamMap URL parameters passed as query params (e.g. /api/car?brand=BMW)
+     * @param httpMethod type of HTTP request (GET, POST, etc.)
+     * @param headerParamMap the extra fields that could be passed through header
+     * @param restTemplate the Spring RestTemplate instance to make http requests
+     * @return HTTP response returned by  endpoint
+     */
     @Throws(RestApiCallError::class)
     fun <B, R> jsonRequest(baseUri: String, resource: String
                            , body: B?
