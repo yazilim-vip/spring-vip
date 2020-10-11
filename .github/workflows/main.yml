@@ -11,5 +11,5 @@ jobs:
           java-version: 1.8
       - name: Build with Maven
         run: mvn deploy -s .m2/settings.xml --batch-mode
-          env:
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
