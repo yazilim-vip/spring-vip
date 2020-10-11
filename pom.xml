@@ -20,12 +20,13 @@
 
     <distributionManagement>
         <repository>
-            <id>gitlab-maven</id>
-            <url>https://gitlab.com/api/v4/projects/15143521/packages/maven</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/yazilim-vip</url>
         </repository>
+
         <snapshotRepository>
-            <id>gitlab-maven</id>
-            <url>https://gitlab.com/api/v4/projects/15143521/packages/maven</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/yazilim-vip</url>
         </snapshotRepository>
     </distributionManagement>
 
