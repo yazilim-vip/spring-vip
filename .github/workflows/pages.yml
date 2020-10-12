@@ -13,8 +13,8 @@ jobs:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
     - run: | 
-        npm install
-        npm run build
+        cd docusaurus && npm install
+        cd docusaurus && npm run build
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
