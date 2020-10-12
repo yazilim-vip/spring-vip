@@ -2,7 +2,7 @@ const [latestVersion] = require('./versions.json');
 
 module.exports = {
   title: 'Spring VIP',
-  tagline: 'The tagline of my site',
+  tagline: 'A Java Spring Library that provides helpful generic and utility classes. Some of features provided by library are generic CRUD Service and Rest controllers. See more from documentation',
   url: 'https://springvip.yazilim.vip',
   baseUrl: '/',
   onBrokenLinks: 'throw',
