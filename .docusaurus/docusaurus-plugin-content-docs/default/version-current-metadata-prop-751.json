@@ -1,0 +1,56 @@
+{
+  "version": "current",
+  "label": "Next",
+  "isLast": false,
+  "docsSidebars": {
+    "someSidebar": [
+      {
+        "collapsed": true,
+        "type": "category",
+        "label": "GettingStarted",
+        "items": [
+          {
+            "type": "link",
+            "label": "Getting Started",
+            "href": "/docs/next/"
+          }
+        ]
+      },
+      {
+        "collapsed": true,
+        "type": "category",
+        "label": "Examples",
+        "items": [
+          {
+            "type": "link",
+            "label": "Generic CRUD Service",
+            "href": "/docs/next/exGenericCrudService1"
+          },
+          {
+            "type": "link",
+            "label": "Generic CRUD Rest Controller",
+            "href": "/docs/next/exGenericCrudServiceRestController1"
+          }
+        ]
+      },
+      {
+        "collapsed": true,
+        "type": "category",
+        "label": "Docusaurus",
+        "items": [
+          {
+            "type": "link",
+            "label": "Style Guide",
+            "href": "/docs/next/styleGuide"
+          }
+        ]
+      }
+    ]
+  },
+  "permalinkToSidebar": {
+    "/docs/next/exGenericCrudService1": "someSidebar",
+    "/docs/next/exGenericCrudServiceRestController1": "someSidebar",
+    "/docs/next/": "someSidebar",
+    "/docs/next/styleGuide": "someSidebar"
+  }
+}

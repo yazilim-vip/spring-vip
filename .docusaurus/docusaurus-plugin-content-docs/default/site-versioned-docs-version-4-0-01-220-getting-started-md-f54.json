@@ -1,0 +1,18 @@
+{
+  "unversionedId": "gettingStarted",
+  "id": "version-4.0.01.220/gettingStarted",
+  "isDocsHomePage": true,
+  "title": "Getting Started",
+  "description": "Generic CRUD Service",
+  "source": "@site/versioned_docs/version-4.0.01.220/gettingStarted.md",
+  "slug": "/",
+  "permalink": "/docs/",
+  "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/versioned_docs/version-4.0.01.220/gettingStarted.md",
+  "version": "4.0.01.220",
+  "sidebar_label": "Getting Started",
+  "sidebar": "version-4.0.01.220/someSidebar",
+  "next": {
+    "title": "Generic CRUD Service",
+    "permalink": "/docs/exGenericCrudService1"
+  }
+}

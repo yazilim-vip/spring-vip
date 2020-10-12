@@ -1,0 +1,22 @@
+{
+  "unversionedId": "exGenericCrudService1",
+  "id": "version-4.0.01.220/exGenericCrudService1",
+  "isDocsHomePage": false,
+  "title": "Generic CRUD Service",
+  "description": "Generic CRUD Service Example Usage",
+  "source": "@site/versioned_docs/version-4.0.01.220/genericCrudService.md",
+  "slug": "/exGenericCrudService1",
+  "permalink": "/docs/exGenericCrudService1",
+  "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/versioned_docs/version-4.0.01.220/genericCrudService.md",
+  "version": "4.0.01.220",
+  "sidebar_label": "Generic CRUD Service",
+  "sidebar": "version-4.0.01.220/someSidebar",
+  "previous": {
+    "title": "Getting Started",
+    "permalink": "/docs/"
+  },
+  "next": {
+    "title": "Generic CRUD Rest Controller",
+    "permalink": "/docs/exGenericCrudServiceRestController1"
+  }
+}

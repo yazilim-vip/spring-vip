@@ -1,0 +1,63 @@
+{
+  "/-deb": {
+    "component": "c4f5d8e4",
+    "config": "5e9f5e1a"
+  },
+  "/blog-119": {
+    "component": "a6aa9e1f",
+    "items": [
+      {
+        "content": "8e9f0a8a"
+      }
+    ],
+    "metadata": "b2b675dd"
+  },
+  "/blog/2019/05/28/hola-861": {
+    "component": "ccc49370",
+    "content": "bdd709f1"
+  },
+  "/versions-b27": {
+    "component": "18b93cb3",
+    "config": "5e9f5e1a"
+  },
+  "/docs/next-c91": {
+    "component": "1be78505",
+    "versionMetadata": "935f2afb"
+  },
+  "/docs/next/-813": {
+    "component": "17896441",
+    "content": "c6bd7e46"
+  },
+  "/docs/next/exGenericCrudService1-d78": {
+    "component": "17896441",
+    "content": "e1cbfb92"
+  },
+  "/docs/next/exGenericCrudServiceRestController1-86a": {
+    "component": "17896441",
+    "content": "a5b39ce0"
+  },
+  "/docs/next/styleGuide-459": {
+    "component": "17896441",
+    "content": "e2dba911"
+  },
+  "/docs-cf6": {
+    "component": "1be78505",
+    "versionMetadata": "55b5ae2b"
+  },
+  "/docs/-0b5": {
+    "component": "17896441",
+    "content": "f5405a53"
+  },
+  "/docs/exGenericCrudService1-8dc": {
+    "component": "17896441",
+    "content": "d4b41e0b"
+  },
+  "/docs/exGenericCrudServiceRestController1-29f": {
+    "component": "17896441",
+    "content": "2b1f7c0c"
+  },
+  "/docs/styleGuide-b58": {
+    "component": "17896441",
+    "content": "0e7b382a"
+  }
+}

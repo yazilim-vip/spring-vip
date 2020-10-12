@@ -1,0 +1,344 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "loadedVersions": [
+        {
+          "versionName": "current",
+          "versionLabel": "Next",
+          "versionPath": "/docs/next",
+          "isLast": false,
+          "sidebarFilePath": "/home/maemresen/workspace/yvip/spring-vip/sidebars.js",
+          "docsDirPath": "/home/maemresen/workspace/yvip/spring-vip/docs",
+          "mainDocId": "gettingStarted",
+          "sidebars": {
+            "someSidebar": [
+              {
+                "collapsed": true,
+                "type": "category",
+                "label": "GettingStarted",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "gettingStarted"
+                  }
+                ]
+              },
+              {
+                "collapsed": true,
+                "type": "category",
+                "label": "Examples",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "exGenericCrudService1"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "exGenericCrudServiceRestController1"
+                  }
+                ]
+              },
+              {
+                "collapsed": true,
+                "type": "category",
+                "label": "Docusaurus",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "styleGuide"
+                  }
+                ]
+              }
+            ]
+          },
+          "permalinkToSidebar": {
+            "/docs/next/exGenericCrudService1": "someSidebar",
+            "/docs/next/exGenericCrudServiceRestController1": "someSidebar",
+            "/docs/next/": "someSidebar",
+            "/docs/next/styleGuide": "someSidebar"
+          },
+          "docs": [
+            {
+              "unversionedId": "exGenericCrudService1",
+              "id": "exGenericCrudService1",
+              "isDocsHomePage": false,
+              "title": "Generic CRUD Service",
+              "description": "Generic CRUD Service Example Usage",
+              "source": "@site/docs/genericCrudService.md",
+              "slug": "/exGenericCrudService1",
+              "permalink": "/docs/next/exGenericCrudService1",
+              "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/docs/genericCrudService.md",
+              "version": "current",
+              "sidebar_label": "Generic CRUD Service",
+              "sidebar": "someSidebar",
+              "previous": {
+                "title": "Getting Started",
+                "permalink": "/docs/next/"
+              },
+              "next": {
+                "title": "Generic CRUD Rest Controller",
+                "permalink": "/docs/next/exGenericCrudServiceRestController1"
+              }
+            },
+            {
+              "unversionedId": "exGenericCrudServiceRestController1",
+              "id": "exGenericCrudServiceRestController1",
+              "isDocsHomePage": false,
+              "title": "Generic CRUD Rest Controller",
+              "description": "Generic CRUD Rest Controller Example Usage",
+              "source": "@site/docs/genericCrudRestController.md",
+              "slug": "/exGenericCrudServiceRestController1",
+              "permalink": "/docs/next/exGenericCrudServiceRestController1",
+              "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/docs/genericCrudRestController.md",
+              "version": "current",
+              "sidebar_label": "Generic CRUD Rest Controller",
+              "sidebar": "someSidebar",
+              "previous": {
+                "title": "Generic CRUD Service",
+                "permalink": "/docs/next/exGenericCrudService1"
+              },
+              "next": {
+                "title": "Style Guide",
+                "permalink": "/docs/next/styleGuide"
+              }
+            },
+            {
+              "unversionedId": "gettingStarted",
+              "id": "gettingStarted",
+              "isDocsHomePage": true,
+              "title": "Getting Started",
+              "description": "Generic CRUD Service",
+              "source": "@site/docs/gettingStarted.md",
+              "slug": "/",
+              "permalink": "/docs/next/",
+              "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/docs/gettingStarted.md",
+              "version": "current",
+              "sidebar_label": "Getting Started",
+              "sidebar": "someSidebar",
+              "next": {
+                "title": "Generic CRUD Service",
+                "permalink": "/docs/next/exGenericCrudService1"
+              }
+            },
+            {
+              "unversionedId": "styleGuide",
+              "id": "styleGuide",
+              "isDocsHomePage": false,
+              "title": "Style Guide",
+              "description": "You can write content using GitHub-flavored Markdown syntax.",
+              "source": "@site/docs/styleGuide.md",
+              "slug": "/styleGuide",
+              "permalink": "/docs/next/styleGuide",
+              "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/docs/styleGuide.md",
+              "version": "current",
+              "sidebar_label": "Style Guide",
+              "sidebar": "someSidebar",
+              "previous": {
+                "title": "Generic CRUD Rest Controller",
+                "permalink": "/docs/next/exGenericCrudServiceRestController1"
+              }
+            }
+          ]
+        },
+        {
+          "versionName": "4.0.01.220",
+          "versionLabel": "4.0.01.220",
+          "versionPath": "/docs",
+          "isLast": true,
+          "routePriority": -1,
+          "sidebarFilePath": "/home/maemresen/workspace/yvip/spring-vip/versioned_sidebars/version-4.0.01.220-sidebars.json",
+          "docsDirPath": "/home/maemresen/workspace/yvip/spring-vip/versioned_docs/version-4.0.01.220",
+          "mainDocId": "gettingStarted",
+          "sidebars": {
+            "version-4.0.01.220/someSidebar": [
+              {
+                "collapsed": true,
+                "type": "category",
+                "label": "GettingStarted",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "version-4.0.01.220/gettingStarted"
+                  }
+                ]
+              },
+              {
+                "collapsed": true,
+                "type": "category",
+                "label": "Examples",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "version-4.0.01.220/exGenericCrudService1"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "version-4.0.01.220/exGenericCrudServiceRestController1"
+                  }
+                ]
+              },
+              {
+                "collapsed": true,
+                "type": "category",
+                "label": "Docusaurus",
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "version-4.0.01.220/styleGuide"
+                  }
+                ]
+              }
+            ]
+          },
+          "permalinkToSidebar": {
+            "/docs/exGenericCrudService1": "version-4.0.01.220/someSidebar",
+            "/docs/exGenericCrudServiceRestController1": "version-4.0.01.220/someSidebar",
+            "/docs/": "version-4.0.01.220/someSidebar",
+            "/docs/styleGuide": "version-4.0.01.220/someSidebar"
+          },
+          "docs": [
+            {
+              "unversionedId": "exGenericCrudService1",
+              "id": "version-4.0.01.220/exGenericCrudService1",
+              "isDocsHomePage": false,
+              "title": "Generic CRUD Service",
+              "description": "Generic CRUD Service Example Usage",
+              "source": "@site/versioned_docs/version-4.0.01.220/genericCrudService.md",
+              "slug": "/exGenericCrudService1",
+              "permalink": "/docs/exGenericCrudService1",
+              "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/versioned_docs/version-4.0.01.220/genericCrudService.md",
+              "version": "4.0.01.220",
+              "sidebar_label": "Generic CRUD Service",
+              "sidebar": "version-4.0.01.220/someSidebar",
+              "previous": {
+                "title": "Getting Started",
+                "permalink": "/docs/"
+              },
+              "next": {
+                "title": "Generic CRUD Rest Controller",
+                "permalink": "/docs/exGenericCrudServiceRestController1"
+              }
+            },
+            {
+              "unversionedId": "exGenericCrudServiceRestController1",
+              "id": "version-4.0.01.220/exGenericCrudServiceRestController1",
+              "isDocsHomePage": false,
+              "title": "Generic CRUD Rest Controller",
+              "description": "Generic CRUD Rest Controller Example Usage",
+              "source": "@site/versioned_docs/version-4.0.01.220/genericCrudRestController.md",
+              "slug": "/exGenericCrudServiceRestController1",
+              "permalink": "/docs/exGenericCrudServiceRestController1",
+              "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/versioned_docs/version-4.0.01.220/genericCrudRestController.md",
+              "version": "4.0.01.220",
+              "sidebar_label": "Generic CRUD Rest Controller",
+              "sidebar": "version-4.0.01.220/someSidebar",
+              "previous": {
+                "title": "Generic CRUD Service",
+                "permalink": "/docs/exGenericCrudService1"
+              },
+              "next": {
+                "title": "Style Guide",
+                "permalink": "/docs/styleGuide"
+              }
+            },
+            {
+              "unversionedId": "gettingStarted",
+              "id": "version-4.0.01.220/gettingStarted",
+              "isDocsHomePage": true,
+              "title": "Getting Started",
+              "description": "Generic CRUD Service",
+              "source": "@site/versioned_docs/version-4.0.01.220/gettingStarted.md",
+              "slug": "/",
+              "permalink": "/docs/",
+              "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/versioned_docs/version-4.0.01.220/gettingStarted.md",
+              "version": "4.0.01.220",
+              "sidebar_label": "Getting Started",
+              "sidebar": "version-4.0.01.220/someSidebar",
+              "next": {
+                "title": "Generic CRUD Service",
+                "permalink": "/docs/exGenericCrudService1"
+              }
+            },
+            {
+              "unversionedId": "styleGuide",
+              "id": "version-4.0.01.220/styleGuide",
+              "isDocsHomePage": false,
+              "title": "Style Guide",
+              "description": "You can write content using GitHub-flavored Markdown syntax.",
+              "source": "@site/versioned_docs/version-4.0.01.220/styleGuide.md",
+              "slug": "/styleGuide",
+              "permalink": "/docs/styleGuide",
+              "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/versioned_docs/version-4.0.01.220/styleGuide.md",
+              "version": "4.0.01.220",
+              "sidebar_label": "Style Guide",
+              "sidebar": "version-4.0.01.220/someSidebar",
+              "previous": {
+                "title": "Generic CRUD Rest Controller",
+                "permalink": "/docs/exGenericCrudServiceRestController1"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "docusaurus-plugin-content-blog": {
+    "default": {
+      "blogPosts": [
+        {
+          "id": "Hola",
+          "metadata": {
+            "permalink": "/blog/2019/05/28/hola",
+            "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/blog/blog/2019-05-28-hola.md",
+            "source": "@site/blog/2019-05-28-hola.md",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet",
+            "date": "2019-05-28T00:00:00.000Z",
+            "tags": [],
+            "title": "Hola",
+            "readingTime": 0.12,
+            "truncated": false
+          }
+        }
+      ],
+      "blogListPaginated": [
+        {
+          "metadata": {
+            "permalink": "/blog",
+            "page": 1,
+            "postsPerPage": 10,
+            "totalPages": 1,
+            "totalCount": 1,
+            "previousPage": null,
+            "nextPage": null,
+            "blogDescription": "Blog"
+          },
+          "items": [
+            "Hola"
+          ]
+        }
+      ],
+      "blogTags": {},
+      "blogTagsListPath": null
+    }
+  },
+  "docusaurus-plugin-content-pages": {
+    "default": [
+      {
+        "type": "jsx",
+        "permalink": "/",
+        "source": "@site/src/pages/index.js"
+      },
+      {
+        "type": "jsx",
+        "permalink": "/versions",
+        "source": "@site/src/pages/versions.js"
+      }
+    ]
+  },
+  "docusaurus-plugin-debug": {
+    "default": null
+  },
+  "docusaurus-theme-classic": {
+    "default": null
+  }
+}

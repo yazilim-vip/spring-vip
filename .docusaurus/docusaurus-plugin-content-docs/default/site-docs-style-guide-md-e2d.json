@@ -1,0 +1,18 @@
+{
+  "unversionedId": "styleGuide",
+  "id": "styleGuide",
+  "isDocsHomePage": false,
+  "title": "Style Guide",
+  "description": "You can write content using GitHub-flavored Markdown syntax.",
+  "source": "@site/docs/styleGuide.md",
+  "slug": "/styleGuide",
+  "permalink": "/docs/next/styleGuide",
+  "editUrl": "https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip-wiki/-/tree/master/docs/styleGuide.md",
+  "version": "current",
+  "sidebar_label": "Style Guide",
+  "sidebar": "someSidebar",
+  "previous": {
+    "title": "Generic CRUD Rest Controller",
+    "permalink": "/docs/next/exGenericCrudServiceRestController1"
+  }
+}
