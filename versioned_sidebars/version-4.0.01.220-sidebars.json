@@ -1,0 +1,41 @@
+{
+  "version-4.0.01.220/someSidebar": [
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "GettingStarted",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-4.0.01.220/gettingStarted"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Examples",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-4.0.01.220/exGenericCrudService1"
+        },
+        {
+          "type": "doc",
+          "id": "version-4.0.01.220/exGenericCrudServiceRestController1"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "Docusaurus",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-4.0.01.220/styleGuide"
+        }
+      ]
+    }
+  ]
+}
