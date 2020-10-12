@@ -18,19 +18,6 @@
         <kotlin.version>1.3.72</kotlin.version>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/yazilim-vip</url>
-        </repository>
-
-        <snapshotRepository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/yazilim-vip</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-
     <dependencyManagement>
         <dependencies>
 
