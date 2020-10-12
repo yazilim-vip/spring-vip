@@ -3,7 +3,7 @@ on:
   push:
       branches: [wiki]
 jobs:
-  npm_publish:
+  wiki_build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
