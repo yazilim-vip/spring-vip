@@ -13,6 +13,7 @@ jobs:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
     - run: | 
+        ls
         cd docusaurus && npm install
         cd docusaurus && npm run build
     - name: Deploy
