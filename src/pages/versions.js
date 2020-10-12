@@ -40,7 +40,7 @@ function Version() {
                   </Link>
                 </td>
                 <td>
-                <Link to={`https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip/-/tags/v${latestVersion}`}>
+                <Link to={`https://github.com/yazilim-vip/spring-vip/releases/tag/v${latestVersion}`}>
                     Release Notes
                   </Link>
                 </td>
@@ -91,7 +91,7 @@ function Version() {
                       </Link>
                     </td>
                     <td>
-                        <Link to={`https://gitlab.com/yazilim.vip/projects/community/spring-vip/spring-vip/-/tags/v${version}`}>
+                        <Link to={`https://github.com/yazilim-vip/spring-vip/-/tags/v${version}`}>
                             Release Notes
                         </Link>
                     </td>
