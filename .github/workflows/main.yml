@@ -1,7 +1,11 @@
 name: Publish Docker Image and Node Module
-on: [ push ]
+on:
+  push:
+    branches:
+      - '*'
+      - !master
 jobs:
-  publish:
+  mnv_build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -11,6 +15,6 @@ jobs:
           java-version: 1.8
       - name: Build with Maven
         run: |
-          echo "hello world"
+          mvn clean package
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
