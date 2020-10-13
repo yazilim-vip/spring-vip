@@ -1,9 +1,8 @@
 name: Publish Docker Image and Node Module
 on:
   push:
-    branches:
-      - '*'
-      - !master
+    branches-ignore:
+      - master
 jobs:
   mnv_build:
     runs-on: ubuntu-latest
