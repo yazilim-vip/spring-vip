@@ -4,7 +4,7 @@ import vip.yazilim.libs.springvip.exception.*
 
 /**
  *
- * @author maemresen - <maemresen@yazilim.vip>
+ * @author maemresen - maemresen@yazilim.vip
  * 22.08.2020
  */
 interface IGenericServiceMethodDelete<E, ID> {

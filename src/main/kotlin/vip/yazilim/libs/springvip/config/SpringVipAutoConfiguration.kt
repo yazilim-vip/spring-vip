@@ -9,7 +9,7 @@ import vip.yazilim.libs.springvip.bean.defaults.DefaultRestResponseBuilder
 /**
  * Library AutoConfiguration Class
  *
- * @author maemresen - <maemresen@yazilim.vip>
+ * @author maemresen - maemresen@yazilim.vip
  * 21.08.2020
  */
 @Configuration

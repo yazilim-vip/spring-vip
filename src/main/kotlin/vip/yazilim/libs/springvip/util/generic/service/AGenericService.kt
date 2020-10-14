@@ -7,7 +7,7 @@ import kotlin.reflect.KClass
 
 /**
  *
- * @author maemresen - <maemresen@yazilim.vip>
+ * @author maemresen - maemresen@yazilim.vip
  * 22.08.2020
  */
 abstract class AGenericService<E : Any, ID : Any>(

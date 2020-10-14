@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse
 
 /**
  *
- * @author maemresen - <maemresen@yazilim.vip>
+ * @author maemresen - maemresen@yazilim.vip
  * 22.08.2020
  */
 //@RequestMapping()

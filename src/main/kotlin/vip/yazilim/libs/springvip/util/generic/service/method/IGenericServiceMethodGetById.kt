@@ -5,7 +5,7 @@ import java.util.*
 
 /**
  *
- * @author maemresen - <maemresen@yazilim.vip>
+ * @author maemresen - maemresen@yazilim.vip
  * 22.08.2020
  */
 interface IGenericServiceMethodGetById<E, ID> {

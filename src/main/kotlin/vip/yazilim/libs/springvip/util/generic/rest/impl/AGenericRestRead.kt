@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
 /**
  * Generic RestService implementation that provides basic read functions
  *
- * @author maemresen - <maemresen@yazilim.vip>
+ * @author maemresen - maemresen@yazilim.vip
  * 22.08.2020
  */
 open class AGenericRestRead<E : Any, ID : Any>(restResponseBuilder: IRestResponseBuilder, genericServiceCrud: IGenericServiceCrud<E, ID>, classOfEntity: KClass<E>)
