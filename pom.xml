@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lib-java-version>1.8</lib-java-version>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
-        <kotlin.version>1.3.72</kotlin.version>
+        <kotlin.version>1.4.10</kotlin.version>
     </properties>
 
 
@@ -95,9 +95,7 @@
             <artifactId>javax.persistence-api</artifactId>
         </dependency>
 
-
-
-        <!--Database -->
+        <!--Datab.ase -->
         <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -126,6 +124,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -141,20 +140,6 @@
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
 
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <tags>
-                        <tag>
-                            <name>contact</name>
-                            <placement>a</placement>
-                            <head>Contact Info:</head>
-                        </tag>
-                    </tags>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
