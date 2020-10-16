@@ -45,8 +45,8 @@ abstract class AGenericRest<E : Any, ID : Any>(
     }
 
     open fun saveGenericImpl(request: HttpServletRequest
-                               , response: HttpServletResponse
-                               , entity: E): Any {
+                             , response: HttpServletResponse
+                             , entity: E): Any {
 
         // create entity
         val savedEntity = genericServiceCrud.save(entity)
@@ -100,8 +100,8 @@ abstract class AGenericRest<E : Any, ID : Any>(
     }
 
     open fun deleteGenericImpl(request: HttpServletRequest
-                                   , response: HttpServletResponse
-                                   , entity: E): Any {
+                               , response: HttpServletResponse
+                               , entity: E): Any {
 
         // init response
         return restResponseBuilder.generateRestResponse(responseBody = genericServiceCrud.delete(entity)
@@ -111,7 +111,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
     }
 
     open fun deleteAllGenericImpl(request: HttpServletRequest
-                               , response: HttpServletResponse
+                                  , response: HttpServletResponse
     ): Any {
         // init response
         return restResponseBuilder.generateRestResponse(responseBody = genericServiceCrud.deleteAll()

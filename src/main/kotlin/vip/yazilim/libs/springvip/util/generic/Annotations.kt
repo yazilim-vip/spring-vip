@@ -1,6 +1,4 @@
-package vip.yazilim.libs.springvip.util.generic.rest
-
-import kotlin.reflect.KClass
+package vip.yazilim.libs.springvip.util.generic
 
 /**
  *
@@ -10,4 +8,4 @@ import kotlin.reflect.KClass
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
-annotation class VipController(val entityClass: KClass<*>)
+annotation class VipGenericRest
