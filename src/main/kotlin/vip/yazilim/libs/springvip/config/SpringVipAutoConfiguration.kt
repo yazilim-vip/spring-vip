@@ -18,8 +18,9 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
 import vip.yazilim.libs.springvip.bean.IRestResponseBuilder
 import vip.yazilim.libs.springvip.bean.defaults.DefaultRestResponseBuilder
-import vip.yazilim.libs.springvip.util.generic.VipGenericRest
+import vip.yazilim.libs.springvip.util.generic.rest.VipGenericRest
 import vip.yazilim.libs.springvip.util.generic.rest.AGenericRest
+import vip.yazilim.libs.springvip.util.generic.rest.GenericCrudMethods
 import java.lang.reflect.Modifier
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -54,6 +55,8 @@ open class SpringVipAutoConfiguration(
                 }
 
                 val vipGenericRest = beanClass.getAnnotation(VipGenericRest::class.java)
+                val methods = vipGenericRest.methods
+
                 //TODO: uri variables will be used
                 val uriValues = if (beanClass.isAnnotationPresent(RequestMapping::class.java)) {
                     beanClass.getAnnotation(RequestMapping::class.java).value
@@ -79,9 +82,23 @@ open class SpringVipAutoConfiguration(
                 | BEGIN DEFINE CUSTOM METHODS
                 -------------------------------
                  */
-                builder = builder.defineMethod("getAllGenericImpl", Any::class.java, Modifier.PUBLIC)
-                        .withParameters(HttpServletRequest::class.java, HttpServletResponse::class.java)
-                        .intercept(MethodDelegation.to(context.getBean(beanClass)))
+                methods.forEach {
+                    when (it) {
+                        GenericCrudMethods.CREATE -> println("here")
+                        GenericCrudMethods.DELETE_ALL -> println("here")
+                        GenericCrudMethods.DELETE_BY_ID -> println("here")
+                        GenericCrudMethods.DELETE -> println("here")
+                        GenericCrudMethods.GET_ALL -> {
+                            builder = builder.defineMethod(it.methodName, Any::class.java, Modifier.PUBLIC)
+                                    .withParameters(HttpServletRequest::class.java, HttpServletResponse::class.java)
+                                    .intercept(MethodDelegation.to(context.getBean(beanClass)))
+                        }
+                        GenericCrudMethods.GET_BY_ID -> println("here")
+                        GenericCrudMethods.SAVE -> println("here")
+                        GenericCrudMethods.UPDATE -> println("here")
+                    }
+                }
+
                 /*
                 -------------------------------
                 | END DEFINE CUSTOM METHODS
@@ -103,13 +120,34 @@ open class SpringVipAutoConfiguration(
                 | REGISTER MAPPINGS
                 -------------------------------
                  */
-                handlerMapping.registerMapping(
-                        RequestMappingInfo.paths("/emre/")
-                                .methods(RequestMethod.GET)
-                                .produces(MediaType.APPLICATION_JSON_VALUE)
-                                .build(),
-                        userController,
-                        userController.javaClass.getMethod("getAllGenericImpl", HttpServletRequest::class.java, HttpServletResponse::class.java))
+
+                uriValues.forEach { uriValue: String ->
+                    run {
+                        methods.forEach {
+                            when (it) {
+                                GenericCrudMethods.CREATE -> println("here")
+                                GenericCrudMethods.DELETE_ALL -> println("here")
+                                GenericCrudMethods.DELETE_BY_ID -> println("here")
+                                GenericCrudMethods.DELETE -> println("here")
+                                GenericCrudMethods.GET_ALL -> {
+                                    println("${uriValue}${it.uri}")
+                                    handlerMapping.registerMapping(
+                                            RequestMappingInfo.paths("${uriValue}${it.uri}")
+                                                    .methods(it.httpMethod)
+                                                    .produces(MediaType.APPLICATION_JSON_VALUE)
+                                                    .build(),
+                                            userController,
+                                            userController.javaClass.getMethod(it.methodName, HttpServletRequest::class.java, HttpServletResponse::class.java))
+                                }
+                                GenericCrudMethods.GET_BY_ID -> println("here")
+                                GenericCrudMethods.SAVE -> println("here")
+                                GenericCrudMethods.UPDATE -> println("here")
+                            }
+                        }
+                    }
+
+                }
+
             } catch (e: ClassNotFoundException) {
                 e.printStackTrace()
             } catch (e: InstantiationException) {

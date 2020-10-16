@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springvip.util.generic
+package vip.yazilim.libs.springvip.util.generic.rest
 
 /**
  *
@@ -8,4 +8,4 @@ package vip.yazilim.libs.springvip.util.generic
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
-annotation class VipGenericRest
+annotation class VipGenericRest(val methods: Array<GenericCrudMethods> = [])
