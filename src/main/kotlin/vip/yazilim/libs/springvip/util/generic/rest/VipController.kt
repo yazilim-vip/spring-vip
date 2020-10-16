@@ -4,7 +4,7 @@ import kotlin.reflect.KClass
 
 /**
  *
- * @author maemresen - <maemresen@yazilim.vip>
+ * @author maemresen - maemresen@yazilim.vip
  * 16.10.2020
  */
 @Target(AnnotationTarget.CLASS)
