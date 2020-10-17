@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse
 /**
  * Default  RestResponse Builder Implementation
  */
-class DefaultRestResponseBuilder : IRestResponseBuilder {
+class  DefaultRestResponseBuilder : IRestResponseBuilder {
 
     override fun generateRestResponse(responseBody: Any, httpStatus: HttpStatus, request: HttpServletRequest, response: HttpServletResponse): Any {
         val path = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE) as String
