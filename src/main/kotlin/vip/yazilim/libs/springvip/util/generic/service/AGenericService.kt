@@ -14,7 +14,7 @@ abstract class AGenericService<E : Any, ID : Any>(
         protected val repository: JpaRepository<E, ID>,
         protected val classOfEntity: KClass<E>,
         protected val classOfId: KClass<ID>
-) {
+) : IGenericServiceCrud<E, ID> {
     constructor(repository: JpaRepository<E, ID>, classOfEntity: Class<E>, classOfId: Class<ID>)
             : this(repository, classOfEntity.kotlin, classOfId.kotlin)
 
@@ -27,7 +27,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     protected abstract fun getId(entity: E): ID
 
     @Throws(DatabaseSaveException::class)
-    fun save(entity: E): E {
+    override fun save(entity: E): E {
         return try {
             repository.save(entity) ?: throw NoSuchElementException("Saved entity not found")
         } catch (exception: Exception) {
@@ -36,7 +36,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseCreateException::class)
-    fun create(entity: E): E {
+    override fun create(entity: E): E {
         return try {
             // initialize entity to insert
             // e.g setting unique UUID
@@ -61,7 +61,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseUpdateException::class)
-    fun update(newEntity: E): E {
+    override fun update(newEntity: E): E {
         return try {
             // get old entity
             val id = getId(newEntity)
@@ -76,7 +76,7 @@ abstract class AGenericService<E : Any, ID : Any>(
         }
     }
 
-    fun getAll(): List<E> {
+    override fun getAll(): List<E> {
         return try {
             // find entity by id
             repository.findAll()
@@ -86,7 +86,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseReadException::class)
-    fun getById(id: ID): Optional<E> {
+    override fun getById(id: ID): Optional<E> {
         return try {
             // find entity by id
             repository.findById(id)
@@ -107,7 +107,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    fun deleteById(id: ID): Boolean {
+    override fun deleteById(id: ID): Boolean {
         return try {
             // delete entity
             repository.deleteById(id)
@@ -118,7 +118,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    fun delete(entity: E): Boolean {
+    override fun delete(entity: E): Boolean {
         return try {
             // delete entity
             repository.delete(entity)
@@ -129,7 +129,7 @@ abstract class AGenericService<E : Any, ID : Any>(
     }
 
     @Throws(DatabaseDeleteException::class)
-    fun deleteAll(): Boolean {
+    override fun deleteAll(): Boolean {
         return try {
             // delete entity
             repository.deleteAll()
