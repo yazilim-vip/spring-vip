@@ -5,11 +5,12 @@ import net.bytebuddy.description.annotation.AnnotationDescription
 import net.bytebuddy.dynamic.DynamicType
 import net.bytebuddy.implementation.MethodDelegation
 import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
 import vip.yazilim.libs.springvip.bean.IGenericRestFactory
-import vip.yazilim.libs.springvip.ext.libLogInfo
 import vip.yazilim.libs.springvip.util.generic.rest.AGenericRest
+import vip.yazilim.libs.springvip.util.generic.rest.GenericCrudMethods
 import vip.yazilim.libs.springvip.util.generic.rest.GenericCrudMethods.*
 import vip.yazilim.libs.springvip.util.generic.rest.VipGenericRest
 import java.lang.reflect.Modifier
@@ -46,15 +47,25 @@ class GenericRestFactory(
          */
         vipGenericRest.methods.forEach {
             builder = when (it) {
-//                CREATE -> buildProxyCreate(builder, restControllerBean, vipGenericRest)
-//                DELETE_ALL -> buildProxyDeleteAll(builder, restControllerBean, vipGenericRest)
-//                DELETE_BY_ID -> buildProxyDeleteById(builder, restControllerBean, vipGenericRest)
-//                DELETE -> buildProxyDelete(builder, restControllerBean, vipGenericRest)
-                GET_ALL -> buildProxyGetAll(builder, restControllerBean, vipGenericRest)
-//                GET_BY_ID -> buildProxyGetById(builder, restControllerBean, vipGenericRest)
-//                SAVE -> buildProxySave(builder, restControllerBean, vipGenericRest)
-//                UPDATE -> buildProxyUpdate(builder, restControllerBean, vipGenericRest)
-                else -> builder
+                GET_ALL -> builder.defineMethod(GET_ALL.methodName, Any::class.java, Modifier.PUBLIC)
+                        .withParameter(HttpServletRequest::class.java)
+                        .withParameter(HttpServletResponse::class.java)
+                        .intercept(MethodDelegation.to(restControllerBean))
+                GET_BY_ID -> builder.defineMethod(GET_BY_ID.methodName, Any::class.java, Modifier.PUBLIC)
+                        .withParameter(HttpServletRequest::class.java)
+                        .withParameter(HttpServletResponse::class.java)
+                        .withParameter(restControllerBean.classOfId.java)
+                        .annotateParameter(AnnotationDescription.Builder
+                                .ofType(PathVariable::class.java)
+                                .define("name", "id")
+                                .build())
+                        .intercept(MethodDelegation.to(restControllerBean))
+                CREATE -> TODO()
+                DELETE_ALL -> TODO()
+                DELETE_BY_ID -> TODO()
+                DELETE -> TODO()
+                SAVE -> TODO()
+                UPDATE -> TODO()
             }
         }
 
@@ -69,16 +80,4 @@ class GenericRestFactory(
                 .newInstance()!!
     }
 
-    private fun buildProxyGetAll(builder: DynamicType.Builder<Any?>, restControllerBean: Any, vipGenericRest: VipGenericRest): DynamicType.Builder<Any?> {
-
-        return builder.defineMethod(GET_ALL.methodName, Any::class.java, Modifier.PUBLIC)
-                .withParameters(HttpServletRequest::class.java, HttpServletResponse::class.java)
-                .intercept(MethodDelegation.to(restControllerBean))
-    }
-
-    private fun buildProxyGetById(builder: DynamicType.Builder<Any?>, restControllerBean: Any, vipGenericRest: VipGenericRest): DynamicType.Builder<Any?> {
-        return builder.defineMethod(GET_ALL.methodName, Any::class.java, Modifier.PUBLIC)
-                .withParameters(HttpServletRequest::class.java, HttpServletResponse::class.java)
-                .intercept(MethodDelegation.to(restControllerBean))
-    }
 }

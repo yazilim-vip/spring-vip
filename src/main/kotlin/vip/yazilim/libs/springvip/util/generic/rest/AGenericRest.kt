@@ -15,8 +15,8 @@ import kotlin.reflect.KClass
 abstract class AGenericRest<E : Any, ID : Any>(
         private val restResponseBuilder: IRestResponseBuilder,
         private val genericServiceCrud: IGenericServiceCrud<E, ID>,
-        private val classOfEntity: KClass<E>,
-        private val classOfId: KClass<ID>,
+        val classOfEntity: KClass<E>,
+        val classOfId: KClass<ID>,
 ) {
     constructor(
             restResponseBuilder: IRestResponseBuilder,
