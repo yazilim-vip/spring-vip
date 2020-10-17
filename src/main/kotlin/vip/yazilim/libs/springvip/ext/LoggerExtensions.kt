@@ -4,6 +4,11 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import vip.yazilim.libs.springvip.util.buildLogMsg
 
+/**
+ *
+ * @author maemresen - maemresen@yazilim.vip
+ * 17.10.2020
+ */
 inline fun <reified T> T.logger(): Logger {
     if (T::class.isCompanion) {
         return LoggerFactory.getLogger(T::class.java.enclosingClass)
@@ -24,6 +29,11 @@ inline fun <reified T> T.libLogError(msg: String, ex: Throwable? = null) {
     }
 }
 
+/**
+ *
+ * @author maemresen - maemresen@yazilim.vip
+ * 17.10.2020
+ */
 inline fun <reified T> T.libLogWarn(msg: String, ex: Throwable? = null) {
     if (ex == null) {
         logger().warn(buildLogMsg(msg))
@@ -32,14 +42,29 @@ inline fun <reified T> T.libLogWarn(msg: String, ex: Throwable? = null) {
     }
 }
 
+/**
+ *
+ * @author maemresen - maemresen@yazilim.vip
+ * 17.10.2020
+ */
 inline fun <reified T> T.libLogInfo(msg: String) {
     logger().info(buildLogMsg(msg))
 }
 
+/**
+ *
+ * @author maemresen - maemresen@yazilim.vip
+ * 17.10.2020
+ */
 inline fun <reified T> T.libLogDebug(msg: String) {
     logger().debug(buildLogMsg(msg))
 }
 
+/**
+ *
+ * @author maemresen - maemresen@yazilim.vip
+ * 17.10.2020
+ */
 inline fun <reified T> T.libLogTrace(msg: String) {
     logger().trace(buildLogMsg(msg))
 }
