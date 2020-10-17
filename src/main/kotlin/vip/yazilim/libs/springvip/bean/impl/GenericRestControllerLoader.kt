@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component
 import vip.yazilim.libs.springvip.bean.IGenericRestControllerFactory
 import vip.yazilim.libs.springvip.bean.IGenericRestControllerLoader
 import vip.yazilim.libs.springvip.bean.IGenericRestControllerRegisterer
+import vip.yazilim.libs.springvip.ext.libLogDebug
 import vip.yazilim.libs.springvip.ext.libLogError
 import vip.yazilim.libs.springvip.ext.libLogTrace
 import vip.yazilim.libs.springvip.ext.libLogWarn
@@ -39,7 +40,7 @@ open class GenericRestControllerLoader(
 
     override fun loadGenericRestControllers(packageName: String) {
         val tag = "[$packageName]"
-        libLogTrace("$tag::Scanning")
+        libLogDebug("$tag::Scanning")
         val scanner = ClassPathScanningCandidateComponentProvider(false)
         scanner.addIncludeFilter(AnnotationTypeFilter(VipGenericRest::class.java))
 
@@ -49,7 +50,10 @@ open class GenericRestControllerLoader(
         -------------------------------
         */
         val candidates = scanner.findCandidateComponents(packageName);
-        libLogTrace("$tag::Found Candidates::${candidates.joinToString(transform = { it.beanClassName }, separator = ",")}")
+        val candidateNames = candidates.joinToString(transform = {
+            it.beanClassName.replace("${packageName}.", "")
+        }, separator = ",")
+        libLogDebug("$tag::Found Candidates::[${candidateNames}]")
         for (beanDefinition in candidates) {
             try {
                 load(beanDefinition)
@@ -71,20 +75,21 @@ open class GenericRestControllerLoader(
         libLogTrace("$tag::Loading Class")
         val beanClass = Class.forName(beanDefinition.beanClassName);
 
-        libLogTrace("$tag::Getting ${VipGenericRest::class.simpleName} annotatoin")
         if (!beanClass.isAnnotationPresent(VipGenericRest::class.java)) {
             libLogWarn("$tag::VipGenericRest annotation not found")
             return
         }
         val vipGenericRest = beanClass.getAnnotation(VipGenericRest::class.java)
 
-        libLogTrace("$tag::Getting Bean")
+        libLogTrace("$tag::Getting  Bean from Context")
         val restControllerBean = context.getBean(beanClass)
 
         libLogTrace("$tag::Creating Proxy Object for GenericController")
         val proxyRestController = genericRestFactory.buildProxyRestController(restControllerBean, vipGenericRest)
 
-        libLogTrace("$tag::Register Mapping")
+        libLogTrace("$tag::Register Mappings")
         genericRestRegisterer.registerMappings(restControllerBean::class, proxyRestController, vipGenericRest)
+
+        libLogDebug("$tag::Loaded")
     }
 }

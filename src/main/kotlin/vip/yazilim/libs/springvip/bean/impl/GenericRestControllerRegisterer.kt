@@ -32,7 +32,6 @@ class GenericRestControllerRegisterer(
 //                        GenericCrudMethods.DELETE_BY_ID -> println("here")
 //                        GenericCrudMethods.DELETE -> println("here")
                         GenericCrudMethods.GET_ALL -> {
-                            println("${uriValue}${it.uri}")
                             handlerMapping.registerMapping(
                                     RequestMappingInfo.paths("${uriValue}${it.uri}")
                                             .methods(it.httpMethod)
