@@ -4,6 +4,8 @@ import net.bytebuddy.ByteBuddy
 import net.bytebuddy.description.annotation.AnnotationDescription
 import net.bytebuddy.dynamic.DynamicType
 import net.bytebuddy.implementation.MethodDelegation
+import org.springframework.beans.factory.config.ConfigurableBeanFactory
+import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
@@ -22,20 +24,28 @@ import javax.servlet.http.HttpServletResponse
  * Default  RestResponse Builder Implementation
  */
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 class GenericRestFactory(
         private val handlerMapping: RequestMappingHandlerMapping,
 ) : IGenericRestFactory {
 
-    override fun <E, ID, T : AGenericRest<E, ID>> buildProxyRestController(restControllerBean: T, genericRest: GenericRest): Any {
+    private var count = 0;
 
+    override fun <E, ID, T : AGenericRest<E, ID>> buildProxyRestController(restControllerBean: T, genericRest: GenericRest, uri: String): Any {
         /*
-        -------------------------------
+         -------------------------------
         | DEFINE NEW CONTROLLER CLASS
         -------------------------------
          */
+        val className = if (genericRest.name.isBlank()) {
+            "${restControllerBean::class.simpleName}Crud${uri.replace("/", "$")}"
+        } else {
+            genericRest.name;
+        }
+
         var builder: DynamicType.Builder<Any?> = ByteBuddy()
                 .subclass(Any::class.java)
-                .name("${restControllerBean::class.simpleName}GenericController")
+                .name(className)
                 .annotateType(AnnotationDescription.Builder
                         .ofType(RestController::class.java) // don't use `request` mapping here
                         .build()

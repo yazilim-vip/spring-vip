@@ -8,4 +8,7 @@ package vip.yazilim.libs.springvip.util.generic.rest
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
-annotation class GenericRest(val methods: Array<GenericCrudMethods> = [])
+annotation class GenericRest(
+        val methods: Array<GenericCrudMethods> = [],
+        val name: String = ""
+)

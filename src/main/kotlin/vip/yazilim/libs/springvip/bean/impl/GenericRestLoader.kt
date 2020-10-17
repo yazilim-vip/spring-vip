@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.context.annotation.Scope
 import org.springframework.core.type.filter.AnnotationTypeFilter
 import org.springframework.stereotype.Component
+import org.springframework.web.bind.annotation.RequestMapping
 import vip.yazilim.libs.springvip.bean.IGenericRestFactory
 import vip.yazilim.libs.springvip.bean.IGenericRestLoader
 import vip.yazilim.libs.springvip.bean.IGenericRestRegisterer
@@ -17,6 +18,7 @@ import vip.yazilim.libs.springvip.ext.libLogTrace
 import vip.yazilim.libs.springvip.ext.libLogWarn
 import vip.yazilim.libs.springvip.util.generic.rest.AGenericRest
 import vip.yazilim.libs.springvip.util.generic.rest.GenericRest
+import kotlin.reflect.full.findAnnotation
 
 /**
  *
@@ -80,16 +82,22 @@ open class GenericRestLoader(
             libLogWarn("$tag::VipGenericRest annotation not found")
             return
         }
-        val vipGenericRest = beanClass.getAnnotation(GenericRest::class.java)
+        val genericRest = beanClass.getAnnotation(GenericRest::class.java)
 
         libLogTrace("$tag::Getting  Bean from Context")
-        val restControllerBean = context.getBean(beanClass)
+        val restControllerBean = context.getBean(beanClass) as AGenericRest<*, *>
 
+        val uriValues = restControllerBean::class.findAnnotation<RequestMapping>()?.value ?: emptyArray()
+        uriValues.forEach { load(restControllerBean, genericRest, it) }
+    }
+
+    private fun <E, ID, T : AGenericRest<E, ID>> load(restControllerBean: T, genericRest: GenericRest, uri: String) {
+        val tag = "[${restControllerBean::class.qualifiedName}:${uri}]"
         libLogTrace("$tag::Creating Proxy Object for GenericController")
-        val proxyRestController = genericRestFactory.buildProxyRestController(restControllerBean as AGenericRest<*, *>, vipGenericRest)
+        val proxyRestController = genericRestFactory.buildProxyRestController(restControllerBean, genericRest, uri)
 
         libLogTrace("$tag::Register Mappings")
-        genericRestRegisterer.registerMappings(restControllerBean, proxyRestController, vipGenericRest)
+        genericRestRegisterer.registerMappings(restControllerBean, genericRest, proxyRestController, uri, genericRest.methods)
 
         libLogDebug("$tag::Loaded")
     }

@@ -10,5 +10,5 @@ import vip.yazilim.libs.springvip.util.generic.rest.GenericRest
  * 21.08.2020
  */
 interface IGenericRestFactory {
-    fun <E, ID, T : AGenericRest<E, ID>> buildProxyRestController(restControllerBean: T, genericRest: GenericRest): Any
+    fun <E, ID, T : AGenericRest<E, ID>> buildProxyRestController(restControllerBean: T, genericRest: GenericRest, uri: String): Any
 }
