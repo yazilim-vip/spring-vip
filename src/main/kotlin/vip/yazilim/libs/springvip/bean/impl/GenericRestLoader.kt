@@ -16,7 +16,7 @@ import vip.yazilim.libs.springvip.ext.libLogError
 import vip.yazilim.libs.springvip.ext.libLogTrace
 import vip.yazilim.libs.springvip.ext.libLogWarn
 import vip.yazilim.libs.springvip.util.generic.rest.AGenericRest
-import vip.yazilim.libs.springvip.util.generic.rest.VipGenericRest
+import vip.yazilim.libs.springvip.util.generic.rest.GenericRest
 
 /**
  *
@@ -43,7 +43,7 @@ open class GenericRestLoader(
         val tag = "[$packageName]"
         libLogDebug("$tag::Scanning")
         val scanner = ClassPathScanningCandidateComponentProvider(false)
-        scanner.addIncludeFilter(AnnotationTypeFilter(VipGenericRest::class.java))
+        scanner.addIncludeFilter(AnnotationTypeFilter(GenericRest::class.java))
 
         /*
         -------------------------------
@@ -76,11 +76,11 @@ open class GenericRestLoader(
         libLogTrace("$tag::Loading Class")
         val beanClass = Class.forName(beanDefinition.beanClassName);
 
-        if (!beanClass.isAnnotationPresent(VipGenericRest::class.java)) {
+        if (!beanClass.isAnnotationPresent(GenericRest::class.java)) {
             libLogWarn("$tag::VipGenericRest annotation not found")
             return
         }
-        val vipGenericRest = beanClass.getAnnotation(VipGenericRest::class.java)
+        val vipGenericRest = beanClass.getAnnotation(GenericRest::class.java)
 
         libLogTrace("$tag::Getting  Bean from Context")
         val restControllerBean = context.getBean(beanClass)

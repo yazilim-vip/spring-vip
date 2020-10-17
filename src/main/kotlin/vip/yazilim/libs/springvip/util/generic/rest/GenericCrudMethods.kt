@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RequestMethod
  * 17.10.2020
  */
 enum class GenericCrudMethods(val httpMethod: RequestMethod, val methodName: String, val uri: String) {
-    CREATE(RequestMethod.POST, "createGenericImpl", "/"),
+
     DELETE_ALL(RequestMethod.DELETE, "deleteAllGenericImpl", "/"),
-    DELETE_BY_ID(RequestMethod.DELETE, "deleteByIdGenericImpl", "/"),
-    DELETE(RequestMethod.DELETE, "deleteGenericImpl", "/"),
     GET_ALL(RequestMethod.GET, "getAllGenericImpl", "/"),
-    GET_BY_ID(RequestMethod.GET, "getByIdGenericImpl", "/{id}"),
+
     SAVE(RequestMethod.POST, "saveGenericImpl", "/"),
+    CREATE(RequestMethod.POST, "createGenericImpl", "/"),
     UPDATE(RequestMethod.PUT, "updateGenericImpl", "/"),
+    DELETE(RequestMethod.DELETE, "deleteGenericImpl", "/"),
+
+    DELETE_BY_ID(RequestMethod.DELETE, "deleteByIdGenericImpl", "/"),
+    GET_BY_ID(RequestMethod.GET, "getByIdGenericImpl", "/{id}"),
 }
