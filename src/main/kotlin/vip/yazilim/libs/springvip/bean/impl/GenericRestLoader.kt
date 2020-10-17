@@ -15,6 +15,7 @@ import vip.yazilim.libs.springvip.ext.libLogDebug
 import vip.yazilim.libs.springvip.ext.libLogError
 import vip.yazilim.libs.springvip.ext.libLogTrace
 import vip.yazilim.libs.springvip.ext.libLogWarn
+import vip.yazilim.libs.springvip.util.generic.rest.AGenericRest
 import vip.yazilim.libs.springvip.util.generic.rest.VipGenericRest
 
 /**
@@ -85,7 +86,7 @@ open class GenericRestLoader(
         val restControllerBean = context.getBean(beanClass)
 
         libLogTrace("$tag::Creating Proxy Object for GenericController")
-        val proxyRestController = genericRestFactory.buildProxyRestController(restControllerBean, vipGenericRest)
+        val proxyRestController = genericRestFactory.buildProxyRestController(restControllerBean as AGenericRest<*, *>, vipGenericRest)
 
         libLogTrace("$tag::Register Mappings")
         genericRestRegisterer.registerMappings(restControllerBean::class, proxyRestController, vipGenericRest)

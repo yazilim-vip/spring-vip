@@ -12,9 +12,11 @@ import kotlin.reflect.KClass
  */
 abstract class AGenericService<E : Any, ID : Any>(
         protected val repository: JpaRepository<E, ID>,
-        protected val classOfEntity: KClass<E>
+        protected val classOfEntity: KClass<E>,
+        protected val classOfId: KClass<ID>
 ) {
-
+    constructor(repository: JpaRepository<E, ID>, classOfEntity: Class<E>, classOfId: Class<ID>)
+            : this(repository, classOfEntity.kotlin, classOfId.kotlin)
 
     /**
      * Get Id of the entity
