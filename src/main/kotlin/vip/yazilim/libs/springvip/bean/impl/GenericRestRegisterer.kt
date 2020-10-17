@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
-import vip.yazilim.libs.springvip.bean.IGenericRestControllerRegisterer
+import vip.yazilim.libs.springvip.bean.IGenericRestRegisterer
 import vip.yazilim.libs.springvip.util.generic.rest.GenericCrudMethods
 import vip.yazilim.libs.springvip.util.generic.rest.VipGenericRest
 import javax.servlet.http.HttpServletRequest
@@ -17,9 +17,9 @@ import kotlin.reflect.full.findAnnotation
  * Default  RestResponse Builder Implementation
  */
 @Component
-class GenericRestControllerRegisterer(
+class GenericRestRegisterer(
         private val handlerMapping: RequestMappingHandlerMapping,
-) : IGenericRestControllerRegisterer {
+) : IGenericRestRegisterer {
 
     override fun registerMappings(restControllerBeanClass: KClass<*>, proxyRestController: Any, vipGenericRest: VipGenericRest) {
         val uriValues = restControllerBeanClass.findAnnotation<RequestMapping>()?.value ?: emptyArray()

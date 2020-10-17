@@ -1,6 +1,9 @@
 package vip.yazilim.libs.springvip.bean
 
+import org.springframework.http.HttpStatus
 import vip.yazilim.libs.springvip.util.generic.rest.VipGenericRest
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 import kotlin.reflect.KClass
 
 /**
@@ -9,6 +12,6 @@ import kotlin.reflect.KClass
  * @author maemresen - maemresen@yazilim.vip
  * 21.08.2020
  */
-interface IGenericRestControllerRegisterer {
-    fun registerMappings(restControllerBeanClass: KClass<*>, proxyRestController: Any, vipGenericRest: VipGenericRest)
+interface IGenericRestFactory {
+    fun buildProxyRestController(restControllerBean: Any, vipGenericRest: VipGenericRest): Any
 }

@@ -8,9 +8,9 @@ import org.springframework.context.annotation.ClassPathScanningCandidateComponen
 import org.springframework.context.annotation.Scope
 import org.springframework.core.type.filter.AnnotationTypeFilter
 import org.springframework.stereotype.Component
-import vip.yazilim.libs.springvip.bean.IGenericRestControllerFactory
-import vip.yazilim.libs.springvip.bean.IGenericRestControllerLoader
-import vip.yazilim.libs.springvip.bean.IGenericRestControllerRegisterer
+import vip.yazilim.libs.springvip.bean.IGenericRestFactory
+import vip.yazilim.libs.springvip.bean.IGenericRestLoader
+import vip.yazilim.libs.springvip.bean.IGenericRestRegisterer
 import vip.yazilim.libs.springvip.ext.libLogDebug
 import vip.yazilim.libs.springvip.ext.libLogError
 import vip.yazilim.libs.springvip.ext.libLogTrace
@@ -24,13 +24,13 @@ import vip.yazilim.libs.springvip.util.generic.rest.VipGenericRest
  */
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-open class GenericRestControllerLoader(
+open class GenericRestLoader(
         private val context: ConfigurableApplicationContext,
-        private val genericRestFactory: IGenericRestControllerFactory,
-        private val genericRestRegisterer: IGenericRestControllerRegisterer,
+        private val genericRestFactory: IGenericRestFactory,
+        private val genericRestRegisterer: IGenericRestRegisterer,
         @Value("\${spring-vip.rest-packages}")
         private val restPackages: Array<String>? = null,
-) : IGenericRestControllerLoader {
+) : IGenericRestLoader {
 
     init {
         restPackages!!

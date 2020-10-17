@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component
  * 17.10.2020
  */
 @Component
-interface IGenericRestControllerLoader {
+interface IGenericRestLoader {
     fun loadGenericRestControllers(packageName: String)
 }
