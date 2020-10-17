@@ -3,9 +3,9 @@ package vip.yazilim.libs.springvip.config
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import vip.yazilim.libs.springvip.bean.defaults.GenericRestControllerLoader
+import vip.yazilim.libs.springvip.bean.impl.GenericRestControllerLoader
 import vip.yazilim.libs.springvip.bean.IRestResponseBuilder
-import vip.yazilim.libs.springvip.bean.defaults.DefaultRestResponseBuilder
+import vip.yazilim.libs.springvip.bean.impl.DefaultRestResponseBuilder
 
 /**
  * Library AutoConfiguration Class

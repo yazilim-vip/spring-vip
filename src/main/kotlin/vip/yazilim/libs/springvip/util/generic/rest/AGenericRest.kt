@@ -34,7 +34,7 @@ abstract class AGenericRest<E : Any, ID : Any>(
         // get entity
         val entity = genericServiceCrud.getById(id)
         require(entity.isPresent) {
-            throw NoSuchElementException("${classOfEntity.simpleName} Not Found :: ${id.toString()}")
+            throw NoSuchElementException("${classOfEntity.simpleName} Not Found::${id.toString()}")
         }
 
         // init response

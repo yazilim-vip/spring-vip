@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springvip.bean.defaults
+package vip.yazilim.libs.springvip.bean.impl
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.servlet.HandlerMapping

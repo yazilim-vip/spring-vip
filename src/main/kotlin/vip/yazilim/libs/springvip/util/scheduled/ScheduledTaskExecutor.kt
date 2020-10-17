@@ -93,7 +93,7 @@ open class ScheduledTaskExecutor(
                 applyThreadAlgorithm(task)
                 finalizeThread()
             } catch (e: Exception) {
-                log.error("Handled $threadName Deamon Error!! :: ${e.message} ", e)
+                log.error("Handled $threadName Deamon Error!!::${e.message} ", e)
                 raiseError()
             } finally {
                 firstJob = false

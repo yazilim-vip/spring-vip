@@ -1,11 +1,10 @@
-package vip.yazilim.libs.springvip.bean.defaults
+package vip.yazilim.libs.springvip.bean.impl
 
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
-import vip.yazilim.libs.springvip.bean.IGenericRestControllerFactory
 import vip.yazilim.libs.springvip.bean.IGenericRestControllerRegisterer
 import vip.yazilim.libs.springvip.util.generic.rest.GenericCrudMethods
 import vip.yazilim.libs.springvip.util.generic.rest.VipGenericRest
@@ -28,10 +27,10 @@ class GenericRestControllerRegisterer(
             run {
                 vipGenericRest.methods.forEach {
                     when (it) {
-                        GenericCrudMethods.CREATE -> println("here")
-                        GenericCrudMethods.DELETE_ALL -> println("here")
-                        GenericCrudMethods.DELETE_BY_ID -> println("here")
-                        GenericCrudMethods.DELETE -> println("here")
+//                        GenericCrudMethods.CREATE -> println("here")
+//                        GenericCrudMethods.DELETE_ALL -> println("here")
+//                        GenericCrudMethods.DELETE_BY_ID -> println("here")
+//                        GenericCrudMethods.DELETE -> println("here")
                         GenericCrudMethods.GET_ALL -> {
                             println("${uriValue}${it.uri}")
                             handlerMapping.registerMapping(
@@ -42,9 +41,9 @@ class GenericRestControllerRegisterer(
                                     proxyRestController,
                                     proxyRestController.javaClass.getMethod(it.methodName, HttpServletRequest::class.java, HttpServletResponse::class.java))
                         }
-                        GenericCrudMethods.GET_BY_ID -> println("here")
-                        GenericCrudMethods.SAVE -> println("here")
-                        GenericCrudMethods.UPDATE -> println("here")
+//                        GenericCrudMethods.GET_BY_ID -> println("here")
+//                        GenericCrudMethods.SAVE -> println("here")
+//                        GenericCrudMethods.UPDATE -> println("here")
                     }
                 }
             }

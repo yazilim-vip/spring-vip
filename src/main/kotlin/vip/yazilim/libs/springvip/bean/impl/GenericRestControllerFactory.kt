@@ -1,4 +1,4 @@
-package vip.yazilim.libs.springvip.bean.defaults
+package vip.yazilim.libs.springvip.bean.impl
 
 import net.bytebuddy.ByteBuddy
 import net.bytebuddy.description.annotation.AnnotationDescription
@@ -42,18 +42,18 @@ class GenericRestControllerFactory(
          */
         vipGenericRest.methods.forEach {
             when (it) {
-                CREATE -> println("here")
-                DELETE_ALL -> println("here")
-                DELETE_BY_ID -> println("here")
-                DELETE -> println("here")
+//                CREATE -> println("here")
+//                DELETE_ALL -> println("here")
+//                DELETE_BY_ID -> println("here")
+//                DELETE -> println("here")
                 GET_ALL -> {
                     builder = builder.defineMethod(it.methodName, Any::class.java, Modifier.PUBLIC)
                             .withParameters(HttpServletRequest::class.java, HttpServletResponse::class.java)
                             .intercept(MethodDelegation.to(restControllerBean))
                 }
-                GET_BY_ID -> println("here")
-                SAVE -> println("here")
-                UPDATE -> println("here")
+//                GET_BY_ID -> println("here")
+//                SAVE -> println("here")
+//                UPDATE -> println("here")
             }
         }
 

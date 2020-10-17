@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
  * @author Emre Sen (maemresen@yazilim.vip), 26.06.2019
  */
 open class DatabaseException(entityClass: KClass<*>, type: String, description: String, exception: Exception)
-    : RuntimeException(entityClass.simpleName + " :: " + type + " Error :: " + description, exception)
+    : RuntimeException(entityClass.simpleName + "::" + type + " Error::" + description, exception)
 
 
 // SAVE
