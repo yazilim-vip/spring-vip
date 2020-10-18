@@ -17,6 +17,6 @@ enum class GenericCrudMethods(val httpMethod: RequestMethod, val methodName: Str
     UPDATE(RequestMethod.PUT, "updateGenericImpl", "/"),
     DELETE(RequestMethod.DELETE, "deleteGenericImpl", "/"),
 
-    DELETE_BY_ID(RequestMethod.DELETE, "deleteByIdGenericImpl", "/"),
+    DELETE_BY_ID(RequestMethod.DELETE, "deleteByIdGenericImpl", "/{id}"),
     GET_BY_ID(RequestMethod.GET, "getByIdGenericImpl", "/{id}"),
 }

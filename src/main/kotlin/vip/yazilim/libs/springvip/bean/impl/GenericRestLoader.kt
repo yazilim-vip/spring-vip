@@ -46,6 +46,7 @@ open class GenericRestLoader(
         libLogDebug("$tag::Scanning")
         val scanner = ClassPathScanningCandidateComponentProvider(false)
         scanner.addIncludeFilter(AnnotationTypeFilter(GenericRest::class.java))
+        //TODO scanner.addIncludeFilter(AnnotationTypeFilter(RequestMapping::class.java))
 
         /*
         -------------------------------

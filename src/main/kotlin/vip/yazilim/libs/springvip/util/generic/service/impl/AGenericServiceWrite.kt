@@ -1,7 +1,9 @@
-package vip.yazilim.libs.springvip.util.generic.service
+package vip.yazilim.libs.springvip.util.generic.service.impl
 
 import org.springframework.data.jpa.repository.JpaRepository
 import vip.yazilim.libs.springvip.exception.*
+import vip.yazilim.libs.springvip.util.generic.service.IGenericServiceCrud
+import vip.yazilim.libs.springvip.util.generic.service.IGenericServiceWrite
 import java.util.*
 import kotlin.reflect.KClass
 
@@ -10,21 +12,13 @@ import kotlin.reflect.KClass
  * @author maemresen - maemresen@yazilim.vip
  * 22.08.2020
  */
-abstract class AGenericService<E : Any, ID : Any>(
-        protected val repository: JpaRepository<E, ID>,
-        protected val classOfEntity: KClass<E>,
-        protected val classOfId: KClass<ID>
-) : IGenericServiceCrud<E, ID> {
-    constructor(repository: JpaRepository<E, ID>, classOfEntity: Class<E>, classOfId: Class<ID>)
+abstract class AGenericServiceWrite<E : Any, ID : Any>(
+        repository: JpaRepository<E, ID>,
+        classOfEntity: KClass<E>,
+        classOfId: KClass<ID>
+) : AGenericServiceRead<E, ID>(repository, classOfEntity, classOfId), IGenericServiceWrite<E, ID> {
+    constructor(repository: JpaRepository<E, ID>, classOfEntity: Class<E>,  classOfId: Class<ID>)
             : this(repository, classOfEntity.kotlin, classOfId.kotlin)
-
-    /**
-     * Get Id of the entity
-     *
-     * @param entity input entity model
-     * @return id of entity
-     */
-    protected abstract fun getId(entity: E): ID
 
     @Throws(DatabaseSaveException::class)
     override fun save(entity: E): E {
@@ -104,39 +98,6 @@ abstract class AGenericService<E : Any, ID : Any>(
      */
     protected open fun preUpdate(oldEntity: E, newEntity: E): E {
         return newEntity
-    }
-
-    @Throws(DatabaseDeleteException::class)
-    override fun deleteById(id: ID): Boolean {
-        return try {
-            // delete entity
-            repository.deleteById(id)
-            true
-        } catch (exception: Exception) {
-            throw DatabaseDeleteException(classOfEntity, exception)
-        }
-    }
-
-    @Throws(DatabaseDeleteException::class)
-    override fun delete(entity: E): Boolean {
-        return try {
-            // delete entity
-            repository.delete(entity)
-            true
-        } catch (exception: Exception) {
-            throw DatabaseDeleteException(classOfEntity, exception)
-        }
-    }
-
-    @Throws(DatabaseDeleteException::class)
-    override fun deleteAll(): Boolean {
-        return try {
-            // delete entity
-            repository.deleteAll()
-            true
-        } catch (exception: Exception) {
-            throw DatabaseDeleteException(classOfEntity, exception)
-        }
     }
 
 }
