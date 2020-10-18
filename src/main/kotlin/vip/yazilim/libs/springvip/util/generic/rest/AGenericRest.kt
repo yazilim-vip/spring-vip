@@ -1,6 +1,5 @@
 package vip.yazilim.libs.springvip.util.generic.rest
 
-
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import vip.yazilim.libs.springvip.bean.IRestResponseBuilder
