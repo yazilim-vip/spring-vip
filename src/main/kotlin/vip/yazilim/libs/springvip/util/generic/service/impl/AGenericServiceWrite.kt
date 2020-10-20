@@ -69,26 +69,7 @@ abstract class AGenericServiceWrite<E : Any, ID : Any>(
             throw DatabaseUpdateException(classOfEntity, getId(newEntity), exception)
         }
     }
-
-    override fun getAll(): List<E> {
-        return try {
-            // find entity by id
-            repository.findAll()
-        } catch (exception: Exception) {
-            throw DatabaseReadException(classOfEntity, exception)
-        }
-    }
-
-    @Throws(DatabaseReadException::class)
-    override fun getById(id: ID): Optional<E> {
-        return try {
-            // find entity by id
-            repository.findById(id)
-        } catch (exception: Exception) {
-            throw DatabaseReadException(classOfEntity, exception)
-        }
-    }
-
+    
     /**
      * Operations before update operation
      *
