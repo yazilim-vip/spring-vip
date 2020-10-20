@@ -1,5 +1,7 @@
 package vip.yazilim.libs.springvip.util.generic.rest
 
+import org.springframework.web.bind.annotation.RequestMethod
+
 /**
  *
  * @author maemresen - maemresen@yazilim.vip
@@ -9,6 +11,6 @@ package vip.yazilim.libs.springvip.util.generic.rest
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 annotation class GenericRest(
-        val methods: Array<GenericCrudMethods> = [],
         val name: String = ""
 )
+

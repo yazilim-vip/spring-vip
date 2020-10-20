@@ -98,7 +98,7 @@ open class GenericRestLoader(
         val proxyRestController = genericRestFactory.buildProxyRestController(restControllerBean, genericRest, uri)
 
         libLogTrace("$tag::Register Mappings")
-        genericRestRegisterer.registerMappings(restControllerBean, genericRest, proxyRestController, uri, genericRest.methods)
+        genericRestRegisterer.registerMappings(restControllerBean, genericRest, proxyRestController, uri)
 
         libLogDebug("$tag::Loaded")
     }

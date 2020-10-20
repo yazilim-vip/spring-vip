@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod
  * @author maemresen - maemresen@yazilim.vip
  * 17.10.2020
  */
-enum class GenericCrudMethods(val httpMethod: RequestMethod, val methodName: String, val uri: String) {
+enum class GenericMethodType(val httpMethod: RequestMethod, val methodName: String, val uri: String) {
 
     DELETE_ALL(RequestMethod.DELETE, "deleteAllGenericImpl", "/"),
     GET_ALL(RequestMethod.GET, "getAllGenericImpl", "/"),

@@ -1,7 +1,7 @@
 package vip.yazilim.libs.springvip.bean
 
 import vip.yazilim.libs.springvip.util.generic.rest.AGenericRest
-import vip.yazilim.libs.springvip.util.generic.rest.GenericCrudMethods
+import vip.yazilim.libs.springvip.util.generic.rest.GenericMethodType
 import vip.yazilim.libs.springvip.util.generic.rest.GenericRest
 
 /**
@@ -11,5 +11,5 @@ import vip.yazilim.libs.springvip.util.generic.rest.GenericRest
  * 21.08.2020
  */
 interface IGenericRestRegisterer {
-    fun <E, ID, T : AGenericRest<E, ID>> registerMappings(restControllerBean: T, genericRest: GenericRest, proxyRestController: Any, uriValue: String, methods: Array<GenericCrudMethods>)
+    fun <E, ID, T : AGenericRest<E, ID>> registerMappings(restControllerBean: T, genericRest: GenericRest, proxyRestController: Any, uriValue: String)
 }
