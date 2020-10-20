@@ -15,5 +15,5 @@ import vip.yazilim.libs.springvip.util.generic.rest.GenericMethodType
 @GenericMethod(httpMethod = RequestMethod.DELETE, genericMethodType = GenericMethodType.DELETE_BY_ID)
 annotation class DeleteById(
         @get:AliasFor(annotation = GenericMethod::class)
-        val uri: String = "/id}"
+        val uri: String = "/{id}"
 )

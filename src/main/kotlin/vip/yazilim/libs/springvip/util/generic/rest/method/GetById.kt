@@ -15,5 +15,5 @@ import vip.yazilim.libs.springvip.util.generic.rest.GenericMethodType
 @GenericMethod(httpMethod = RequestMethod.GET, genericMethodType = GenericMethodType.GET_BY_ID)
 annotation class GetById(
         @get:AliasFor(annotation = GenericMethod::class)
-        val uri: String = "/id}"
+        val uri: String = "/{id}"
 )
