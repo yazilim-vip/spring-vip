@@ -14,9 +14,7 @@ import vip.yazilim.libs.springvip.bean.impl.DefaultRestResponseBuilder
  * 21.08.2020
  */
 @Configuration
-open class SpringVipAutoConfiguration(
-        private val genericRestControllerLoader: GenericRestLoader,
-) {
+open class SpringVipAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean

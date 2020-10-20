@@ -28,9 +28,10 @@ class GenericRestRegisterer(
     override fun <E, ID, T : AGenericRest<E, ID>> registerMappings(restControllerBean: T, genericRest: GenericRest, proxyRestController: Any, uriValue: String) {
         AnnotatedElementUtils.findAllMergedAnnotations(restControllerBean::class.java, GenericMethod::class.java).forEach {
             val genericMethodType = it.genericMethodType
+            val methodUri = it.uri
             if (genericMethodType == GET_ALL || genericMethodType == DELETE_ALL) {
                 handlerMapping.registerMapping(
-                        RequestMappingInfo.paths("${uriValue}${genericMethodType.uri}")
+                        RequestMappingInfo.paths("${uriValue}${methodUri}")
                                 .methods(genericMethodType.httpMethod)
                                 .produces(MediaType.APPLICATION_JSON_VALUE)
                                 .build(),
@@ -38,7 +39,7 @@ class GenericRestRegisterer(
                         proxyRestController.javaClass.getMethod(genericMethodType.methodName, HttpServletRequest::class.java, HttpServletResponse::class.java))
             } else if (genericMethodType == CREATE || genericMethodType == UPDATE || genericMethodType == SAVE || genericMethodType == DELETE) {
                 handlerMapping.registerMapping(
-                        RequestMappingInfo.paths("${uriValue}${genericMethodType.uri}")
+                        RequestMappingInfo.paths("${uriValue}${methodUri}")
                                 .methods(genericMethodType.httpMethod)
                                 .produces(MediaType.APPLICATION_JSON_VALUE)
                                 .build(),
@@ -46,7 +47,7 @@ class GenericRestRegisterer(
                         proxyRestController.javaClass.getMethod(genericMethodType.methodName, HttpServletRequest::class.java, HttpServletResponse::class.java, restControllerBean.classOfEntity.java))
             } else if (genericMethodType == GET_BY_ID || genericMethodType == DELETE_BY_ID) {
                 handlerMapping.registerMapping(
-                        RequestMappingInfo.paths("${uriValue}${genericMethodType.uri}")
+                        RequestMappingInfo.paths("${uriValue}${methodUri}")
                                 .methods(genericMethodType.httpMethod)
                                 .produces(MediaType.APPLICATION_JSON_VALUE)
                                 .build(),
