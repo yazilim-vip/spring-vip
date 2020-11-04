@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
 
     <!-- Project Info -->
     <groupId>vip.yazilim</groupId>
     <artifactId>spring-vip</artifactId>
-    <version>0.1.00.220-SNAPSHOT</version>
+    <version>0.1.00.220</version>
     <packaging>jar</packaging>
     <name>SpringVIP</name>
     <description>Spring Framework Helpful Library</description>
@@ -33,7 +31,8 @@
         <connection>scm:git:git://github.com/yazilim-vip/spring-vip.git</connection>
         <developerConnection>scm:git:ssh://github.com:yazilim-vip/spring-vip.git</developerConnection>
         <url>http://github.com/yazilim-vip/spring-vip/tree/main</url>
-    </scm>
+      <tag>spring-vip-0.1.00.220</tag>
+  </scm>
 
     <!-- Properties -->
     <properties>
