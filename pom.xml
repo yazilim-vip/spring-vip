@@ -29,7 +29,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/yazilim-vip/spring-vip.git</connection>
-        <developerConnection>scm:git:ssh://github.com:yazilim-vip/spring-vip.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com:yazilim-vip/spring-vip.git</developerConnection>
         <url>http://github.com/yazilim-vip/spring-vip/tree/main</url>
       <tag>spring-vip-0.1.00.220</tag>
   </scm>
