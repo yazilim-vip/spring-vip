@@ -12,7 +12,7 @@
     <!-- Project Info -->
     <groupId>vip.yazilim</groupId>
     <artifactId>spring-vip</artifactId>
-    <version>0.1.00.220</version>
+    <version>0.1.02.220</version>
     <packaging>jar</packaging>
     <name>SpringVIP</name>
     <description>Spring Framework Helpful Library</description>
