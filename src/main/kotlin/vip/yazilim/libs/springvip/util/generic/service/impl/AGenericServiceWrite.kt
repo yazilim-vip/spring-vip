@@ -14,11 +14,11 @@ import kotlin.reflect.KClass
  * 22.08.2020
  */
 abstract class AGenericServiceWrite<E : Any, ID : Any>(
-        repository: JpaRepository<E, ID>,
-        classOfEntity: KClass<E>,
-        classOfId: KClass<ID>
+    repository: JpaRepository<E, ID>,
+    classOfEntity: KClass<E>,
+    classOfId: KClass<ID>
 ) : AGenericServiceRead<E, ID>(
-        repository, classOfEntity, classOfId
+    repository, classOfEntity, classOfId
 ), IGenericServiceWrite<E, ID> {
 
     constructor(repository: JpaRepository<E, ID>, classOfEntity: Class<E>, classOfId: Class<ID>)
@@ -39,6 +39,11 @@ abstract class AGenericServiceWrite<E : Any, ID : Any>(
             // initialize entity to insert
             // e.g setting unique UUID
             val initializedEntity = preInsert(entity)
+
+            // get old entity
+            val id = getId(initializedEntity)
+            require(!getById(id).isPresent) { "Entity already exists" }
+
             save(initializedEntity)
         } catch (exception: Exception) {
             throw DatabaseCreateException(classOfEntity, exception)

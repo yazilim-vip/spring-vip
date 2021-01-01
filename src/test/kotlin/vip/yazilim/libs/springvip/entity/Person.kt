@@ -12,8 +12,7 @@ import javax.validation.constraints.NotBlank
  * 12/31/2020
  */
 @Entity
-class Person(
-) {
+class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long? = null
@@ -25,5 +24,25 @@ class Person(
     var age: Double? = null
     override fun toString(): String {
         return "Person(id=$id, name=$name, age=$age)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Person
+
+        if (id != other.id) return false
+        if (name != other.name) return false
+        if (age != other.age) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + (age?.hashCode() ?: 0)
+        return result
     }
 }
