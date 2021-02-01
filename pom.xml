@@ -7,7 +7,7 @@
     <!-- Project Info -->
     <groupId>vip.yazilim</groupId>
     <artifactId>spring-vip</artifactId>
-    <version>0.1.00.220</version>
+    <version>0.1.00.241</version>
     <packaging>jar</packaging>
     <name>SpringVIP</name>
     <description>Spring Framework Helpful Library</description>
@@ -41,6 +41,7 @@
         <lib-java-version>1.8</lib-java-version>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
         <dokka.version>0.10.1</dokka.version>
+        <kotlin.version>1.4.21</kotlin.version>
     </properties>
 
     <distributionManagement>
@@ -62,7 +63,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
-                <version>2.2.0.RELEASE</version>
+                <version>2.4.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -161,20 +162,33 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>1.4.10</version>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
-            <version>1.4.10</version>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test</artifactId>
-            <version>1.4.10</version>
+            <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
 
+        <!-- Test -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
@@ -212,7 +226,7 @@
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
-                <version>1.4.10</version>
+                <version>${kotlin.version}</version>
                 <executions>
                     <execution>
                         <id>compile</id>
