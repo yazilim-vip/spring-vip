@@ -40,7 +40,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lib-java-version>1.8</lib-java-version>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
-        <dokka.version>0.10.1</dokka.version>
         <kotlin.version>1.4.21</kotlin.version>
     </properties>
 
@@ -273,6 +272,12 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
