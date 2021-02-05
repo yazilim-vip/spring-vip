@@ -7,7 +7,7 @@
     <!-- Project Info -->
     <groupId>vip.yazilim</groupId>
     <artifactId>spring-vip</artifactId>
-    <version>0.1.00.241</version>
+    <version>0.1.01.241</version>
     <packaging>jar</packaging>
     <name>SpringVIP</name>
     <description>Spring Framework Helpful Library</description>
@@ -314,7 +314,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 </project>

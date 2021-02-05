@@ -9,8 +9,13 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Build with Maven
+      - name: Deploying to OSS
         run: |
-          mvn clean package
+          mvn clean deploy --batch-mode --settings .m2/settings.xml
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GPG_KEY: ${{secrets.GPG_KEY}}
+          GPG_KEYNAME: ${{secrets.GPG_KEYNAME}}
+          GPG_PASSPHRASE: ${{secrets.GPG_PASSPHRASE}}
+          NEXUS_USERNAME: ${{secrets.NEXUS_USERNAME}}
+          NEXUS_PASSWORD: ${{secrets.NEXUS_PASSWORD}}
