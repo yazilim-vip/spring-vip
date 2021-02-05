@@ -11,7 +11,7 @@ jobs:
           java-version: 1.8
       - name: Configuring Key
         run: |
-          echo ${{secrets.GPG_KEY}} >> private-key.txt
+          echo "${{secrets.GPG_KEY}}" >> private-key.txt
           gpg --import --batch private-key.txt
       - name: Deploying to OSS
         run: mvn clean deploy --batch-mode --settings .m2/settings.xml
