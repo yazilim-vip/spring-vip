@@ -28,27 +28,47 @@ import java.util.*
  * @return HTTP response returned by  endpoint
  */
 @Throws(RestApiCallError::class)
-fun <B, R> jsonRequest(baseUri: String, resource: String
-                       , body: B?
-                       , typeReference: ParameterizedTypeReference<R>
-                       , urlParamMap: MutableMap<String?, String?> = LinkedHashMap()
-                       , queryParamMap: MultiValueMap<String?, String?> = LinkedMultiValueMap()
-                       , httpMethod: HttpMethod
-                       , headerParamMap: MultiValueMap<String?, String?> = LinkedMultiValueMap()
-                       , restTemplate: RestTemplate = RestTemplate()): ResponseEntity<R?> {
+fun <B, R> jsonRequest(
+    baseUri: String,
+    resource: String,
+    body: B?,
+    typeReference: ParameterizedTypeReference<R>,
+    httpMethod: HttpMethod,
+    restTemplate: RestTemplate = RestTemplate(),
+    httpRequestModel: HttpRequestModel = HttpRequestModel(),
+): ResponseEntity<R?> {
     return try {
         val headers = HttpHeaders()
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
-        headers.addAll(headerParamMap)
+        headers.addAll(httpRequestModel.headerParamMap)
         val request: HttpEntity<B?> = HttpEntity(body, headers)
         val uri: URI = UriComponentsBuilder
-                .fromUriString(baseUri + resource)
-                .queryParams(queryParamMap)
-                .buildAndExpand(urlParamMap)
-                .encode()
-                .toUri()
+            .fromUriString(baseUri + resource)
+            .queryParams(httpRequestModel.queryParamMap)
+            .buildAndExpand(httpRequestModel.urlParamMap)
+            .encode()
+            .toUri()
         restTemplate.exchange(uri, httpMethod, request, typeReference)
     } catch (e: RestClientException) {
         throw RestApiCallError(e)
+    }
+}
+
+class HttpRequestModel(
+    var urlParamMap: MutableMap<String?, String?> = LinkedHashMap(),
+    var queryParamMap: MultiValueMap<String?, String?> = LinkedMultiValueMap(),
+    var headerParamMap: MultiValueMap<String?, String?> = LinkedMultiValueMap(),
+) {
+
+    fun setUrlParam(key: String, value: String) {
+        urlParamMap[key] = value
+    }
+
+    fun setQueryParam(key: String, value: String) {
+        queryParamMap.add(key, value)
+    }
+
+    fun setHttpHeader(key: String, value: String) {
+        headerParamMap.add(key, value)
     }
 }
